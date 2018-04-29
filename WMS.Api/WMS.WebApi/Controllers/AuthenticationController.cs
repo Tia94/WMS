@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using WMS.Application.Interface;
+using WMS.Application.Dto;
 
 namespace WMS.WebApi.Controllers
 {
@@ -13,10 +15,11 @@ namespace WMS.WebApi.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IConfiguration configuration;
-
-        public AuthenticationController(IConfiguration configuration)
+        private readonly IAuthenticationService authenticationService;
+        public AuthenticationController(IConfiguration configuration, IAuthenticationService authenticationService)
         {
             this.configuration = configuration;
+            this.authenticationService = authenticationService;
         }
 
         [AllowAnonymous]
@@ -25,18 +28,18 @@ namespace WMS.WebApi.Controllers
         {
             IActionResult response = Unauthorized();
 
-            var user = Authenticate(model);
+            var userDto = authenticationService.Login(model.Username, model.Password);
 
-            if (user != null)
+            if (userDto != null)
             {
-                var tokenString = BuildToken(user);
+                var tokenString = BuildToken(userDto);
                 response = Ok(new { token = tokenString });
             }
 
             return response;
         }
 
-        private string BuildToken(UserModel user)
+        private string BuildToken(UserDto userDto)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -49,22 +52,5 @@ namespace WMS.WebApi.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private UserModel Authenticate(LoginModel model)
-        {
-            UserModel user = null;
-
-            if (model.Username == "mario" && model.Password == "secret")
-            {
-                user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com" };
-            }
-            return user;
-        }
-
-        private class UserModel
-        {
-            public string Name { get; set; }
-            public string Email { get; set; }
-            public DateTime Birthdate { get; set; }
-        }
     }
 }

@@ -18,4 +18,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WMS.Application.Dto\WMS.Application.Dto.csproj" />
+    <ProjectReference Include="..\WMS.Application.Interface\WMS.Application.Interface.csproj" />
+  </ItemGroup>
+
 </Project>
