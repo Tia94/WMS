@@ -1,10 +1,11 @@
 ﻿using System;
+using WMS.Application.Dto;
 
 namespace WMS.Application.Interface
 {
     public interface IAuthenticationService
     {
-        bool Login(string username, string password);
+        UserDto Login(string username, string password);
 
         void Register();
     }

@@ -12,11 +12,11 @@
 
         public string Address { get; set; }
 
-        public Role Role { get; set; }
+        //public Role Role { get; set; }
     }
 
-    public enum Role
-    {
+    //public enum Role
+    //{
 
-    }
+    //}
 }

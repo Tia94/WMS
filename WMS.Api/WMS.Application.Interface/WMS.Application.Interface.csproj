@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WMS.Application.Dto\WMS.Application.Dto.csproj" />
+  </ItemGroup>
+
 </Project>
