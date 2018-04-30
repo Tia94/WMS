@@ -16,11 +16,6 @@ namespace WMS.Domain.Model
 
     public class User : Entity
     {
-        public User() : base()
-        {
-
-        }
-
         public string Username { get; set; }
 
         public string Password { get; set; }
