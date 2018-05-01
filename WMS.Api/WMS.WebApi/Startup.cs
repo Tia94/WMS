@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using WMS.Application;
+using WMS.Application.Interface;
+using WMS.Domain.Repository.Interface;
 using WMS.Infrastructure.Repository;
 
 namespace WMS.WebApi
@@ -42,6 +45,9 @@ namespace WMS.WebApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+
+            services.AddScoped<IAuthenticationService, AuthenticationService>()
+                .AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<WMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
