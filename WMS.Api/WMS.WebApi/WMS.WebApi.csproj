@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\WMS.Application.Dto\WMS.Application.Dto.csproj" />
     <ProjectReference Include="..\WMS.Application.Interface\WMS.Application.Interface.csproj" />
+    <ProjectReference Include="..\WMS.Application\WMS.Application.csproj" />
+    <ProjectReference Include="..\WMS.Domain.Model\WMS.Domain.Model.csproj" />
+    <ProjectReference Include="..\WMS.Domain.Repository.Interface\WMS.Domain.Repository.Interface.csproj" />
+    <ProjectReference Include="..\WMS.Infrastructure.Repository\WMS.Infrastructure.Repository.csproj" />
   </ItemGroup>
 
 </Project>

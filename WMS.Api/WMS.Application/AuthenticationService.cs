@@ -22,6 +22,9 @@ namespace WMS.Application
                 return new UserDto
                 {
                     Username = username,
+                    Email = user.Email,
+                    TelephoneNumber = user.TelephoneNumber,
+                    Address = user.Address
                 };
             }
 

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using WMS.Infrastructure.Repository;
 
 namespace WMS.WebApi
 {
@@ -41,6 +43,9 @@ namespace WMS.WebApi
                 };
             });
 
+            services.AddDbContext<WMSContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
@@ -58,3 +63,4 @@ namespace WMS.WebApi
         }
     }
 }
+
