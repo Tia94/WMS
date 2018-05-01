@@ -1,5 +1,4 @@
-﻿using System;
-using WMS.Application.Dto;
+﻿using WMS.Application.Dto;
 
 namespace WMS.Application.Interface
 {

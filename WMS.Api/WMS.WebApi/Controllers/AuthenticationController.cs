@@ -16,6 +16,7 @@ namespace WMS.WebApi.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly IAuthenticationService authenticationService;
+
         public AuthenticationController(IConfiguration configuration, IAuthenticationService authenticationService)
         {
             this.configuration = configuration;
@@ -24,33 +25,33 @@ namespace WMS.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody]LoginModel model)
+        public IActionResult Login([FromBody] LoginModel model)
         {
             IActionResult response = Unauthorized();
 
             var userDto = authenticationService.Login(model.Username, model.Password);
 
-            if (userDto != null)
-            {
-                var tokenString = BuildToken(userDto);
-                response = Ok(new { token = tokenString });
-            }
+            if (userDto == null)
+                return response;
+
+            var tokenString = BuildToken(userDto);
+            response = Ok(new {token = tokenString});
 
             return response;
         }
 
         private string BuildToken(UserDto userDto)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Jwt:Key"]));
+            // TODO: Add info from "userDto" into JWT token
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(this.configuration["Jwt:Issuer"],
-              this.configuration["Jwt:Issuer"],
-              expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: creds);
+            var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
+                configuration["Jwt:Issuer"],
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
     }
 }
