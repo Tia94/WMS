@@ -2,35 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterClientComponent } from './register-client/register-client.component';
-
-// const appRoutes: Routes = [
-//   { path: 'crisis-center', component: CrisisListComponent },
-//   { path: 'hero/:id',      component: HeroDetailComponent },
-//   {
-//     path: 'heroes',
-//     component: HeroListComponent,
-//     data: { title: 'Heroes List' }
-//   },
-//   { path: '',
-//     redirectTo: '/heroes',
-//     pathMatch: 'full'
-//   },
-//   { path: '**', component: PageNotFoundComponent }
-// ];
+import { LoginComponent } from './core/login/login.component';
+import { RegisterComponent } from './core/register/register.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterClientComponent }
+  { path: 'register', component: RegisterComponent }
 ];
-
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterClientComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
