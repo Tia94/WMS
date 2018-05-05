@@ -1,18 +1,5 @@
-﻿using System;
-
-namespace WMS.Domain.Model
+﻿namespace WMS.Domain.Model
 {
-    public abstract class Entity
-    {
-        public int Id { get; set; }
-
-        public DateTimeOffset CreatedOn { get; set; }
-
-        protected Entity()
-        {
-            CreatedOn = DateTimeOffset.Now;
-        }
-    }
 
     public class User : Entity
     {
@@ -33,19 +20,4 @@ namespace WMS.Domain.Model
         public Role Role { get; set; }
 
     }
-
-    public enum Role
-    {
-        Admin,
-        Keeper,
-        Driver,
-        Client
-    }
-
-    public enum Action
-    {
-        ViewProducts,
-        CreateOrder        
-    }
-    
 }
