@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WMS.Domain.Model;
 
 namespace WMS.Infrastructure.Repository
@@ -17,6 +14,7 @@ namespace WMS.Infrastructure.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().HasKey(x => x.Id);
         }
     }
 }
