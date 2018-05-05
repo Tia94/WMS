@@ -41,6 +41,27 @@ namespace WMS.WebApi.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Register([FromBody] RegisterModel model)
+        {
+            // TODO: Model validation
+            var registerDto = new RegisterDto
+            {
+                Username = model.Username,
+                Firstname = model.Firstname,
+                Lastname = model.Lastname,
+                Email = model.Email,
+                Password = model.Password,
+                TelephoneNumber = model.TelephoneNumber,
+                Address = model.Address
+            };
+
+            authenticationService.RegisterClient(registerDto);
+            
+            return Ok();
+        }
+
         private string BuildToken(UserDto userDto)
         {
             // TODO: Add info from "userDto" into JWT token

@@ -1,6 +1,6 @@
-﻿using System;
-using WMS.Application.Dto;
+﻿using WMS.Application.Dto;
 using WMS.Application.Interface;
+using WMS.Domain.Model;
 using WMS.Domain.Repository.Interface;
 
 namespace WMS.Application
@@ -31,9 +31,21 @@ namespace WMS.Application
             return null;
         }
 
-        public void Register()
+        public void RegisterClient(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                Firstname = registerDto.Firstname,
+                Lastname = registerDto.Lastname,
+                Username = registerDto.Username,
+                Email = registerDto.Email,
+                Password = registerDto.Password,
+                Address = registerDto.Address,
+                TelephoneNumber = registerDto.TelephoneNumber,
+                Role = Role.Client
+            };
+
+            userRepository.Add(user);
         }
     }
 }

@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WMS.Application.Dto\WMS.Application.Dto.csproj" />
     <ProjectReference Include="..\WMS.Application.Interface\WMS.Application.Interface.csproj" />
+    <ProjectReference Include="..\WMS.Domain.Model\WMS.Domain.Model.csproj" />
     <ProjectReference Include="..\WMS.Domain.Repository.Interface\WMS.Domain.Repository.Interface.csproj" />
   </ItemGroup>
 

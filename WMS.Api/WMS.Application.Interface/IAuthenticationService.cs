@@ -5,7 +5,7 @@ namespace WMS.Application.Interface
     public interface IAuthenticationService
     {
         UserDto Login(string username, string password);
-
-        void Register();
+        
+        void RegisterClient(RegisterDto registerDto);
     }
 }
