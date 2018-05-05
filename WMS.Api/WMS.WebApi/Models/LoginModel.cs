@@ -1,4 +1,4 @@
-﻿namespace WMS.WebApi.Controllers
+﻿namespace WMS.WebApi.Models
 {
     public class LoginModel
     {
