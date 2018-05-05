@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using WMS.Application.Interface;
 using WMS.Application.Dto;
+using WMS.WebApi.Models;
 
 namespace WMS.WebApi.Controllers
 {
