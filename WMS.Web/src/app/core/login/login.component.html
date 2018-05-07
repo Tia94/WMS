@@ -1,3 +1,34 @@
-<p>
-  login works!
-</p>
+<h2>Login</h2>
+<h3>
+  <i>Please enter username and password</i>
+</h3>
+
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+
+  <fieldset>
+    <div class="form-group">
+      <label class="center-block">Username:
+        <input class="form-control is-invalid" [ngClass]="{
+          'is-valid': username.valid && (username.dirty || username.touched),
+          'is-invalid': username.invalid && (username.dirty || username.touched)
+        }" formControlName="username">
+        <div class="invalid-feedback">
+          <p>Username is required</p>
+        </div>
+      </label>
+    </div>
+
+    <div class="form-group has-danger">
+      <label class="center-block is-invalid">Password:
+        <input class="form-control" type="password" formControlName="password">
+        <div class="invalid-feedback">
+            <p>Password is required</p>
+          </div>
+      </label>
+    </div>
+
+  </fieldset>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

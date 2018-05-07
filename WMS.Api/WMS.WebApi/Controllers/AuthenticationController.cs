@@ -12,7 +12,7 @@ using WMS.WebApi.Models;
 namespace WMS.WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Authentication")]
+    [Route("api/auth")]
     public class AuthenticationController : Controller
     {
         private readonly IConfiguration configuration;
@@ -25,7 +25,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel model)
         {
             IActionResult response = Unauthorized();
@@ -36,13 +36,13 @@ namespace WMS.WebApi.Controllers
                 return response;
 
             var tokenString = BuildToken(userDto);
-            response = Ok(new {token = tokenString});
+            response = new OkObjectResult(new { token = tokenString});
 
             return response;
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel model)
         {
             // TODO: Model validation
@@ -58,7 +58,7 @@ namespace WMS.WebApi.Controllers
             };
 
             authenticationService.RegisterClient(registerDto);
-            
+
             return Ok();
         }
 
