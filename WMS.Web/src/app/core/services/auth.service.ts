@@ -7,7 +7,7 @@ export const TOKEN_NAME: string = 'auth_token';
 @Injectable()
 export class AuthService {
 
-  private url: string = 'api/auth';
+  private url: string = 'http://localhost:61796/api/auth';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }
@@ -25,28 +25,26 @@ export class AuthService {
 
     if (decoded.exp === undefined) return null;
 
-    const date = new Date(0); 
+    const date = new Date(0);
     date.setUTCSeconds(decoded.exp);
     return date;
   }
 
   isTokenExpired(token?: string): boolean {
-    if(!token) token = this.getToken();
-    if(!token) return true;
+    if (!token) token = this.getToken();
+    if (!token) return true;
 
     const date = this.getTokenExpirationDate(token);
-    if(date === undefined) return false;
+    if (date === undefined) return false;
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  login(user): Promise<string> {
+  login(username: string, password: string) {
     return this.http
-      .post(`${this.url}/login`, JSON.stringify(user), {headers: this.headers})
-      .toPromise()
+      .post(`${this.url}/login`, { username: username, password: password }, { headers: this.headers })
+      .toPromise<any>()
       .then(res => {
-        debugger;
-        return null;
+        this.setToken(res.token);
       });
   }
 }
-
