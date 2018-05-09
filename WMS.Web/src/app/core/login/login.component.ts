@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,29 +11,29 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService) {
+  private returnUrl: string;
 
-  }
+  public loginForm: FormGroup;
+  public username: FormControl;
+  public password: FormControl;
 
-  loginForm: FormGroup;
-  username: FormControl;
-  password: FormControl;
+
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.createFormControls();
     this.createForm();
+
+    this.authService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Form submitted', this.loginForm.value);
       this.authService.login(this.username.value, this.password.value);
-      // this.httpClient.post("http://localhost:61796/api/auth/login", this.loginForm.value, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
-      //   .toPromise()
-      //   .then(response => {
-      //     console.log(response);
-      //     this.loginForm.reset();
-      //   });
     }
   }
 

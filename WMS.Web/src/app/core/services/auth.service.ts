@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as jwt_decode from "jwt-decode";
+import { Observable, Subscription } from "rxjs/Rx";
+import "rxjs/add/operator/map";
+import { Router } from '@angular/router';
 
 export const TOKEN_NAME: string = 'auth_token';
 
@@ -10,7 +13,9 @@ export class AuthService {
   private url: string = 'http://localhost:61796/api/auth';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient) { }
+  public redirectUrl: string = "";
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
@@ -40,11 +45,20 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http
+    this.http
       .post(`${this.url}/login`, { username: username, password: password }, { headers: this.headers })
-      .toPromise<any>()
-      .then(res => {
-        this.setToken(res.token);
+      .subscribe((response: any) => {
+        if (response && response.token) {
+          localStorage.setItem(TOKEN_NAME, response.token);
+          if (this.redirectUrl) {
+            this.router.navigate([this.redirectUrl]);
+            this.redirectUrl = null;
+          }
+        }
       });
+  }
+
+  logout(): void {
+    localStorage.removeItem(TOKEN_NAME);
   }
 }
