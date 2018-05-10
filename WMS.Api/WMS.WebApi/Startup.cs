@@ -11,7 +11,6 @@ using WMS.Application;
 using WMS.Application.Interface;
 using WMS.Domain.Repository.Interface;
 using WMS.Infrastructure.Repository;
-using WMS.WebApi.Infrastructure;
 
 namespace WMS.WebApi
 {
