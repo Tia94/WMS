@@ -24,7 +24,8 @@ namespace WMS.Application
                     Username = username,
                     Email = user.Email,
                     TelephoneNumber = user.TelephoneNumber,
-                    Address = user.Address
+                    Address = user.Address,
+                    Role = user.Role.ToString()
                 };
             }
 

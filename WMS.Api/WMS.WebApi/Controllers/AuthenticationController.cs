@@ -3,8 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WMS.Application.Interface;
 using WMS.Application.Dto;
 using WMS.WebApi.Models;
@@ -17,28 +22,31 @@ namespace WMS.WebApi.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly IAuthenticationService authenticationService;
+        private readonly ILogger<AuthenticationController> logger;
 
-        public AuthenticationController(IConfiguration configuration, IAuthenticationService authenticationService)
+        public AuthenticationController(IConfiguration configuration, IAuthenticationService authenticationService,
+            ILogger<AuthenticationController> logger)
         {
             this.configuration = configuration;
             this.authenticationService = authenticationService;
+            this.logger = logger;
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            IActionResult response = Unauthorized();
+            var identity = await GetClaimsIdentity(model);
 
-            var userDto = authenticationService.Login(model.Username, model.Password);
+            if (identity == null)
+            {
+                logger.LogInformation($"Invalid username '{model.Username}' or password '{model.Password}'");
+                return BadRequest("Invalid credentials");
+            }
 
-            if (userDto == null)
-                return response;
+            var tokenString = BuildToken(identity, model.Username);
 
-            var tokenString = BuildToken(userDto);
-            response = new OkObjectResult(new { token = tokenString});
-
-            return response;
+            return new OkObjectResult(new {token = tokenString});
         }
 
         [AllowAnonymous]
@@ -62,18 +70,48 @@ namespace WMS.WebApi.Controllers
             return Ok();
         }
 
-        private string BuildToken(UserDto userDto)
+
+        private Task<ClaimsIdentity> GetClaimsIdentity(LoginModel model)
         {
-            // TODO: Add info from "userDto" into JWT token
+            const string authType = "Token";
+
+            var userDto = authenticationService.Login(model.Username, model.Password);
+
+            if (userDto?.Role == null)
+                return Task.FromResult<ClaimsIdentity>(null);
+
+            return Task.FromResult(new ClaimsIdentity(new GenericIdentity(model.Username, authType),
+                new[] {new Claim("roles", userDto.Role)}));
+        }
+
+        private string BuildToken(ClaimsIdentity identity, string username)
+        {
+            var issuedAt = DateTime.UtcNow;
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(issuedAt).ToString(), ClaimValueTypes.Integer64)
+            };
+
+            claims.AddRange(identity.Claims);
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
-                configuration["Jwt:Issuer"],
-                expires: DateTime.Now.AddMinutes(30),
+            var token = new JwtSecurityToken(
+                issuer: configuration["Jwt:Issuer"],
+                audience: configuration["Jwt:Issuer"],
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: issuedAt.AddMinutes(30),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        private static long ToUnixEpochDate(DateTime date) => (long) Math.Round(
+            (date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,17 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WMS.Application;
 using WMS.Application.Interface;
 using WMS.Domain.Repository.Interface;
 using WMS.Infrastructure.Repository;
+using WMS.WebApi.Infrastructure;
 
 namespace WMS.WebApi
 {
     public class Startup
     {
+        private const string SecretKey = "Jwt:Key";
+        private SymmetricSecurityKey signingKey;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +30,8 @@ namespace WMS.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetValue<string>(SecretKey)));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -42,7 +43,7 @@ namespace WMS.WebApi
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        IssuerSigningKey = signingKey
                     };
                 });
 
@@ -67,7 +68,7 @@ namespace WMS.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +80,11 @@ namespace WMS.WebApi
             app.UseAuthentication();
 
             app.UseMvc();
+
+            loggerFactory
+                .AddFile(@"Logs\log-{Date}.txt")
+                .AddConsole()
+                .AddDebug();
         }
     }
 }
