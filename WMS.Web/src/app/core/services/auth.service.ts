@@ -10,7 +10,7 @@ export const TOKEN_NAME: string = 'auth_token';
 @Injectable()
 export class AuthService {
 
-  private url: string = 'http://localhost:61796/api/auth';
+  private url: string = 'http://localhost:50234//api/auth';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   public redirectUrl: string = "";
@@ -35,7 +35,7 @@ export class AuthService {
     return date;
   }
 
-  public isLoggedIn(token?: string): boolean {
+  public isTokenExpired(token?: string): boolean {
     if (!token) token = this.getToken();
     if (!token) return true;
 
