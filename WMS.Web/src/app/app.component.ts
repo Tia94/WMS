@@ -17,12 +17,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = !this.authService.isTokenExpired();
+    this.isLoggedIn = !this.authService.isLoggedIn();
   }
 
   public logout(): void {
-    debugger;
     this.authService.logout();
-    // this.router.navigate(["."]);
   }
 }

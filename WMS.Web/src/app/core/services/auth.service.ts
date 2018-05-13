@@ -17,15 +17,15 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getToken(): string {
+  public getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
   }
 
-  setToken(token: string): void {
+  public setToken(token: string): void {
     localStorage.setItem(TOKEN_NAME, token);
   }
 
-  getTokenExpirationDate(token: string): Date {
+  public getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
 
     if (decoded.exp === undefined) return null;
@@ -35,7 +35,7 @@ export class AuthService {
     return date;
   }
 
-  isTokenExpired(token?: string): boolean {
+  public isLoggedIn(token?: string): boolean {
     if (!token) token = this.getToken();
     if (!token) return true;
 
@@ -44,7 +44,7 @@ export class AuthService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     this.http
       .post(`${this.url}/login`, { username: username, password: password }, { headers: this.headers })
       .subscribe((response: any) => {
@@ -59,7 +59,8 @@ export class AuthService {
       });
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem(TOKEN_NAME);
+    location.reload();
   }
 }
