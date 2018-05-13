@@ -31,7 +31,7 @@
       </li>
 
       <li class="nav-item right" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">User info</a>
+        <span class="nav-link">{{username}} ({{role}})</span>
       </li>
 
       <li class="nav-item right" *ngIf="isLoggedIn">

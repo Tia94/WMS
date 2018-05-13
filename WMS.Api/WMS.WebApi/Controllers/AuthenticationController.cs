@@ -81,7 +81,7 @@ namespace WMS.WebApi.Controllers
                 return Task.FromResult<ClaimsIdentity>(null);
 
             return Task.FromResult(new ClaimsIdentity(new GenericIdentity(model.Username, authType),
-                new[] {new Claim("roles", userDto.Role)}));
+                new[] {new Claim("role", userDto.Role)}));
         }
 
         private string BuildToken(ClaimsIdentity identity, string username)
