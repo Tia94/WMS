@@ -1,10 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+
+  public appName: string = "WMS";
+  public isLoggedIn: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) {
+
+  }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !this.authService.isTokenExpired();
+  }
+
+  public logout(): void {
+    debugger;
+    this.authService.logout();
+    // this.router.navigate(["."]);
+  }
 }

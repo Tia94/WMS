@@ -5,12 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/login/login.component';
 import { RegisterComponent } from './core/register/register.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ProductsModule } from './products/products.module';
 import { AuthService } from './core/services/auth.service';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,7 +34,11 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     ProductsModule
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -53,6 +53,7 @@ export class AuthService {
           if (this.redirectUrl) {
             this.router.navigate([this.redirectUrl]);
             this.redirectUrl = null;
+            location.reload();
           }
         }
       });
