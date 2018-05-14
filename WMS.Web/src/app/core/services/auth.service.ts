@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as jwt_decode from "jwt-decode";
+import { Router } from '@angular/router';
 import { Observable, Subscription } from "rxjs/Rx";
 import "rxjs/add/operator/map";
-import { Router } from '@angular/router';
+import * as jwt_decode from "jwt-decode";
 
-export const TOKEN_NAME: string = 'auth_token';
+export const TOKEN_NAME: string = "auth_token";
 
 @Injectable()
 export class AuthService {
 
-  private url: string = 'http://localhost:50234//api/auth';
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  // private url: string = 'http://localhost:50234//api/auth';  // Patricia
+  private url: string = "http://localhost:61796/api/auth";     // Rami
+  private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   public redirectUrl: string = "";
 
@@ -35,6 +36,10 @@ export class AuthService {
     return date;
   }
 
+  public isLoggedIn(): boolean {
+    return !this.isTokenExpired();
+  }
+
   public isTokenExpired(token?: string): boolean {
     if (!token) token = this.getToken();
     if (!token) return true;
@@ -52,6 +57,10 @@ export class AuthService {
           localStorage.setItem(TOKEN_NAME, response.token);
           if (this.redirectUrl) {
             this.router.navigate([this.redirectUrl]);
+            this.redirectUrl = null;
+            location.reload();
+          } else {
+            this.router.navigate(["."]);
             this.redirectUrl = null;
             location.reload();
           }

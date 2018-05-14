@@ -12,6 +12,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { ProductsModule } from './products/products.module';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { VisibleForDirective } from './core/directives/visible-for.directive';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    VisibleForDirective
   ],
   imports: [
     BrowserModule,

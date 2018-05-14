@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = !this.authService.isTokenExpired();
+    this.isLoggedIn =this.authService.isLoggedIn();
     if (this.isLoggedIn) {
       let decoded: any = jwt_decode(this.authService.getToken());
       this.username = decoded.sub;
