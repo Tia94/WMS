@@ -1,3 +1,86 @@
-<p>
-  register works!
-</p>
+<h2>Register</h2>
+<h3>
+    <i>Please enter your data</i>
+  </h3>
+  
+  <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
+  
+    <fieldset>
+      <div class="form-group">
+        <label class="center-block">Username:
+          <input class="form-control is-invalid" type="text" [ngClass]="{
+            'is-valid': username.valid && (username.dirty || username.touched),
+            'is-invalid': username.invalid && (username.dirty || username.touched)
+          }" formControlName="username">
+          <div class="invalid-feedback">
+            <p>Username is required</p>
+          </div>
+        </label>
+      </div>
+  
+      <div class="form-group has-danger">
+        <label class="center-block">Password:
+          <input class="form-control is-invalid" type="password" [ngClass]="{
+            'is-valid': password.valid && (password.dirty || password.touched),
+            'is-invalid': password.invalid && (password.dirty || password.touched)
+          }" formControlName="password">
+          <div class="invalid-feedback">
+              <p>Password is required</p>
+            </div>
+        </label>
+      </div>
+
+      <div class="form-group has-danger">
+          <label class="center-block">FirstNme:
+            <input class="form-control is-invalid" type="FirstNme" [ngClass]="{
+              'is-valid': FirstNme.valid && (FirstNme.dirty || FirstNme.touched),
+              'is-invalid': FirstNme.invalid && (FirstNme.dirty || FirstNme.touched)
+            }" formControlName="FirstNme">
+            <div class="invalid-feedback">
+                <p>FirstNme is required</p>
+              </div>
+          </label>
+        </div>
+
+      <div class="form-group has-danger">
+          <label class="center-block">lastName:
+            <input class="form-control is-invalid" type="lastName" [ngClass]="{
+              'is-valid': lastName.valid && (lastName.dirty || lastName.touched),
+              'is-invalid': lastName.invalid && (lastName.dirty || lastName.touched)
+            }" formControlName="lastName">
+            <div class="invalid-feedback">
+                <p>lastName is required</p>
+              </div>
+          </label>
+        </div>
+
+        <div class="form-group has-danger">
+            <label class="center-block">email:
+              <input class="form-control is-invalid" type="email" [ngClass]="{
+                'is-valid': email.valid && (email.dirty || email.touched),
+                'is-invalid': email.invalid && (email.dirty || email.touched)
+              }" formControlName="email">
+              <div class="invalid-feedback">
+                  <p>email is required</p>
+                </div>
+            </label>
+          </div>
+
+        <div class="form-group has-danger">
+            <label class="center-block">TelephonNumber:
+              <input class="form-control is-invalid" type="TelephonNumber" [ngClass]="{
+                'is-valid': TelephonNumber.valid && (TelephonNumber.dirty || TelephonNumber.touched),
+                'is-invalid': TelephonNumber.invalid && (TelephonNumber.dirty || TelephonNumber.touched)
+              }" formControlName="TelephonNumber">
+              <div class="invalid-feedback">
+                  <p>TelephonNumber is required</p>
+                </div>
+            </label>
+          </div>
+  
+    </fieldset>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+  
+  </form>
+  
