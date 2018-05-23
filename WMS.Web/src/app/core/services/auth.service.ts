@@ -72,4 +72,9 @@ export class AuthService {
     localStorage.removeItem(TOKEN_NAME);
     location.reload();
   }
+
+  public register(username: string, firstName: string, lastname: string, telephonNumber: string ,address: string, email: string, password: string) : void{
+this.http
+
+  }
 }

@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+  private returnUrl: string;
   public registerForm: FormGroup;
   public username: FormControl;
   public password: FormControl;
@@ -22,13 +23,16 @@ export class RegisterComponent implements OnInit {
 
   private role;
 
-  constructor() { 
+  constructor(private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router) { 
 
   }
 
   ngOnInit() : void {
     this.createFormControls();
     this.createForm();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   private createFormControls() {
@@ -36,7 +40,7 @@ export class RegisterComponent implements OnInit {
     this.password = new FormControl("", Validators.required);
     this.firstName = new FormControl("", Validators.required);
     this.lastName = new FormControl("", Validators.required);
-    this.lastName = new FormControl("", Validators.required);
+    this.email = new FormControl("", Validators.required);
     this.address = new FormControl("", Validators.required);
   }
 
@@ -50,6 +54,11 @@ export class RegisterComponent implements OnInit {
       telephoneNumber: this.telephoneNumber,
       email: this.email
     });
-
 }
+onSubmit() {
+  if (this.registerForm.valid) {
+    this.authService.register(this.username.value, this.firstName.value,this.lastName.value,this.telephoneNumber.value,this.address.value,this.email.value,this.password.value);
+  }
+}
+
 }
