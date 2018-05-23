@@ -31,25 +31,25 @@
       </div>
 
       <div class="form-group has-danger">
-          <label class="center-block">FirstNme:
+          <label class="center-block">First Name:
             <input class="form-control is-invalid" type="FirstNme" [ngClass]="{
               'is-valid': FirstNme.valid && (FirstNme.dirty || FirstNme.touched),
               'is-invalid': FirstNme.invalid && (FirstNme.dirty || FirstNme.touched)
-            }" formControlName="FirstNme">
+            }" formControlName="First Name">
             <div class="invalid-feedback">
-                <p>FirstNme is required</p>
+                <p>First Name is required</p>
               </div>
           </label>
         </div>
 
       <div class="form-group has-danger">
-          <label class="center-block">lastName:
+          <label class="center-block">Last Name:
             <input class="form-control is-invalid" type="lastName" [ngClass]="{
               'is-valid': lastName.valid && (lastName.dirty || lastName.touched),
               'is-invalid': lastName.invalid && (lastName.dirty || lastName.touched)
             }" formControlName="lastName">
             <div class="invalid-feedback">
-                <p>lastName is required</p>
+                <p>Last Name is required</p>
               </div>
           </label>
         </div>
@@ -67,20 +67,20 @@
           </div>
 
         <div class="form-group has-danger">
-            <label class="center-block">TelephonNumber:
+            <label class="center-block">Telephon Number:
               <input class="form-control is-invalid" type="TelephonNumber" [ngClass]="{
                 'is-valid': TelephonNumber.valid && (TelephonNumber.dirty || TelephonNumber.touched),
                 'is-invalid': TelephonNumber.invalid && (TelephonNumber.dirty || TelephonNumber.touched)
               }" formControlName="TelephonNumber">
               <div class="invalid-feedback">
-                  <p>TelephonNumber is required</p>
+                  <p>Telephon number is required</p>
                 </div>
             </label>
           </div>
   
     </fieldset>
   
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Create Account</button>
   
   </form>
   
