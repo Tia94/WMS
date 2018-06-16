@@ -10,8 +10,8 @@ export const TOKEN_NAME: string = "auth_token";
 @Injectable()
 export class AuthService {
 
-  // private url: string = 'http://localhost:50234//api/auth';  // Patricia
-  private url: string = "http://localhost:61796/api/auth";     // Rami
+  private url: string = 'http://localhost:50234//api/auth';  // Patricia
+  //private url: string = "http://localhost:61796/api/auth";     // Rami
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   public redirectUrl: string = "";
@@ -73,8 +73,23 @@ export class AuthService {
     location.reload();
   }
 
-  public register(username: string, firstName: string, lastname: string, telephonNumber: string ,address: string, email: string, password: string) : void{
-this.http
+  public register(username: string, password: string, firstName: string, lastname: string, email: string,
+    telephoneNumber: string, address: string): void {
+    let dto: any = {
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastname: lastname,
+      email: email,
+      telephoneNumber: telephoneNumber,
+      address: address
+    };
+
+    this.http
+      .post(`${this.url}/register`, dto, { headers: this.headers })
+      .subscribe((response: any) => {
+        debugger;
+      });
 
   }
 }
