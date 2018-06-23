@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WMS.Domain.Model
+﻿namespace WMS.Domain.Model
 {
-    class Product
+    public class Product : Entity
     {
-        public int Id { get; set; }
+        public Product(string name, string category, int quantity, decimal price)
+        {
+            Name = name;
+            Category = category;
+            Quantity = quantity;
+            Price = price;
+        }
+
         public string Name { get; set; }
+
         public string Category { get; set; }
+
         public int Quantity { get; set; }
+
         public decimal Price { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace WMS.Infrastructure.Repository
         {
             context.Database.EnsureCreated();
 
-            // Look for any students.
+            // Look for any users.
             if (context.Users.Any())
             {
                 return; // DB has been seeded
@@ -17,46 +17,10 @@ namespace WMS.Infrastructure.Repository
 
             var users = new[]
             {
-                new User
-                {
-                    Username = "admin",
-                    Firstname = "System",
-                    Lastname = "Admin",
-                    Password = "1234",
-                    Email = "admin@gmail.com",
-                    TelephoneNumber = "0933594236",
-                    Role = Role.Admin
-                },
-                new User
-                {
-                    Username = "client",
-                    Firstname = "App",
-                    Lastname = "Client",
-                    Password = "1234",
-                    Email = "client@gmail.com",
-                    TelephoneNumber = "0933066835",
-                    Role = Role.Client
-                },
-                new User
-                {
-                    Username = "driver",
-                    Firstname = "Truck",
-                    Lastname = "Driver",
-                    Password = "1234",
-                    Email = "driver@gmail.com",
-                    TelephoneNumber = "0933066835",
-                    Role = Role.Driver
-                },
-                new User
-                {
-                    Username = "keeper",
-                    Firstname = "Store",
-                    Lastname = "Keeper",
-                    Password = "1234",
-                    Email = "keeper@gmail.com",
-                    TelephoneNumber = "0933066835",
-                    Role = Role.Keeper
-                },
+                new User("admin", "System", "Admin", "1234", "admin@gmail.com", "0933594236", "", Role.Admin),
+                new User("client", "App", "Client", "1234", "client@gmail.com", "0933594236", "", Role.Client),
+                new User("driver", "Truck", "Driver", "1234", "driver@gmail.com", "0933594236", "", Role.Driver),
+                new User("keeper", "Store", "Keeper", "1234", "keeper@gmail.com", "0933594236", "", Role.Keeper)
             };
 
             context.Users.AddRange(users);

@@ -1,8 +1,24 @@
 ﻿namespace WMS.Domain.Model
 {
-
     public class User : Entity
     {
+        public User(string username, string firstname, string lastname, string password, string email,
+            string telephoneNumber, string address, Role role)
+        {
+            Username = username;
+            Firstname = firstname;
+            Lastname = lastname;
+            Password = password;
+            Email = email;
+            TelephoneNumber = telephoneNumber;
+            Address = address;
+            Role = role;
+        }
+
+        protected User()
+        {
+        }
+
         public string Username { get; set; }
 
         public string Firstname { get; set; }
@@ -18,6 +34,5 @@
         public string Address { get; set; }
 
         public Role Role { get; set; }
-
     }
 }

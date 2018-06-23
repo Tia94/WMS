@@ -6,6 +6,6 @@ namespace WMS.Application.Interface
     {
         UserDto Login(string username, string password);
         
-        void RegisterClient(RegisterDto registerDto);
+        void RegisterClient(RegisterDto dto);
     }
 }

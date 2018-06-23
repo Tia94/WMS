@@ -1,21 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace WMS.Domain.Model
 {
-    class Order
+    public class OrderItem
     {
-        List<Product> products { get; set; }
-        User user { get; set; }
-        public decimal totalPrice { get; set; }
-
-        public Order()
+        public OrderItem(Product product, int quantity)
         {
-            foreach (Product product in products)
+            Product = product;
+            Quantity = quantity;
+        }
+
+        protected OrderItem()
+        {
+        }
+
+        public Product Product { get; set; }
+
+        public int Quantity { get; set; }
+
+        public decimal Price { get; set; }
+    }
+
+    public class Order
+    {
+        public Order(User client)
+        {
+            Items = new List<OrderItem>();
+            Number = Guid.NewGuid();
+
+            Client = client;
+        }
+
+        public Guid Number { get; }
+
+        public ICollection<OrderItem> Items { get; }
+
+        public User Client { get; }
+
+        public decimal Total => Items.Sum(x => x.Price);
+
+        public void AddItem(Product product, int quantity)
+        {
+            var item = Items.FirstOrDefault(x => x.Product.Id == product.Id);
+            if (item == null)
             {
-                this.totalPrice = 0;
-                this.totalPrice += product.Price;
+                item = new OrderItem(product, quantity);
+                Items.Add(item);
+            }
+            else
+            {
+                item.Quantity += quantity;
             }
         }
     }
