@@ -51,6 +51,9 @@ namespace WMS.Infrastructure.Repository.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Firstname");
@@ -68,6 +71,18 @@ namespace WMS.Infrastructure.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                });
+
+            modelBuilder.Entity("WMS.Domain.Model.Client", b =>
+                {
+                    b.HasBaseType("WMS.Domain.Model.User");
+
+
+                    b.ToTable("Client");
+
+                    b.HasDiscriminator().HasValue("Client");
                 });
 #pragma warning restore 612, 618
         }

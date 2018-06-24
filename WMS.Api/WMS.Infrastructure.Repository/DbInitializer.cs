@@ -10,11 +10,34 @@ namespace WMS.Infrastructure.Repository
         {
             context.Database.Migrate();
 
+            AddUsers(context);
+
+            AddProducts(context);
+
+            context.SaveChanges();
+        }
+
+        private static void AddProducts(WMSContext context)
+        {
+            if (context.Products.Any())
+                return;
+
+            var products = new[]
+            {
+                new Product("Product 1", "Category A", 50, 190),
+                new Product("Product 2", "Category A", 150, 110),
+                new Product("Product 3", "Category B", 200, 190.9M),
+                new Product("Product 4", "Category B", 8000, 160.5M),
+            };
+
+            context.Products.AddRange(products);
+        }
+
+        private static void AddUsers(WMSContext context)
+        {
             // Look for any users.
             if (context.Users.Any())
-            {
                 return; // DB has been seeded
-            }
 
             var users = new[]
             {
@@ -25,7 +48,6 @@ namespace WMS.Infrastructure.Repository
             };
 
             context.Users.AddRange(users);
-            context.SaveChanges();
         }
     }
 }

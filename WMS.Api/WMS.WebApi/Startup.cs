@@ -46,8 +46,11 @@ namespace WMS.WebApi
                     };
                 });
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>()
-                .AddScoped<IUserRepository, UserRepository>();
+            services
+                .AddScoped<IAuthenticationService, AuthenticationService>()
+                .AddScoped<IProductService, ProductService>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IProductRepository, ProductRepository>();
 
             services.AddDbContext<WMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
