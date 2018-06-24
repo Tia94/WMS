@@ -5,23 +5,29 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.WebApi", "WMS.WebApi\WMS.WebApi.csproj", "{1BE3F07E-2EE3-44EC-8EC4-852806EC6C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Domain.Model", "WMS.Domain.Model\WMS.Domain.Model.csproj", "{118AD3FA-512D-40ED-8BF7-ECDF14386559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Domain.Model", "WMS.Domain.Model\WMS.Domain.Model.csproj", "{118AD3FA-512D-40ED-8BF7-ECDF14386559}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{243807F8-F84F-4974-8066-61CC2CFFC2FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{93465ABC-E184-4BFA-9531-BA1AD884378F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Application.Interface", "WMS.Application.Interface\WMS.Application.Interface.csproj", "{EB0BE1A3-8DBF-4517-A5F9-4EAEC83A0A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Application.Interface", "WMS.Application.Interface\WMS.Application.Interface.csproj", "{EB0BE1A3-8DBF-4517-A5F9-4EAEC83A0A95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Application.Dto", "WMS.Application.Dto\WMS.Application.Dto.csproj", "{47F0D41A-CC60-40EF-B599-BC2DFFD3471E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Application.Dto", "WMS.Application.Dto\WMS.Application.Dto.csproj", "{47F0D41A-CC60-40EF-B599-BC2DFFD3471E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Application", "WMS.Application\WMS.Application.csproj", "{C000BEAB-DC7A-4B9B-A24D-493DD33D89B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Application", "WMS.Application\WMS.Application.csproj", "{C000BEAB-DC7A-4B9B-A24D-493DD33D89B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Domain.Repository.Interface", "WMS.Domain.Repository.Interface\WMS.Domain.Repository.Interface.csproj", "{157C24C9-5CA8-4F6F-BFF4-89599A21D207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Domain.Repository.Interface", "WMS.Domain.Repository.Interface\WMS.Domain.Repository.Interface.csproj", "{157C24C9-5CA8-4F6F-BFF4-89599A21D207}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D1628E8D-F297-4604-BA00-435924951808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Infrastructure.Repository", "WMS.Infrastructure.Repository\WMS.Infrastructure.Repository.csproj", "{65AF3FC9-3A80-47AF-B6BB-4CC47967117C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Infrastructure.Repository", "WMS.Infrastructure.Repository\WMS.Infrastructure.Repository.csproj", "{65AF3FC9-3A80-47AF-B6BB-4CC47967117C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00870F71-3330-4B91-8659-66BB57F94D86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{32799453-6F1F-4883-AA15-67EC5A69EB9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Infrastructure.Repository.Tests", "WMS.Infrastructure.Repository.Tests\WMS.Infrastructure.Repository.Tests.csproj", "{42D2E223-3D13-461C-8851-DA13CE75BA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,10 @@ Global
 		{65AF3FC9-3A80-47AF-B6BB-4CC47967117C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65AF3FC9-3A80-47AF-B6BB-4CC47967117C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65AF3FC9-3A80-47AF-B6BB-4CC47967117C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D2E223-3D13-461C-8851-DA13CE75BA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D2E223-3D13-461C-8851-DA13CE75BA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D2E223-3D13-461C-8851-DA13CE75BA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D2E223-3D13-461C-8851-DA13CE75BA26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +78,8 @@ Global
 		{C000BEAB-DC7A-4B9B-A24D-493DD33D89B1} = {93465ABC-E184-4BFA-9531-BA1AD884378F}
 		{157C24C9-5CA8-4F6F-BFF4-89599A21D207} = {243807F8-F84F-4974-8066-61CC2CFFC2FB}
 		{65AF3FC9-3A80-47AF-B6BB-4CC47967117C} = {D1628E8D-F297-4604-BA00-435924951808}
+		{32799453-6F1F-4883-AA15-67EC5A69EB9D} = {00870F71-3330-4B91-8659-66BB57F94D86}
+		{42D2E223-3D13-461C-8851-DA13CE75BA26} = {32799453-6F1F-4883-AA15-67EC5A69EB9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3272DC0-BE94-4095-9C2A-CCCEB5DD4CEE}
