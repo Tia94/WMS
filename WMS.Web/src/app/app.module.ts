@@ -6,13 +6,15 @@ import { LoginComponent } from './core/login/login.component';
 import { RegisterComponent } from './core/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ProductsModule } from './products/products.module';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
+import { Ng2TableModule } from 'ng2-table';
+import { ProductsService } from './products/products.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +33,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    Ng2TableModule,
+    FormsModule,
     // RouterModule.forRoot(appRoutes, { enableTracing: true }), // <-- debugging purposes only
     RouterModule.forRoot(appRoutes), // <-- debugging purposes only
     HttpClientModule,
