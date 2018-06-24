@@ -11,10 +11,10 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   public rows: Array<any> = [];
   public columns: Array<any> = [
-    { title: 'Name', name: 'name' },
-    { title: 'Category', name: 'category' },
-    { title: 'quantity', name: 'quantity' },
-    { title: 'Price', name: 'price' }
+    { title: 'Name', name: 'name', sort: true, filtering: { filterString: '', placeholder: 'Filter by name' } },
+    { title: 'Category', name: 'category', sort: true, filtering: { filterString: '', placeholder: 'Filter by category' } },
+    { title: 'quantity', name: 'quantity', sort: true, filtering: { filterString: '', placeholder: 'Filter by quantity' } },
+    { title: 'Price', name: 'price', sort: true, filtering: { filterString: '', placeholder: 'Filter by price' } }
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -94,7 +94,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.columns.forEach((column: any) => {
       if (column.filtering) {
         filteredData = filteredData.filter((item: any) => {
-          return item[column.name].match(column.filtering.filterString);
+          return item[column.name].toString().match(column.filtering.filterString);
         });
       }
     });
@@ -105,7 +105,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     if (config.filtering.columnName) {
       return filteredData.filter((item: any) =>
-        item[config.filtering.columnName].match(this.config.filtering.filterString));
+        item[config.filtering.columnName].toString().match(this.config.filtering.filterString));
     }
 
     let tempArray: Array<any> = [];

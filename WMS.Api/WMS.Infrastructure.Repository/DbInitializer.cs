@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WMS.Domain.Model;
 
@@ -22,15 +23,20 @@ namespace WMS.Infrastructure.Repository
             if (context.Products.Any())
                 return;
 
-            var products = new[]
-            {
-                new Product("Product 1", "Category A", 50, 190),
-                new Product("Product 2", "Category A", 150, 110),
-                new Product("Product 3", "Category B", 200, 190.9M),
-                new Product("Product 4", "Category B", 8000, 160.5M),
-            };
+            var categories = new[] {"A", "B", "C", "D", "E", "F"};
 
-            context.Products.AddRange(products);
+            foreach (var category in categories)
+            {
+                var products = Enumerable.Range(1, 100)
+                    .Select(x =>
+                    {
+                        var random = new Random();
+                        return new Product($"Product {x}", category, random.Next(1, 500),
+                            Convert.ToDecimal(random.NextDouble() * 100));
+                    });
+
+                context.Products.AddRange(products);
+            }
         }
 
         private static void AddUsers(WMSContext context)
