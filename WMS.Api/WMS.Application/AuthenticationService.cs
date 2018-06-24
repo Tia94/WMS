@@ -1,4 +1,7 @@
-﻿using WMS.Application.Dto;
+﻿using System;
+using System.Net;
+using System.Net.Mail;
+using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.Domain.Model;
 using WMS.Domain.Repository.Interface;
@@ -36,6 +39,26 @@ namespace WMS.Application
         {
             var user = new User(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email, dto.TelephoneNumber,
                 dto.Address, Role.Client);
+
+            user.ActivationCode = Guid.NewGuid();
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("****", "*****")
+            };
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("WMS@gmail.com");
+            mailMessage.To.Add("******");
+            mailMessage.Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>" ;
+            mailMessage.Subject = "subject";
+            smtp.Send(mailMessage);
+            smtp.Dispose();
 
             userRepository.Add(user);
         }

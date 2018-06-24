@@ -70,6 +70,12 @@ namespace WMS.WebApi.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [HttpGet("activate/{guid:Guid}")]
+        public IActionResult Activate(Guid guid)
+        {
+            return Ok();
+        }
 
         private Task<ClaimsIdentity> GetClaimsIdentity(LoginModel model)
         {
@@ -113,5 +119,7 @@ namespace WMS.WebApi.Controllers
 
         private static long ToUnixEpochDate(DateTime date) => (long) Math.Round(
             (date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        
     }
 }

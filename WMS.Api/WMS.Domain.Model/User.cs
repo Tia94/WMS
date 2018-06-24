@@ -1,4 +1,6 @@
-﻿namespace WMS.Domain.Model
+﻿using System;
+
+namespace WMS.Domain.Model
 {
     public class User : Entity
     {
@@ -34,5 +36,10 @@
         public string Address { get; set; }
 
         public Role Role { get; set; }
+
+        public Guid ActivationCode { get; set; }
+
+        public bool IsActive { get; set; }
+
     }
 }
