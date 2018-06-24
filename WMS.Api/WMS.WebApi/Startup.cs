@@ -50,7 +50,7 @@ namespace WMS.WebApi
                 .AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<WMSContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddMvc();
 

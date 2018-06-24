@@ -6,7 +6,7 @@ namespace WMS.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private WMSContext context;
+        private readonly WMSContext context;
 
         public UserRepository(WMSContext context)
         {
@@ -20,8 +20,8 @@ namespace WMS.Infrastructure.Repository
 
         public void Add(User user)
         {
-            this.context.Users.Add(user);
-            this.context.SaveChanges();
+            context.Users.Add(user);
+            context.SaveChanges();
         }
     }
 }

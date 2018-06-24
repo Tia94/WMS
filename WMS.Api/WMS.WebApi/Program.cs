@@ -19,7 +19,7 @@ namespace WMS.WebApi
                 try
                 {
                     var context = services.GetRequiredService<WMSContext>();
-                    DbInitializer.Initialize(context);
+                    context.Seed();
                 }
                 catch (Exception ex)
                 {

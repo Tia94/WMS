@@ -25,7 +25,7 @@ namespace WMS.Domain.Model
 
     public class Order
     {
-        public Order(User client)
+        public Order(Client client)
         {
             Items = new List<OrderItem>();
             Number = Guid.NewGuid();
@@ -37,7 +37,7 @@ namespace WMS.Domain.Model
 
         public ICollection<OrderItem> Items { get; }
 
-        public User Client { get; }
+        public Client Client { get; }
 
         public decimal Total => Items.Sum(x => x.Price);
 
