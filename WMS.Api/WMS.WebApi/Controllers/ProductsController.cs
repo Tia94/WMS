@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WMS.Application.Dto;
 using WMS.Application.Interface;
+using WMS.WebApi.Models;
 
 namespace WMS.WebApi.Controllers
 {
@@ -21,6 +23,23 @@ namespace WMS.WebApi.Controllers
         {
             var products = productService.Get();
             return new OkObjectResult(new {Data = products, Total = products.Count});
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult Post([FromBody] AddProductModel model)
+        {
+            var dto = new ProductDto
+            {
+                Name = model.Name,
+                Category = model.Category,
+                Quantity = model.Quantity,
+                Price = model.Price
+            };
+
+            productService.Add(dto);
+
+            return new OkResult();
         }
     }
 }

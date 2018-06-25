@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     if (this.registerForm.valid) {
       this.authService.register(
         this.username.value, 

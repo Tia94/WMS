@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductsService } from '../products.service';
+import { ProductService } from '../product.service';
 import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
@@ -33,13 +33,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
 
-  public constructor(private productsService: ProductsService) {
+  public constructor(private productService: ProductService) {
 
   }
 
   public ngOnInit(): void {
 
-    this.subscription = this.productsService.get()
+    this.subscription = this.productService.get()
       .subscribe(response => {
         this.data = response.data;
         this.length = response.data.length;
@@ -94,7 +94,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.columns.forEach((column: any) => {
       if (column.filtering) {
         filteredData = filteredData.filter((item: any) => {
-          return item[column.name].toString().match(column.filtering.filterString);
+          return item[column.name].toString().toLowerCase().match(column.filtering.filterString.toLowerCase());
         });
       }
     });
@@ -105,14 +105,14 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     if (config.filtering.columnName) {
       return filteredData.filter((item: any) =>
-        item[config.filtering.columnName].toString().match(this.config.filtering.filterString));
+        item[config.filtering.columnName].toString().toLowerCase().match(this.config.filtering.filterString.toLowerCase()));
     }
 
     let tempArray: Array<any> = [];
     filteredData.forEach((item: any) => {
       let flag = false;
       this.columns.forEach((column: any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        if (item[column.name].toString().toLowerCase().match(this.config.filtering.filterString.toLowerCase())) {
           flag = true;
         }
       });

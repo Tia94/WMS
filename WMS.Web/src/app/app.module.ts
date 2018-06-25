@@ -14,13 +14,16 @@ import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { Ng2TableModule } from 'ng2-table';
-import { ProductsService } from './products/products.service';
+import { ProductService } from './products/product.service';
+import { ProductsHomeComponent } from './products/products-home/products-home.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'products', component: ProductsHomeComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'products/add', component: AddProductComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({

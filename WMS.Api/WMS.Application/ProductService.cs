@@ -2,6 +2,7 @@
 using System.Linq;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
+using WMS.Domain.Model;
 using WMS.Domain.Repository.Interface;
 
 namespace WMS.Application
@@ -25,6 +26,13 @@ namespace WMS.Application
                 Price = x.Price,
                 Quantity = x.Quantity
             }).ToList();
+        }
+
+        public void Add(ProductDto dto)
+        {
+            var product = new Product(dto.Name, dto.Category, dto.Quantity, dto.Price);
+
+            productRepository.Add(product);
         }
     }
 }

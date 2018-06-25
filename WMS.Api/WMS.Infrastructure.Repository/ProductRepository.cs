@@ -18,5 +18,11 @@ namespace WMS.Infrastructure.Repository
         {
             return context.Products.ToList();
         }
+
+        public void Add(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
     }
 }
