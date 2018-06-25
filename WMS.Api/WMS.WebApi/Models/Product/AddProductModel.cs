@@ -1,4 +1,4 @@
-﻿namespace WMS.WebApi.Models
+﻿namespace WMS.WebApi.Models.Product
 {
     public class AddProductModel
     {

@@ -5,7 +5,6 @@ import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ProductService } from './product.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { ProductsHomeComponent } from './products-home/products-home.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { RouterModule } from '@angular/router';
 
@@ -18,7 +17,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     ReactiveFormsModule
   ],
-  declarations: [ProductsListComponent, ProductsHomeComponent, AddProductComponent],
+  declarations: [ProductsListComponent, AddProductComponent],
   providers: [ProductService]
 })
 export class ProductsModule { }

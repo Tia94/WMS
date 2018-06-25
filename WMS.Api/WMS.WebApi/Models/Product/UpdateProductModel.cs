@@ -1,6 +1,6 @@
-﻿namespace WMS.Application.Dto
+﻿namespace WMS.WebApi.Models.Product
 {
-    public class ProductDto
+    public class UpdateProductModel
     {
         public int Id { get; set; }
 

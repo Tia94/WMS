@@ -9,6 +9,7 @@ import { ProductService } from '../product.service';
 })
 export class AddProductComponent implements OnInit {
 
+  public title: string = "Add Product";
   public addProductForm: FormGroup;
   public name: FormControl;
   public category: FormControl;
@@ -22,7 +23,7 @@ export class AddProductComponent implements OnInit {
     this.createForm();
   }
 
-  public onSubmit(): void {    
+  public onSubmit(): void {
     if (this.addProductForm.valid) {
       this.productService.add(
         this.name.value,

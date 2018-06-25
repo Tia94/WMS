@@ -8,5 +8,11 @@ namespace WMS.Domain.Repository.Interface
         IList<Product> Get();
 
         void Add(Product product);
+
+        void Delete(int id);
+
+        Product Get(int id);
+
+        void Update(Product product);
     }
 }

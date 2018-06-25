@@ -21,6 +21,7 @@ namespace WMS.Application
             var products = productRepository.Get();
             return products.Select(x => new ProductDto
             {
+                Id = x.Id,
                 Name = x.Name,
                 Category = x.Category,
                 Price = x.Price,
@@ -33,6 +34,23 @@ namespace WMS.Application
             var product = new Product(dto.Name, dto.Category, dto.Quantity, dto.Price);
 
             productRepository.Add(product);
+        }
+
+        public void Update(ProductDto dto)
+        {
+            var product = productRepository.Get(dto.Id);
+
+            product.Name = dto.Name;
+            product.Category = dto.Category;
+            product.Quantity = dto.Quantity;
+            product.Price = dto.Price;
+
+            productRepository.Update(product);
+        }
+
+        public void Delete(int id)
+        {
+            productRepository.Delete(id);
         }
     }
 }
