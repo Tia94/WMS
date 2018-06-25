@@ -29,6 +29,19 @@ namespace WMS.Application
             }).ToList();
         }
 
+        public ProductDto Get(int id)
+        {
+            var product = productRepository.Get(id);
+            return new ProductDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Category = product.Category,
+                Quantity = product.Quantity,
+                Price = product.Price
+            };
+        }
+
         public void Add(ProductDto dto)
         {
             var product = new Product(dto.Name, dto.Category, dto.Quantity, dto.Price);

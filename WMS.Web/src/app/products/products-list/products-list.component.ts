@@ -145,7 +145,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       return;
 
     if (data.column === "update") {
-
+      this.router.navigate(["products/update", data.row.id]);
     }
     else if (data.column === "delete") {
       this.productService.delete(data.row.id)
@@ -158,7 +158,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   private getProducts(): void {
-    this.subscription = this.productService.get()
+    this.subscription = this.productService.list()
       .subscribe(response => {
         this.data = response.data.map(x => {
           return {

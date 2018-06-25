@@ -26,6 +26,14 @@ namespace WMS.WebApi.Controllers
             return new OkObjectResult(new {Data = products, Total = products.Count});
         }
 
+        [HttpGet("{id:int}")]
+        [AllowAnonymous]
+        public IActionResult Get(int id)
+        {
+            var product = productService.Get(id);
+            return new OkObjectResult(product);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public IActionResult Post([FromBody] AddProductModel model)
@@ -43,13 +51,13 @@ namespace WMS.WebApi.Controllers
             return new OkResult();
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         [AllowAnonymous]
-        public IActionResult Put([FromBody] UpdateProductModel model)
+        public IActionResult Put(int id, [FromBody] UpdateProductModel model)
         {
             var dto = new ProductDto
             {
-                Id = model.Id,
+                Id = id,
                 Name = model.Name,
                 Category = model.Category,
                 Quantity = model.Quantity,
@@ -67,7 +75,5 @@ namespace WMS.WebApi.Controllers
             productService.Delete(id);
             return new OkResult();
         }
-
-
     }
 }

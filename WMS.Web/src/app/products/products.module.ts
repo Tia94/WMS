@@ -7,17 +7,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AddProductComponent } from './add-product/add-product.component';
 import { RouterModule } from '@angular/router';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   imports: [
     CommonModule,
     Ng2TableModule,
     FormsModule,
+    AlertModule.forRoot(),
     PaginationModule.forRoot(),
     RouterModule,
     ReactiveFormsModule
   ],
-  declarations: [ProductsListComponent, AddProductComponent],
+  declarations: [ProductsListComponent, AddProductComponent, UpdateProductComponent],
   providers: [ProductService]
 })
 export class ProductsModule { }

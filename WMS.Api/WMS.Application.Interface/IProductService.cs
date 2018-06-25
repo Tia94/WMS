@@ -7,6 +7,8 @@ namespace WMS.Application.Interface
     {
         IList<ProductDto> Get();
 
+        ProductDto Get(int id);
+
         void Add(ProductDto dto);
 
         void Update(ProductDto dto);

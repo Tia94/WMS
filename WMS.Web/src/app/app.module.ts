@@ -15,13 +15,15 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { Ng2TableModule } from 'ng2-table';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { UpdateProductComponent } from './products/update-product/update-product.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'products/add', component: AddProductComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'products/add', component: AddProductComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'products/update/:id', component: UpdateProductComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({

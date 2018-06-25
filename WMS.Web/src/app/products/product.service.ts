@@ -13,9 +13,14 @@ export class ProductService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  public get(): Observable<any> {
+  public list(): Observable<any> {
     return this.http
       .get(this.url, { headers: this.headers });
+  }
+
+  public get(id: number): Observable<any> {
+    return this.http
+      .get(`${this.url}\\${id}`, { headers: this.headers });
   }
 
   public add(name: string, category: string, quantity: number, price: number): void {
