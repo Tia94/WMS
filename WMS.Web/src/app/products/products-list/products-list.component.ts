@@ -67,7 +67,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    debugger;
     let index = this.products.indexOf(this.selectedProduct);
 
     if (index !== -1) {
