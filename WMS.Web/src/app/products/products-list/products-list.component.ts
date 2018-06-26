@@ -39,10 +39,16 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  showDialogToAdd() {
+  showDialog() {
     this.newProduct = true;
     this.product = {};
     this.displayDialog = true;
+  }
+
+  closeDialog() {
+    this.newProduct = false;
+    this.product = null;
+    this.displayDialog = false;
   }
 
   save() {
@@ -51,7 +57,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       products.push(this.product);
       this.productService.add(this.product.name, this.product.category, this.product.quantity, this.product.price)
         .subscribe(response => {
-
         });
     }
     else {
@@ -62,8 +67,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     this.products = products;
-    this.product = null;
-    this.displayDialog = false;
+    close();
   }
 
   delete() {
@@ -73,12 +77,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.productService.delete(this.selectedProduct.id)
         .subscribe(response => {
           this.products = this.products.filter((val, i) => i != index);
-          this.product = null;
-          this.displayDialog = false;
+          close();
         });
     }
-
   }
+
 
   onRowSelect(event) {
     this.newProduct = false;

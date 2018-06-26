@@ -4,13 +4,29 @@
 
 <br/>
 
-<p-table [columns]="cols" [(value)]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)"
+<p-table #dt [columns]="cols" [(value)]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)"
   [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]">
+
+  <ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+        style="width:auto">
+    </div>
+  </ng-template>
 
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
         {{col.header}}
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+        <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'category'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'quantity'" pInputText type="number" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'price'" pInputText type="number" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
       </th>
     </tr>
   </ng-template>
@@ -36,7 +52,7 @@
         <label for="name">Name</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="name" [(ngModel)]="product.name" />
+        <input pInputText type="text" id="name" [(ngModel)]="product.name" />
       </div>
     </div>
     <div class="ui-g-12">
@@ -44,7 +60,7 @@
         <label for="category">Category</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="category" [(ngModel)]="product.category" />
+        <input pInputText type="text" id="category" [(ngModel)]="product.category" />
       </div>
     </div>
     <div class="ui-g-12">
@@ -52,7 +68,7 @@
         <label for="quantity">Quantity</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="quantity" [(ngModel)]="product.quantity" />
+        <input pInputText type="number" id="quantity" [(ngModel)]="product.quantity" />
       </div>
     </div>
     <div class="ui-g-12">
@@ -60,14 +76,15 @@
         <label for="price">Price</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="price" [(ngModel)]="product.price" />
+        <input pInputText type="number" id="price" [(ngModel)]="product.price" />
       </div>
     </div>
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete" class="ui-button-danger"></button>
       <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+      <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete" class="ui-button-danger" *ngIf="newProduct === false"></button>
+      <button type="button" pButton icon="fa fa-close" (click)="close()" label="Close" class="ui-button-secondary"></button>
     </div>
   </p-footer>
 </p-dialog>
