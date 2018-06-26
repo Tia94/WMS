@@ -67,7 +67,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     this.products = products;
-    close();
+    this.closeDialog();
   }
 
   delete() {
@@ -77,7 +77,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.productService.delete(this.selectedProduct.id)
         .subscribe(response => {
           this.products = this.products.filter((val, i) => i != index);
-          close();
+          this.closeDialog();
         });
     }
   }
