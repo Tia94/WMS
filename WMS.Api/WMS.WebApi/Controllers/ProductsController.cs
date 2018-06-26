@@ -23,7 +23,7 @@ namespace WMS.WebApi.Controllers
         public IActionResult Get()
         {
             var products = productService.Get();
-            return new OkObjectResult(new {Data = products, Total = products.Count});
+            return new OkObjectResult(products);
         }
 
         [HttpGet("{id:int}")]

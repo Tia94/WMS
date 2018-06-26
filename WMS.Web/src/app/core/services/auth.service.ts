@@ -88,7 +88,6 @@ export class AuthService {
     this.http
       .post(`${this.url}/register`, dto, { headers: this.headers })
       .subscribe((response: any) => {
-        debugger;
       });
 
   }

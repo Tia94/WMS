@@ -13,9 +13,9 @@ import { ProductsModule } from './products/products.module';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
-import { Ng2TableModule } from 'ng2-table';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,7 +36,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    Ng2TableModule,
+    BrowserAnimationsModule,
     FormsModule,
     // RouterModule.forRoot(appRoutes, { enableTracing: true }), // <-- debugging purposes only
     RouterModule.forRoot(appRoutes), // <-- debugging purposes only

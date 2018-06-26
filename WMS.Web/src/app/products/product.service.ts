@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISubscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -18,27 +17,29 @@ export class ProductService {
       .get(this.url, { headers: this.headers });
   }
 
-  public get(id: number): Observable<any> {
-    return this.http
-      .get(`${this.url}\\${id}`, { headers: this.headers });
+  list2() {
+    return this.http.get(this.url, { headers: this.headers })
+      .toPromise();
   }
 
-  public add(name: string, category: string, quantity: number, price: number): void {
-    this.http
-      .post(this.url, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers })
-      .subscribe(response => {
-        this.router.navigate(["/products"]);
-      });
+  public get(id: number): Observable<any> {
+    return this.http
+      .get(`${this.url}/${id}`, { headers: this.headers });
+  }
+
+  public add(name: string, category: string, quantity: number, price: number): Observable<any> {
+    return this.http
+      .post(this.url, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers });
   }
 
   public delete(id: number): Observable<any> {
     return this.http
-      .delete(`${this.url}\\${id}`, { headers: this.headers });;
+      .delete(`${this.url}/${id}`, { headers: this.headers });;
   }
 
   public update(id: number, name: string, category: string, quantity: number, price: number): Observable<any> {
     return this.http
-      .put(`${this.url}\\${id}`, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers });
+      .put(`${this.url}/${id}`, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers });
   }
 
 }
