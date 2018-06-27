@@ -17,6 +17,13 @@ namespace WMS.Application
             this.userRepository = userRepository;
         }
 
+        public void Activate(Guid guid)
+        {
+            var user = userRepository.Get(guid);
+            user.IsActive = true;
+            userRepository.Update(user);
+        }
+
         public UserDto Login(string username, string password)
         {
             var user = userRepository.Get(username, password);
@@ -37,10 +44,10 @@ namespace WMS.Application
 
         public void RegisterClient(RegisterDto dto)
         {
-            var user = new User(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email, dto.TelephoneNumber,
-                dto.Address, Role.Client);
+            var user = new Client(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email, dto.TelephoneNumber,
+                dto.Address);
 
-            user.ActivationCode = Guid.NewGuid();
+            userRepository.Add(user);
 
             var smtp = new SmtpClient
             {
@@ -49,18 +56,18 @@ namespace WMS.Application
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("****", "*****")
+                Credentials = new NetworkCredential("*******", "*******")
             };
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress("WMS@gmail.com");
-            mailMessage.To.Add("******");
+            mailMessage.To.Add("*******");
             mailMessage.Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>" ;
             mailMessage.Subject = "subject";
             smtp.Send(mailMessage);
             smtp.Dispose();
 
-            userRepository.Add(user);
+          
         }
     }
 }

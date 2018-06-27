@@ -74,6 +74,7 @@ namespace WMS.WebApi.Controllers
         [HttpGet("activate/{guid:Guid}")]
         public IActionResult Activate(Guid guid)
         {
+            authenticationService.Activate(guid);
             return Ok();
         }
 

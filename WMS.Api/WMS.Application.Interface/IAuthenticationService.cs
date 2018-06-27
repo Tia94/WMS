@@ -1,4 +1,5 @@
-﻿using WMS.Application.Dto;
+﻿using System;
+using WMS.Application.Dto;
 
 namespace WMS.Application.Interface
 {
@@ -7,5 +8,6 @@ namespace WMS.Application.Interface
         UserDto Login(string username, string password);
         
         void RegisterClient(RegisterDto dto);
+        void Activate(Guid guid);
     }
 }

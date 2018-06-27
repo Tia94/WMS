@@ -15,6 +15,8 @@ namespace WMS.Domain.Model
             TelephoneNumber = telephoneNumber;
             Address = address;
             Role = role;
+            ActivationCode = Guid.NewGuid();
+            IsActive = false;
         }
 
         protected User()
@@ -37,7 +39,7 @@ namespace WMS.Domain.Model
 
         public Role Role { get; set; }
 
-        public Guid ActivationCode { get; set; }
+        public Guid ActivationCode { get; protected set; }
 
         public bool IsActive { get; set; }
 
