@@ -18,6 +18,8 @@ namespace WMS.Infrastructure.Repository.Migrations
                 table: "User",
                 nullable: false,
                 defaultValue: false);
+
+     
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
