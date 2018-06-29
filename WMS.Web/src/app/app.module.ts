@@ -14,12 +14,14 @@ import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsersListComponent } from './management/users-list/users-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'users', component: UsersListComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({

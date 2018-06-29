@@ -9,6 +9,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/primeng';
+import { UsersListComponent } from './users-list/users-list.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { ButtonModule } from 'primeng/primeng';
     DialogModule,
     ButtonModule
   ],
-  declarations: [ProductsListComponent],
+  declarations: [ProductsListComponent, UsersListComponent],
   providers: [ProductService]
 })
 export class ManagementModule { }
