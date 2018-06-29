@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WMS.Domain.Model;
+using WMS.Domain.Model.Users;
 
 namespace WMS.Infrastructure.Repository
 {

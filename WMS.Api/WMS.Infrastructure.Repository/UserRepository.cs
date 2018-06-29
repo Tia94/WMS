@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using WMS.Domain.Model;
+using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
 
 namespace WMS.Infrastructure.Repository

@@ -1,5 +1,6 @@
 ﻿using WMS.Domain.Model;
 using System;
+using WMS.Domain.Model.Users;
 
 namespace WMS.Domain.Repository.Interface
 {

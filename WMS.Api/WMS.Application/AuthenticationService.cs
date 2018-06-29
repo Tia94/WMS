@@ -4,6 +4,7 @@ using System.Net.Mail;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.Domain.Model;
+using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
 
 namespace WMS.Application

@@ -1,4 +1,5 @@
 ﻿using WMS.Domain.Model;
+using WMS.Domain.Model.Users;
 using Xunit;
 
 namespace WMS.Infrastructure.Repository.Tests

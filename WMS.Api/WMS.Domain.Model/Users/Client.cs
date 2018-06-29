@@ -1,4 +1,4 @@
-﻿namespace WMS.Domain.Model
+﻿namespace WMS.Domain.Model.Users
 {
     public class Client : User
     {

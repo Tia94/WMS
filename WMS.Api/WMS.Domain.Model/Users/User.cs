@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WMS.Domain.Model
+namespace WMS.Domain.Model.Users
 {
     public class User : Entity
     {
