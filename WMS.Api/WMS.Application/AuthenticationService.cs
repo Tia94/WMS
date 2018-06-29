@@ -44,11 +44,17 @@ namespace WMS.Application
 
         public void RegisterClient(RegisterDto dto)
         {
-            var user = new Client(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email, dto.TelephoneNumber,
+            var user = new Client(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email,
+                dto.TelephoneNumber,
                 dto.Address);
 
             userRepository.Add(user);
 
+            SendActivationEmail(user);
+        }
+
+        private static void SendActivationEmail(User user)
+        {
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -59,15 +65,18 @@ namespace WMS.Application
                 Credentials = new NetworkCredential("*******", "*******")
             };
 
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("WMS@gmail.com");
-            mailMessage.To.Add("*******");
-            mailMessage.Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>" ;
-            mailMessage.Subject = "subject";
-            smtp.Send(mailMessage);
-            smtp.Dispose();
+            using (smtp)
+            {
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("WMS@gmail.com"),
+                    Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>",
+                    Subject = "subject"
+                };
 
-          
+                mailMessage.To.Add(user.Email);
+                smtp.Send(mailMessage);
+            }
         }
     }
 }

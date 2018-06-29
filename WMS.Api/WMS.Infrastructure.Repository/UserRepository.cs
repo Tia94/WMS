@@ -17,7 +17,7 @@ namespace WMS.Infrastructure.Repository
 
         public User Get(string username, string password)
         {
-            return context.Users.SingleOrDefault(x => x.Username == username && x.Password == password && x.IsActive);            
+            return context.Users.SingleOrDefault(x => x.Username == username && x.Password == password && x.IsActive);
         }
 
         public void Add(User user)
@@ -28,8 +28,7 @@ namespace WMS.Infrastructure.Repository
 
         public User Get(Guid activatinCode)
         {
-           return  context.Users.SingleOrDefault(x => x.ActivationCode == activatinCode);
-
+            return context.Users.SingleOrDefault(x => x.ActivationCode == activatinCode);
         }
 
         public void Update(User user)
