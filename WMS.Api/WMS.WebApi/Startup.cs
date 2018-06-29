@@ -47,7 +47,7 @@ namespace WMS.WebApi
                 });
 
             services
-                .AddScoped<IAuthenticationService, AuthenticationService>()
+                .AddScoped<IUserService, UserService>()
                 .AddScoped<IProductService, ProductService>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IProductRepository, ProductRepository>();

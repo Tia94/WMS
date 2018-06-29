@@ -4,7 +4,7 @@ namespace WMS.Domain.Model.Users
 {
     public class User : Entity
     {
-        public User(string username, string firstname, string lastname, string password, string email,
+        protected User(string username, string firstname, string lastname, string password, string email,
             string telephoneNumber, string address, Role role)
         {
             Username = username;
@@ -42,6 +42,5 @@ namespace WMS.Domain.Model.Users
         public Guid ActivationCode { get; protected set; }
 
         public bool IsActive { get; set; }
-
     }
 }

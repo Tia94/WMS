@@ -1,5 +1,4 @@
-﻿using WMS.Domain.Model;
-using System;
+﻿using System;
 using WMS.Domain.Model.Users;
 
 namespace WMS.Domain.Repository.Interface
@@ -12,5 +11,4 @@ namespace WMS.Domain.Repository.Interface
         void Add(User user);
         void Update(User user);
     }
-
 }

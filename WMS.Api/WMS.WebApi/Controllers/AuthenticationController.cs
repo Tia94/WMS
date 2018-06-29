@@ -21,14 +21,14 @@ namespace WMS.WebApi.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IConfiguration configuration;
-        private readonly IAuthenticationService authenticationService;
+        private readonly IUserService userService;
         private readonly ILogger<AuthenticationController> logger;
 
-        public AuthenticationController(IConfiguration configuration, IAuthenticationService authenticationService,
+        public AuthenticationController(IConfiguration configuration, IUserService userService,
             ILogger<AuthenticationController> logger)
         {
             this.configuration = configuration;
-            this.authenticationService = authenticationService;
+            this.userService = userService;
             this.logger = logger;
         }
 
@@ -65,7 +65,7 @@ namespace WMS.WebApi.Controllers
                 Address = model.Address
             };
 
-            authenticationService.RegisterClient(registerDto);
+            userService.RegisterClient(registerDto);
 
             return Ok();
         }
@@ -74,7 +74,7 @@ namespace WMS.WebApi.Controllers
         [HttpGet("activate/{guid:Guid}")]
         public IActionResult Activate(Guid guid)
         {
-            authenticationService.Activate(guid);
+            userService.Activate(guid);
             return Ok();
         }
 
@@ -82,7 +82,7 @@ namespace WMS.WebApi.Controllers
         {
             const string authType = "Token";
 
-            var userDto = authenticationService.Login(model.Username, model.Password);
+            var userDto = userService.Get(model.Username, model.Password);
 
             if (userDto?.Role == null)
                 return Task.FromResult<ClaimsIdentity>(null);

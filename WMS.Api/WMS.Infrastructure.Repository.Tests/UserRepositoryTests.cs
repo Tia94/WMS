@@ -1,5 +1,4 @@
-﻿using WMS.Domain.Model;
-using WMS.Domain.Model.Users;
+﻿using WMS.Infrastructure.Repository.Tests.Factories;
 using Xunit;
 
 namespace WMS.Infrastructure.Repository.Tests
@@ -15,10 +14,61 @@ namespace WMS.Infrastructure.Repository.Tests
         }
 
         [Fact]
-        public void GetTest()
+        public void GetAdminTest()
         {
-            var user = new User("Test_Username", "Test_Firstname", "Test_Lastname", "Test_Password", "Test_Email",
-                "Test_Tel_Number", "Test_Address", Role.Client);
+            var user = UserFactory.CreateAdmin();
+
+            using (var context = GetWMSContext())
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+
+            var dbUser = sut.Get(user.Username, user.Password);
+
+            Assert.NotNull(dbUser);
+            Assert.Equal(user.Username, dbUser.Username);
+        }
+
+        [Fact]
+        public void GetClientTest()
+        {
+            var user = UserFactory.CreateClient();
+
+            using (var context = GetWMSContext())
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+
+            var dbUser = sut.Get(user.Username, user.Password);
+
+            Assert.NotNull(dbUser);
+            Assert.Equal(user.Username, dbUser.Username);
+        }
+
+        [Fact]
+        public void GetKeeperTest()
+        {
+            var user = UserFactory.CreateKeeper();
+
+
+            using (var context = GetWMSContext())
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+
+            var dbUser = sut.Get(user.Username, user.Password);
+
+            Assert.NotNull(dbUser);
+            Assert.Equal(user.Username, dbUser.Username);
+        }
+
+        [Fact]
+        public void GetDriverTest()
+        {
+            var user = UserFactory.CreateDriver();
 
             using (var context = GetWMSContext())
             {

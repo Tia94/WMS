@@ -46,12 +46,12 @@ namespace WMS.Infrastructure.Repository
             if (context.Users.Any())
                 return; // DB has been seeded
 
-            var users = new[]
+            var users = new User[]
             {
-                new User("admin", "System", "Admin", "1234", "admin@gmail.com", "0933594236", "", Role.Admin),
+                new Admin("admin", "System", "Admin", "1234", "admin@gmail.com", "0933594236", ""),
                 new Client("client", "App", "Client", "1234", "client@gmail.com", "0933594236", ""),
-                new User("driver", "Truck", "Driver", "1234", "driver@gmail.com", "0933594236", "", Role.Driver),
-                new User("keeper", "Store", "Keeper", "1234", "keeper@gmail.com", "0933594236", "", Role.Keeper)
+                new Driver("driver", "Truck", "Driver", "1234", "driver@gmail.com", "0933594236", ""),
+                new Keeper("keeper", "Store", "Keeper", "1234", "keeper@gmail.com", "0933594236", "")
             };
 
             context.Users.AddRange(users);

@@ -3,9 +3,9 @@ using WMS.Application.Dto;
 
 namespace WMS.Application.Interface
 {
-    public interface IAuthenticationService
+    public interface IUserService
     {
-        UserDto Login(string username, string password);
+        UserDto Get(string username, string password);
         
         void RegisterClient(RegisterDto dto);
         void Activate(Guid guid);

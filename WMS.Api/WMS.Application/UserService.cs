@@ -3,29 +3,21 @@ using System.Net;
 using System.Net.Mail;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
-using WMS.Domain.Model;
 using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
 
 namespace WMS.Application
 {
-    public class AuthenticationService : IAuthenticationService
+    public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
 
-        public AuthenticationService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
 
-        public void Activate(Guid guid)
-        {
-            var user = userRepository.Get(guid);
-            user.IsActive = true;
-            userRepository.Update(user);
-        }
-
-        public UserDto Login(string username, string password)
+        public UserDto Get(string username, string password)
         {
             var user = userRepository.Get(username, password);
             if (user != null)
@@ -46,12 +38,18 @@ namespace WMS.Application
         public void RegisterClient(RegisterDto dto)
         {
             var user = new Client(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email,
-                dto.TelephoneNumber,
-                dto.Address);
+                dto.TelephoneNumber, dto.Address);
 
             userRepository.Add(user);
 
             SendActivationEmail(user);
+        }
+
+        public void Activate(Guid guid)
+        {
+            var user = userRepository.Get(guid);
+            user.IsActive = true;
+            userRepository.Update(user);
         }
 
         private static void SendActivationEmail(User user)
