@@ -21,5 +21,7 @@
         public string Role { get; set; }
 
         public bool IsActive { get; set; }
+
+        public int Level { get; protected set; }
     }
 }
