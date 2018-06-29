@@ -14,7 +14,7 @@ export class ProductService {
 
   public list(): Observable<any> {
     return this.http
-      .get(this.url, { headers: this.headers });
+      .get(this.url, { headers: this.headers }  );
   }
 
   list2() {
