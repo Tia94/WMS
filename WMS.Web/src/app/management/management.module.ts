@@ -4,9 +4,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductService } from './product.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { AddProductComponent } from './add-product/add-product.component';
 import { RouterModule } from '@angular/router';
-import { UpdateProductComponent } from './update-product/update-product.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
@@ -24,7 +22,7 @@ import { ButtonModule } from 'primeng/primeng';
     DialogModule,
     ButtonModule
   ],
-  declarations: [ProductsListComponent, AddProductComponent, UpdateProductComponent],
+  declarations: [ProductsListComponent],
   providers: [ProductService]
 })
-export class ProductsModule { }
+export class ManagementModule { }

@@ -7,23 +7,19 @@ import { RegisterComponent } from './core/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ProductsListComponent } from './products/products-list/products-list.component';
+import { ProductsListComponent } from './management/products-list/products-list.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { ProductsModule } from './products/products.module';
+import { ManagementModule } from './management/management.module';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
-import { AddProductComponent } from './products/add-product/add-product.component';
-import { UpdateProductComponent } from './products/update-product/update-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'products/add', component: AddProductComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'products/update/:id', component: UpdateProductComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -42,7 +38,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes), // <-- debugging purposes only
     HttpClientModule,
     ReactiveFormsModule,
-    ProductsModule
+    ManagementModule
   ],
   providers: [AuthGuard, AuthService, {
     provide: HTTP_INTERCEPTORS,
