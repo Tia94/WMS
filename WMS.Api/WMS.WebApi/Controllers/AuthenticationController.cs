@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using WMS.Application.Interface;
 using WMS.Application.Dto;
 using WMS.WebApi.Models;
+using WMS.WebApi.Models.Users;
 
 namespace WMS.WebApi.Controllers
 {

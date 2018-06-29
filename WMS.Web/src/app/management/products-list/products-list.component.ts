@@ -11,7 +11,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
 
-  public title: string = "Products";
+  public title: string = "Manage Products";
   public products: Array<any> = new Array<any>();
   public product: any;
   public selectedProduct: any;
@@ -81,7 +81,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         });
     }
   }
-
 
   onRowSelect(event) {
     this.newProduct = false;

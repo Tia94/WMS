@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/primeng';
 import { UsersListComponent } from './users-list/users-list.component';
+import { UserService } from './user.service';
 
 @NgModule({
   imports: [
@@ -24,6 +25,6 @@ import { UsersListComponent } from './users-list/users-list.component';
     ButtonModule
   ],
   declarations: [ProductsListComponent, UsersListComponent],
-  providers: [ProductService]
+  providers: [ProductService, UserService ]
 })
 export class ManagementModule { }

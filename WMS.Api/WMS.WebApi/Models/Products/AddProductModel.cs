@@ -1,6 +1,6 @@
-﻿namespace WMS.WebApi.Models.Product
+﻿namespace WMS.WebApi.Models.Products
 {
-    public class UpdateProductModel
+    public class AddProductModel
     {
         public string Name { get; set; }
 

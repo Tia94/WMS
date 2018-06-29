@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using WMS.Domain.Model;
 using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
 
@@ -37,6 +37,23 @@ namespace WMS.Infrastructure.Repository
             context.Users.Attach(user);
             var entity = context.Entry(user);
             entity.State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public IList<User> Get()
+        {
+            return context.Users.ToList();
+        }
+
+        public User Get(int id)
+        {
+            return context.Users.Single(x => x.Id == id);
+        }
+
+        public void Delete(int id)
+        {
+            var user = context.Users.Single(x => x.Id == id);
+            context.Users.Remove(user);
             context.SaveChanges();
         }
     }

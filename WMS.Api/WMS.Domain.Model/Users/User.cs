@@ -4,7 +4,7 @@ namespace WMS.Domain.Model.Users
 {
     public class User : Entity
     {
-        protected User(string username, string firstname, string lastname, string password, string email,
+        public User(string username, string firstname, string lastname, string password, string email,
             string telephoneNumber, string address, Role role)
         {
             Username = username;

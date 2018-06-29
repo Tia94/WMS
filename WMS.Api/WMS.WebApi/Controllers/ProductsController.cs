@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.WebApi.Models;
-using WMS.WebApi.Models.Product;
+using WMS.WebApi.Models.Products;
 
 namespace WMS.WebApi.Controllers
 {
