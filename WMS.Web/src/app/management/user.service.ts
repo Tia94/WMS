@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class UserService {
 
-  private url: string = `${environment.apiUrl}/api/Products`
+  private url: string = `${environment.apiUrl}/api/Users`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) { }

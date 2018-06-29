@@ -15,6 +15,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersListComponent } from './management/users-list/users-list.component';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/primeng';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,7 +42,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes), // <-- debugging purposes only
     HttpClientModule,
     ReactiveFormsModule,
-    ManagementModule
+    ManagementModule,
+    CardModule,
+    ButtonModule
   ],
   providers: [AuthGuard, AuthService, {
     provide: HTTP_INTERCEPTORS,

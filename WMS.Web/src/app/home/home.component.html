@@ -1,4 +1,42 @@
-<p>
-    home works!
-  </p>
-  
+<h2>
+  {{title}}
+</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <a routerLink="/products" routerLinkActive="active">
+        <p-card title="Manage Products" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
+
+          <p-header>
+            <img src="Card" src="assets/images/products.jpg">
+          </p-header>
+
+          <div>
+            View, add, edit and delete products.
+          </div>
+
+        </p-card>
+      </a>
+    </div>
+
+    <div class="col-sm">
+      <a routerLink="/users" routerLinkActive="active">
+        <p-card title="Manage Users" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
+
+          <p-header>
+            <img src="Card" src="assets/images/users.png">
+          </p-header>
+
+          <div>
+            View, add, edit and delete users.
+          </div>
+
+        </p-card>
+      </a>
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
