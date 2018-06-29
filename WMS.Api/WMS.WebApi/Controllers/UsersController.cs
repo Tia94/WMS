@@ -61,7 +61,7 @@ namespace WMS.WebApi.Controllers
         {
             var dto = new UserDto
             {
-                Id = model.Id,
+                Id = id,
                 Username = model.Username,
                 Password = model.Password,
                 Firstname = model.Firstname,

@@ -112,6 +112,7 @@ namespace WMS.Application
         {
             return new UserDto
             {
+                Id = user.Id,
                 Username = user.Username,
                 Password = user.Password,
                 Firstname = user.Firstname,

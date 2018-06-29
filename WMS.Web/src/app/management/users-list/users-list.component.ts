@@ -18,7 +18,9 @@ export class UsersListComponent implements OnInit {
   public newUser: boolean;
   public displayDialog: boolean;
 
-  public cols: Array<any> = new Array<any>();
+  public cols: Array<any>;
+  public roles: Array<any>;
+  public selectedRole: any = {};
 
   constructor(private userService: UserService) {
 
@@ -29,14 +31,20 @@ export class UsersListComponent implements OnInit {
 
     this.cols = [
       { field: "username", header: "Username" },
-      { field: "password", header: "Password" },
       { field: "firstname", header: "First Name" },
       { field: "lastname", header: "Last Name" },
       { field: "email", header: "Email" },
       { field: "telephoneNumber", header: "Tel" },
       { field: "address", header: "Address" },
       { field: "role", header: "Role" },
-      { field: "isActive", header: "Active" },
+      // { field: "isActive", header: "Active" },
+    ];
+
+    this.roles = [
+      { name: "Admin", value: 'Admin' },
+      { name: 'Client', value: 'Client' },
+      { name: 'Driver', value: 'Driver' },
+      { name: 'Store Keeper', value: 'Keeper' }
     ];
   }
 
@@ -61,14 +69,14 @@ export class UsersListComponent implements OnInit {
     if (this.newUser) {
       users.push(this.user);
       this.userService.add(this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber, this.user.address,
-        this.user.role, this.user.isActive)
+        this.selectedRole.value, this.user.isActive)
         .subscribe(response => {
         });
     }
     else {
       users[this.users.indexOf(this.selectedUser)] = this.user;
-      this.userService.update(this.user.id, this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber, this.user.address,
-        this.user.role, this.user.isActive)
+      this.userService.update(this.user.id, this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber,
+        this.user.address, this.selectedRole.value, this.user.isActive)
         .subscribe(response => {
         });
     }

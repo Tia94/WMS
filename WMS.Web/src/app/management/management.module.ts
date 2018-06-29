@@ -11,6 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/primeng';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserService } from './user.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
@@ -22,9 +25,12 @@ import { UserService } from './user.service';
     ReactiveFormsModule,
     TableModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule,
+    CheckboxModule,
+    InputTextModule
   ],
   declarations: [ProductsListComponent, UsersListComponent],
-  providers: [ProductService, UserService ]
+  providers: [ProductService, UserService]
 })
 export class ManagementModule { }
