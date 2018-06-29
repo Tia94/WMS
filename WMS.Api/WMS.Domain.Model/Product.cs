@@ -10,6 +10,11 @@
             Price = price;
         }
 
+        protected Product()
+        {
+
+        }
+
         public string Name { get; set; }
 
         public string Category { get; set; }

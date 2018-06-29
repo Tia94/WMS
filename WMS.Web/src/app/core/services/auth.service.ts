@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import * as jwt_decode from "jwt-decode";
+import { environment } from '../../../environments/environment';
 
 export const TOKEN_NAME: string = "auth_token";
 
 @Injectable()
 export class AuthService {
 
-   private url: string = 'http://localhost:50234//api/auth';  // Patricia
-  //private url: string = "http://localhost:61796/api/auth";     // Rami
+  private url: string = `${environment.apiUrl}/api/auth`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   public redirectUrl: string = "";

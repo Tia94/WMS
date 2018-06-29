@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProductService {
 
-  //  private url: string = 'http://localhost:50234//api/Products';  // Patricia
-  private url: string = "http://localhost:61796/api/Products";     // Rami
+  private url: string = `${environment.apiUrl}/api/Products`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) { }
 
   public list(): Observable<any> {
     return this.http
-      .get(this.url, { headers: this.headers }  );
+      .get(this.url, { headers: this.headers });
   }
 
   list2() {

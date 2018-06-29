@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UserService {
 
-  //  private url: string = 'http://localhost:50234//api/users';  // Patricia
-  private url: string = "http://localhost:61796/api/users";     // Rami
+  private url: string = `${environment.apiUrl}/api/Products`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -30,8 +30,10 @@ export class UserService {
   public add(username: string, password: string, firstname: string, lastname: string, email: string, telephoneNumber: string, address: string,
     role: string, isActive: boolean): Observable<any> {
     return this.http
-      .post(this.url, { username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber, 
-        address: address, role: role, isActive: isActive }, { headers: this.headers });
+      .post(this.url, {
+        username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber,
+        address: address, role: role, isActive: isActive
+      }, { headers: this.headers });
   }
 
   public delete(id: number): Observable<any> {
@@ -42,8 +44,10 @@ export class UserService {
   public update(id: number, username: string, password: string, firstname: string, lastname: string, email: string, telephoneNumber: string, address: string,
     role: string, isActive: boolean): Observable<any> {
     return this.http
-      .put(`${this.url}/${id}`, { name: name, username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber, 
-        address: address, role: role, isActive: isActive }, { headers: this.headers });
+      .put(`${this.url}/${id}`, {
+        name: name, username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber,
+        address: address, role: role, isActive: isActive
+      }, { headers: this.headers });
   }
 
 }
