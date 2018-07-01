@@ -3,11 +3,11 @@ import { ISubscription } from 'rxjs/Subscription';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  selector: 'app-manage-users',
+  templateUrl: './manage-users.component.html',
+  styleUrls: ['./manage-users.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class ManageUsersComponent implements OnInit {
 
   private subscription: ISubscription;
 

@@ -3,11 +3,11 @@ import { ProductService } from '../product.service';
 import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-products-list',
-  templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.css']
+  selector: 'app-manage-products',
+  templateUrl: './manage-products.component.html',
+  styleUrls: ['./manage-products.component.css']
 })
-export class ProductsListComponent implements OnInit, OnDestroy {
+export class ManageProductsComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
 

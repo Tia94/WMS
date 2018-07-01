@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WMS.Domain.Model;
+using WMS.Domain.Model.Orders;
 using WMS.Domain.Model.Users;
 
 namespace WMS.Infrastructure.Repository
@@ -18,6 +19,8 @@ namespace WMS.Infrastructure.Repository
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable(nameof(User));
@@ -26,7 +29,17 @@ namespace WMS.Infrastructure.Repository
 
             modelBuilder.Entity<Product>().ToTable(nameof(Product));
             modelBuilder.Entity<Product>().HasKey(x => x.Id);
-            modelBuilder.Entity<Product>().Property(x => x.Price).HasColumnType("decimal(9, 3)");
+            modelBuilder.Entity<Product>().Property(x => x.Price).HasColumnType(SqlServerTypes.Decimal);
+
+            modelBuilder.Entity<Order>().ToTable(nameof(Order));
+            modelBuilder.Entity<Order>().HasKey(x => x.Id);
+            modelBuilder.Entity<Order>().HasMany(x => x.Items);
+            modelBuilder.Entity<Order>().HasOne(x => x.Client);
+
+            modelBuilder.Entity<OrderItem>().ToTable(nameof(OrderItem));
+            modelBuilder.Entity<OrderItem>().HasKey(x => x.Id);
+            modelBuilder.Entity<OrderItem>().HasOne(x => x.Product);
+            modelBuilder.Entity<OrderItem>().Property(x => x.Price).HasColumnType(SqlServerTypes.Decimal);
         }
     }
 }

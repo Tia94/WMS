@@ -7,23 +7,24 @@ import { RegisterComponent } from './core/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ProductsListComponent } from './management/products-list/products-list.component';
+import { ManageProductsComponent } from './management/manage-products/manage-products.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ManagementModule } from './management/management.module';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UsersListComponent } from './management/users-list/users-list.component';
+import { ManageUsersComponent } from './management/manage-users/manage-users.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/primeng';
+import { ProductsListComponent } from './ordering/products-list/products-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'users', component: UsersListComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    VisibleForDirective
+    VisibleForDirective,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,

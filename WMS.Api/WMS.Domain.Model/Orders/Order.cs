@@ -3,42 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using WMS.Domain.Model.Users;
 
-namespace WMS.Domain.Model
+namespace WMS.Domain.Model.Orders
 {
-    public class OrderItem
-    {
-        public OrderItem(Product product, int quantity)
-        {
-            Product = product;
-            Quantity = quantity;
-        }
-
-        protected OrderItem()
-        {
-        }
-
-        public Product Product { get; set; }
-
-        public int Quantity { get; set; }
-
-        public decimal Price { get; set; }
-    }
-
-    public class Order
+    public class Order : Entity
     {
         public Order(Client client)
         {
             Items = new List<OrderItem>();
             Number = Guid.NewGuid();
 
-            Client = client;
+            Client = client ?? throw new ArgumentNullException(nameof(client));
+            ClientId = client.Id;
         }
 
-        public Guid Number { get; }
+        protected Order()
+        {
+        }
 
-        public ICollection<OrderItem> Items { get; }
+        public Guid Number { get; protected set; }
 
-        public Client Client { get; }
+        public virtual ICollection<OrderItem> Items { get; protected set; }
+
+        public virtual Client Client { get; protected set; }
+        public int ClientId { get; protected set; }
 
         public decimal Total => Items.Sum(x => x.Price);
 
@@ -54,6 +41,12 @@ namespace WMS.Domain.Model
             {
                 item.Quantity += quantity;
             }
+        }
+
+        public void RemoveItem(Product product)
+        {
+            var item = Items.Single(x => x.Product.Id == product.Id);
+            Items.Remove(item);
         }
     }
 }
