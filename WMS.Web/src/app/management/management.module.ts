@@ -9,11 +9,11 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/primeng';
-import { ManageUsersComponent } from './manage-users/manage-users.component';
-import { UserService } from './user.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
+import { UserService } from './user.service';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 @NgModule({
   imports: [

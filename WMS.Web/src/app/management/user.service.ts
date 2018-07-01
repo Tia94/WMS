@@ -17,11 +17,6 @@ export class UserService {
       .get(this.url, { headers: this.headers });
   }
 
-  list2() {
-    return this.http.get(this.url, { headers: this.headers })
-      .toPromise();
-  }
-
   public get(id: number): Observable<any> {
     return this.http
       .get(`${this.url}/${id}`, { headers: this.headers });

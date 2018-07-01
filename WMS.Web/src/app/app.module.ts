@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './management/manage-users/manage-users.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/primeng';
-import { ProductsListComponent } from './ordering/products-list/products-list.component';
+import { OrderingModule } from './ordering/ordering.module';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,8 +33,7 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    VisibleForDirective,
-    ProductsListComponent
+    VisibleForDirective
   ],
   imports: [
     BrowserModule,
@@ -45,6 +44,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     ManagementModule,
+    OrderingModule,
     CardModule,
     ButtonModule
   ],
