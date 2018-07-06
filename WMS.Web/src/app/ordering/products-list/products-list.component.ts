@@ -13,12 +13,6 @@ export class ProductsListComponent implements OnInit {
 
   public title: string = "Products";
   public products: Array<any> = new Array<any>();
-  public product: any;
-  public selectedProduct: any;
-  public newProduct: boolean;
-  public displayDialog: boolean;
-
-  public cols: Array<any> = new Array<any>();
 
   constructor(private orderService: OrderService) {
 
@@ -26,17 +20,12 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.orderService.listProducts().subscribe(data => this.products = data);
-
-    this.cols = [
-      { field: "name", header: "Name" },
-      { field: "category", header: "Category" },
-      { field: "quantity", header: "Quantity" },
-      { field: "price", header: "Price" },
-    ];
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+
 
 }

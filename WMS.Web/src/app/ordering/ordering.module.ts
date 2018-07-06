@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonModule, PaginatorModule } from 'primeng/primeng';
+import { ButtonModule, PaginatorModule, CardModule } from 'primeng/primeng';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -18,7 +18,8 @@ import { ProductsListComponent } from './products-list/products-list.component';
     DropdownModule,
     CheckboxModule,
     InputTextModule,
-    PaginatorModule
+    PaginatorModule,
+    CardModule
   ],
   declarations: [ProductsListComponent],
   providers: [OrderService]

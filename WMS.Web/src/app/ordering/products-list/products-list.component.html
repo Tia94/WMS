@@ -4,41 +4,123 @@
 
 <br/>
 
-<p-table #dt [columns]="cols" [(value)]="products" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]">
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
 
-  <ng-template pTemplate="caption">
-    <div style="text-align: right">
-      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
-        style="width:auto">
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
     </div>
-  </ng-template>
+    
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
 
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns">
-        {{col.header}}
-      </th>
-    </tr>
-    <tr>
-      <th *ngFor="let col of columns" [ngSwitch]="col.field">
-        <!-- <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'category'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'quantity'" pInputText type="number" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'price'" pInputText type="number" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"> -->
-      </th>
-    </tr>
-  </ng-template>
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
 
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData">
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
-      </td>
-    </tr>
-  </ng-template>
+        <div>
+          View, add, edit and delete products.
+        </div>
 
-  <ng-template pTemplate="summary">
-    Total {{products?.length}} products
-  </ng-template>
-</p-table>
+      </p-card>
+    </div>
+
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+    
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+    
+  </div>
+
+
+  <div class="row" style="padding-top: 10px;">
+    
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+    
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+    
+    <div class="col-3">
+      <p-card title="Manage Products" subtitle="" class="wide-card" styleClass="ui-card-shadow">
+
+        <p-header>
+          <img src="Card" src="assets/images/products.jpg">
+        </p-header>
+
+        <div>
+          View, add, edit and delete products.
+        </div>
+
+      </p-card>
+    </div>
+  </div>
+</div>
