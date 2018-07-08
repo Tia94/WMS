@@ -12,15 +12,8 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   listProducts(): Observable<any> {
-    return Observable.from([
-      { name: 'product 1', category: 'A', price: 500, inStock: true },
-      { name: 'product 2', category: 'A', price: 400, inStock: true },
-      { name: 'product 3', category: 'B', price: 300, inStock: true },
-      { name: 'product 4', category: 'B', price: 250, inStock: true }
-    ]);
-
-    // return this.http
-    // .get(`${this.url}/products`, { headers: this.headers });
+    return this.http
+    .get(`${this.url}`, { headers: this.headers });
   }
 
 }
