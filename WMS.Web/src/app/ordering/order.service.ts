@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class OrderService {
@@ -57,17 +58,24 @@ class Order {
   }
 
   constructor(public username: string) {
-
+    this._items = new Array<OrderItem>();
   }
 
   public static FromJSON(orderJSON: string): Order {
     if (orderJSON === null || orderJSON === undefined)
       throw new Error("orderJSON can not be null or undefined");
 
-    return JSON.parse(orderJSON) as Order;
+    let storageOrder = JSON.parse(orderJSON);
+
+    let order2 = new Order(storageOrder.username);
+    storageOrder._items.forEach(item => {
+      order2.addItem(item.productId, item.quantity);
+    });
+    return order2;
   }
 
   public addItem(productId: number, quantity: number): void {
+    debugger;
     if (!this.items.some(x => x.productId === productId)) {
       this.items.push(new OrderItem(productId, quantity));
     }
