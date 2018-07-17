@@ -41,7 +41,7 @@ export class ProductsListComponent implements OnInit {
     debugger;
     let username = this.authService.getUsername();
 
-    this.orderService.addToCart(username, productId);
+    this.orderService.addToCart(username, productId, 1);
   }
 
 }

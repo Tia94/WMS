@@ -16,7 +16,7 @@ export class OrderService {
       .get(`${this.url}`, { headers: this.headers });
   }
 
-  public addToCart(username: string, productId: number): void {
+  public addToCart(username: string, productId: number, quantity: number): void {
     debugger;
 
     let key = this.orderKey(username);
@@ -24,10 +24,11 @@ export class OrderService {
     let order: Order;
     if (orderJSON) {
       order = Order.FromJSON(orderJSON);
-      order.addProduct(productId);
+      order.addItem(productId, quantity);
     }
     else {
-      order = new Order(username, [productId]);
+      order = new Order(username);
+      order.addItem(productId, quantity);
     }
 
     localStorage.setItem(key, JSON.stringify(order));
@@ -38,7 +39,7 @@ export class OrderService {
     let orderJSON = localStorage.getItem(key);
     debugger;
     let order: Order = Order.FromJSON(orderJSON);
-    order.removeProduct(productId);
+    order.removeItem(productId);
     localStorage.setItem(key, JSON.stringify(order));
   }
 
@@ -49,7 +50,13 @@ export class OrderService {
 }
 
 class Order {
-  constructor(public username: string, public products: Array<number> = new Array<number>()) {
+
+  private _items: Array<OrderItem>;
+  public get items(): Array<OrderItem> {
+    return this._items;
+  }
+
+  constructor(public username: string) {
 
   }
 
@@ -57,20 +64,37 @@ class Order {
     if (orderJSON === null || orderJSON === undefined)
       throw new Error("orderJSON can not be null or undefined");
 
-    let order: Order = JSON.parse(orderJSON) as Order;
-    return new Order(order.username, order.products);
+    return JSON.parse(orderJSON) as Order;
   }
 
-  addProduct(productId: number): void {
-    if (!this.products.some(x => x === productId))
-      this.products.push(productId);
-  }
-
-  removeProduct(productId: number): void {
-    let index = this.products.indexOf(productId, 0);
-    if (index > -1) {
-      this.products.splice(index, 1);
+  public addItem(productId: number, quantity: number): void {
+    if (!this.items.some(x => x.productId === productId)) {
+      this.items.push(new OrderItem(productId, quantity));
     }
+  }
+
+  public updateItemQuantity(productId: number, quantity: number): void {
+    let item = this.items.find(x => x.productId === productId);
+    if (item) {
+      item.quantity = quantity;
+    }
+  }
+
+  public removeItem(productId: number): void {
+    let item = this.items.find(x => x.productId === productId);
+    if (item) {
+      let index = this.items.indexOf(item, 0);
+      if (index > -1) {
+        this.items.slice(index, 1);
+      }
+    }
+  }
+
+}
+
+class OrderItem {
+  constructor(public productId: number, public quantity: number) {
+
   }
 
 }
