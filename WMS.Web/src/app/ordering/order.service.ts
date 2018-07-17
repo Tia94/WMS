@@ -43,6 +43,16 @@ export class OrderService {
     localStorage.setItem(key, JSON.stringify(cart));
   }
 
+  public getCart(username: string): number {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    if (cartJSON) {
+      let cart = Cart.FromJSON(cartJSON);
+      return cart.items.length;
+    }
+    return 0;
+  }
+
   private getCartKey(username: string): string {
     return `${username}_cart`;
   }
