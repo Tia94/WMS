@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { OrderService } from '../order.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-products-list',
@@ -16,7 +17,7 @@ export class ProductsListComponent implements OnInit {
   public products: Array<any> = new Array<any>();
   public productGroups: Array<any> = new Array<any>();
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private authService: AuthService) {
 
   }
 
@@ -34,6 +35,13 @@ export class ProductsListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  addToCart(productId: number): void {
+    debugger;
+    let username = this.authService.getUsername();
+
+    this.orderService.addToCart(username, productId);
   }
 
 }
