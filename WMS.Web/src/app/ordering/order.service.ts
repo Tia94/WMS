@@ -17,12 +17,13 @@ export class OrderService {
   }
 
   public addToCart(username: string, productId: number): void {
+    debugger;
+
     let key = this.orderKey(username);
     let orderJSON = localStorage.getItem(key);
-    debugger;
     let order: Order;
     if (orderJSON) {
-      order = JSON.parse(orderJSON) as Order;
+      order = Order.FromJSON(orderJSON);
       order.addProduct(productId);
     }
     else {
@@ -36,10 +37,7 @@ export class OrderService {
     let key = this.orderKey(username);
     let orderJSON = localStorage.getItem(key);
     debugger;
-    if (!orderJSON) {
-      throw new Error("Order does not exist");
-    }
-    let order: Order = JSON.parse(orderJSON) as Order;
+    let order: Order = Order.FromJSON(orderJSON);
     order.removeProduct(productId);
     localStorage.setItem(key, JSON.stringify(order));
   }
@@ -55,12 +53,20 @@ class Order {
 
   }
 
-  public addProduct(productId: number): void {
+  public static FromJSON(orderJSON: string): Order {
+    if (orderJSON === null || orderJSON === undefined)
+      throw new Error("orderJSON can not be null or undefined");
+
+    let order: Order = JSON.parse(orderJSON) as Order;
+    return new Order(order.username, order.products);
+  }
+
+  addProduct(productId: number): void {
     if (!this.products.some(x => x === productId))
       this.products.push(productId);
   }
 
-  public removeProduct(productId: number): void {
+  removeProduct(productId: number): void {
     let index = this.products.indexOf(productId, 0);
     if (index > -1) {
       this.products.splice(index, 1);
