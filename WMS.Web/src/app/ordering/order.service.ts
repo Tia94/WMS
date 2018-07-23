@@ -48,6 +48,13 @@ export class OrderService {
   }
 
   public getCartItemsCount(username: string): Observable<number> {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    let cart: Cart;
+    if (cartJSON) {
+      cart = Cart.FromJSON(cartJSON);
+      this.cartItemsCountObservable.next(cart.getItemQuantity());
+    }
     return this.cartItemsCountObservable;
   }
 
