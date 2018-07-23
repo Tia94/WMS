@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { OrderService } from './ordering/order.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+
+
+  private subscription:ISubscription;
 
   public appName: string = "WMS";
   public isLoggedIn: boolean = false;
@@ -30,7 +34,16 @@ export class AppComponent implements OnInit {
     }
 
     let username = this.authService.getUsername();
-    this.cartItemsCount = this.orderService.getCart(username);
+    
+    this.subscription = this.orderService.getCartItemsCount(username)
+    .subscribe(count => {
+      this.cartItemsCount = count;
+    });
+
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public logout(): void {

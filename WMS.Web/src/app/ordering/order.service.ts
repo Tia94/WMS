@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class OrderService {
 
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
+
+  private cartItemsCountObservable: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +20,6 @@ export class OrderService {
 
   public addToCart(username: string, productId: number, quantity: number): void {
     debugger;
-
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
     let cart: Cart;
@@ -32,25 +33,22 @@ export class OrderService {
     }
 
     localStorage.setItem(key, JSON.stringify(cart));
+
+    this.cartItemsCountObservable.next(cart.getItemQuantity());
   }
 
   public removeFromCart(username: string, productId: number): void {
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
-    debugger;
+
     let cart: Cart = Cart.FromJSON(cartJSON);
     cart.removeItem(productId);
     localStorage.setItem(key, JSON.stringify(cart));
+    this.cartItemsCountObservable.next(cart.getItemQuantity());
   }
 
-  public getCart(username: string): number {
-    let key = this.getCartKey(username);
-    let cartJSON = localStorage.getItem(key);
-    if (cartJSON) {
-      let cart = Cart.FromJSON(cartJSON);
-      return cart.items.length;
-    }
-    return 0;
+  public getCartItemsCount(username: string): Observable<number> {
+    return this.cartItemsCountObservable;
   }
 
   private getCartKey(username: string): string {
@@ -84,8 +82,11 @@ class Cart {
   }
 
   public addItem(productId: number, quantity: number): void {
-    debugger;
-    if (!this.items.some(x => x.productId === productId)) {
+    let item = this.items.find(x => x.productId === productId);
+    if (item) {
+      item.quantity += quantity;
+    }
+    else {
       this.items.push(new CartItem(productId, quantity));
     }
   }
@@ -105,6 +106,10 @@ class Cart {
         this.items.slice(index, 1);
       }
     }
+  }
+
+  public getItemQuantity(): number {
+    return this.items.reduce((ty, u) => ty + u.quantity, 0);
   }
 
 }

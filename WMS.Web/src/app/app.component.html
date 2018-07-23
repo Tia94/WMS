@@ -45,15 +45,22 @@
       </li>
 
       <li class="nav-item right" *ngIf="isLoggedIn">
-        <span class="nav-link">{{username}} ({{role}})</span>
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-shopping-cart"></i>
+          <strong class="fa-stack-1x cart-text">{{cartItemsCount}}</strong>
+        </span>
       </li>
 
       <li class="nav-item right" *ngIf="isLoggedIn">
-        <span class="nav-link">{{cartItemsCount}}</span>
-      </li>
-
-      <li class="nav-item right" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/" routerLinkActive="active" (click)="logout()">Logout</a>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{username}} ({{role}})
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" (click)="logout()">Logout</a>
+          </div>
+        </div>
       </li>
 
     </ul>
