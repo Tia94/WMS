@@ -36,7 +36,14 @@
     </div>
   </div>
 
-  <diV>
-    <span class="font-weight-bold">Total: {{cart.getTotal()}}</span>
-  </diV>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <span class="font-weight-bold">Total: {{cart.getTotal()}}</span>
+      </div>
+      <div class="col-6">
+        <p-button label="Remove" (click)="submit()">
+      </div>
+    </div>
+  </div>
 </div>

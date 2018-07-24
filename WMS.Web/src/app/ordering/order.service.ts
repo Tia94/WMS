@@ -5,7 +5,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class OrderService {
-
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -92,6 +91,16 @@ export class OrderService {
     }
     return this.cartObservable;
   }
+
+  public submit(username: string): void {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    if (cartJSON) {
+      let cart = Cart.FromJSON(cartJSON);
+      this.http.post(this.url,{ order: cart }, { headers: this.headers });
+    }
+  }
+
 
   private getCartKey(username: string): string {
     return `${username}_cart`;
