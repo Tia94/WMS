@@ -18,7 +18,21 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit() {
     let username = this.authService.getUsername();
     this.cart = this.orderService.getCart(username);
-    this.cart.items[0].product.name
+
+    this.orderService.getCartObs(username)
+      .subscribe(cart => {
+        this.cart = cart;
+      });
+  }
+
+  public updateItemQuantity(productId: number, quantity: number): void {
+    let username = this.authService.getUsername();
+    this.orderService.increaseItemQuantity(username, productId, quantity);
+  }
+
+  public removeItem(productId: number): void {
+    let username = this.authService.getUsername();
+    this.orderService.removeFromCart(username, productId);
   }
 
 }

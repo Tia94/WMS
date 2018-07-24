@@ -16,17 +16,17 @@
             </div>
             <div class="col-3">
               <div class="ui-inputgroup">
-                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger"></button>
-                <input class="narrow-input" type="number"  value="{{item.quantity}}">
-                <button pButton type="button" icon="fa fa-plus" class="ui-button-success"></button>
+                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" (click)="updateItemQuantity(item.product.id, -1)"></button>
+                <input class="narrow-input" type="number" value="{{item.quantity}}">
+                <button pButton type="button" icon="fa fa-plus" class="ui-button-success" (click)="updateItemQuantity(item.product.id, 1)"></button>
               </div>
             </div>
             <div class="col-1">
-              <span class="price">{{item.product.price}}</span>
+              <span class="price">{{item.getTotal() | number:'1.2-2'}}</span>
             </div>
             <div class="col-1">
-              <span class="add-to-cart">
-                <p-button label="Click" icon="fa fa-cart-plus" iconPos="right" label="Add" (click)="addToCart(product.id)">
+              <span class="remove-cart-item">
+                <p-button label="Remove" (click)="removeItem(item.product.id)">
                 </p-button>
               </span>
             </div>
@@ -37,6 +37,6 @@
   </div>
 
   <diV>
-    <span>Total: {{cart.getTotal()}}</span>
+    <span class="font-weight-bold">Total: {{cart.getTotal()}}</span>
   </diV>
 </div>

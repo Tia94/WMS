@@ -9,6 +9,7 @@ export class OrderService {
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
+  private cartObservable: BehaviorSubject<Cart> = new BehaviorSubject(new Cart(""));
   private cartItemsCountObservable: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(private http: HttpClient) { }
@@ -19,7 +20,6 @@ export class OrderService {
   }
 
   public addToCart(username: string, product: Product, quantity: number): void {
-    debugger;
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
     let cart: Cart;
@@ -35,16 +35,20 @@ export class OrderService {
     localStorage.setItem(key, JSON.stringify(cart));
 
     this.cartItemsCountObservable.next(cart.getItemQuantity());
+    this.cartObservable.next(cart);
   }
 
   public removeFromCart(username: string, productId: number): void {
+    debugger;
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
 
     let cart: Cart = Cart.FromJSON(cartJSON);
     cart.removeItem(productId);
     localStorage.setItem(key, JSON.stringify(cart));
+
     this.cartItemsCountObservable.next(cart.getItemQuantity());
+    this.cartObservable.next(cart);
   }
 
   public getCartItemsCount(username: string): Observable<number> {
@@ -58,6 +62,19 @@ export class OrderService {
     return this.cartItemsCountObservable;
   }
 
+  public increaseItemQuantity(username: string, productId: number, quantity: number): void {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    if (cartJSON) {
+      let cart = Cart.FromJSON(cartJSON);
+      cart.increaseQuantity(productId, quantity);
+      localStorage.setItem(key, JSON.stringify(cart));
+
+      this.cartItemsCountObservable.next(cart.getItemQuantity());
+      this.cartObservable.next(cart);
+    }
+  }
+
   public getCart(username: string): Cart {
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
@@ -65,6 +82,16 @@ export class OrderService {
       return Cart.FromJSON(cartJSON);
     }
     return null;
+  }
+
+  public getCartObs(username: string): Observable<Cart> {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    if (cartJSON) {
+      let cart = Cart.FromJSON(cartJSON);
+      this.cartObservable.next(cart);
+    }
+    return this.cartObservable;
   }
 
   private getCartKey(username: string): string {
@@ -113,19 +140,23 @@ export class Cart {
     }
   }
 
-  public updateItemQuantity(productId: number, quantity: number): void {
+  public increaseQuantity(productId: number, quantity: number): void {
     let item = this.items.find(x => x.product.id === productId);
     if (item) {
-      item.quantity = quantity;
+      item.quantity += quantity;
+      if (item.quantity < 0) {
+        item.quantity = 0;
+      }
     }
   }
 
   public removeItem(productId: number): void {
+    debugger;
     let item = this.items.find(x => x.product.id === productId);
     if (item) {
       let index = this.items.indexOf(item, 0);
       if (index > -1) {
-        this.items.slice(index, 1);
+        this.items.splice(index, 1);
       }
     }
   }
@@ -142,6 +173,10 @@ export class Cart {
 export class CartItem {
   constructor(public product: Product, public quantity: number) {
 
+  }
+
+  public getTotal(): number {
+    return this.product.price * this.quantity;
   }
 
 }
