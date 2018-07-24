@@ -8,6 +8,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { OrderService } from './order.service';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
     PaginatorModule,
     CardModule
   ],
-  declarations: [ProductsListComponent],
+  declarations: [ProductsListComponent, OrderDetailsComponent],
   providers: [OrderService]
 })
 export class OrderingModule { }

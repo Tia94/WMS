@@ -19,15 +19,17 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/primeng';
 import { OrderingModule } from './ordering/ordering.module';
 import { ProductsListComponent } from './ordering/products-list/products-list.component';
-
+import { OrderDetailsComponent } from './ordering/order-details/order-details.component';
+  
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] }
-];
+  { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] }
+];  
 
 @NgModule({
   declarations: [

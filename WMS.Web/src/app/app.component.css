@@ -2,4 +2,9 @@
   .cart-text {
     /* margin-top: .3em; */
     margin-left: .5em;
+    margin-right: .5em;
+  }
+
+  .cart-link{
+    margin-top: 0em;
   }

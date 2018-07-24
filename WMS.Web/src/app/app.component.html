@@ -44,10 +44,11 @@
         <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
       </li>
 
-      <li class="nav-item right" *ngIf="isLoggedIn">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-shopping-cart"></i>
-          <strong class="fa-stack-1x cart-text">{{cartItemsCount}}</strong>
+      <li class="nav-item right" *ngIf="isLoggedIn" style="margin-right: .5em;">
+        <span class="fa-stack fa-lg cart-link">         
+          <a routerLink="/order/details" routerLinkActive="active">
+            <i class="fa fa-shopping-cart"></i>
+            <strong class="fa-stack-1x cart-text">15</strong></a>
         </span>
       </li>
 
