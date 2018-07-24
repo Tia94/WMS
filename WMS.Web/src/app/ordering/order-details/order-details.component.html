@@ -17,14 +17,14 @@
             <div class="col-3">
               <div class="ui-inputgroup">
                 <button pButton type="button" icon="fa fa-minus" class="ui-button-danger"></button>
-                <input type="number" pInputNumber value="{{item.quantity}}">
+                <input class="narrow-input" type="number"  value="{{item.quantity}}">
                 <button pButton type="button" icon="fa fa-plus" class="ui-button-success"></button>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-1">
               <span class="price">{{item.product.price}}</span>
             </div>
-            <div class="col-2">
+            <div class="col-1">
               <span class="add-to-cart">
                 <p-button label="Click" icon="fa fa-cart-plus" iconPos="right" label="Add" (click)="addToCart(product.id)">
                 </p-button>

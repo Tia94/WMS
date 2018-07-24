@@ -32,3 +32,8 @@
     vertical-align: middle;
     float: none;
 }
+
+.narrow-input{
+    max-width: 100px;
+    width: 75px;
+}
