@@ -2,25 +2,24 @@
   order-details works!
 </p>
 
-
 <div class="container">
-  <p-card title="PRODUCT" subtitle="CATEGORY" class="wide-card" styleClass="ui-card-shadow">
+  <div class="row products-row" *ngFor="let item of cart.items">
+    <div class="col-12">
+      <p-card title="{{item.product.name}}" class="wide-card" styleClass="ui-card-shadow">
+        <div>
+          <div>
 
-    <p-header>
-      <img src="Card" src="assets/images/products.jpg">
-    </p-header>
+            <img class="small-image" src="Card" src="assets/images/products.jpg">
+            <span class="price">{{item.product.price}}</span>
 
-    <div>
-      <div>
-        <span class="price">
-          PRICE RON
-        </span>
+            <span class="float-right add-to-cart">
+              <p-button label="Click" icon="fa fa-cart-plus" iconPos="right" label="Add" (click)="addToCart(product.id)">
+              </p-button>
+            </span>
 
-        <span class="float-right add-to-cart">
-          <p-button label="Click" icon="fa fa-cart-plus" iconPos="right" label="Add" (click)="addToCart(product.id)">
-          </p-button>
-        </span>
-      </div>
+          </div>
+        </div>
+      </p-card>
     </div>
-  </p-card>
+  </div>
 </div>

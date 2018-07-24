@@ -37,11 +37,11 @@ export class ProductsListComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  addToCart(productId: number): void {
+  addToCart(product:any): void {
     debugger;
     let username = this.authService.getUsername();
 
-    this.orderService.addToCart(username, productId, 1);
+    this.orderService.addToCart(username, product, 1);
   }
 
 }

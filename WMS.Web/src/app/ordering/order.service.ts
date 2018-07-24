@@ -18,18 +18,18 @@ export class OrderService {
       .get(`${this.url}`, { headers: this.headers });
   }
 
-  public addToCart(username: string, productId: number, quantity: number): void {
+  public addToCart(username: string, product: Product, quantity: number): void {
     debugger;
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
     let cart: Cart;
     if (cartJSON) {
       cart = Cart.FromJSON(cartJSON);
-      cart.addItem(productId, quantity);
+      cart.addItem(product, quantity);
     }
     else {
       cart = new Cart(username);
-      cart.addItem(productId, quantity);
+      cart.addItem(product, quantity);
     }
 
     localStorage.setItem(key, JSON.stringify(cart));
@@ -58,13 +58,28 @@ export class OrderService {
     return this.cartItemsCountObservable;
   }
 
+  public getCart(username: string): Cart {
+    let key = this.getCartKey(username);
+    let cartJSON = localStorage.getItem(key);
+    if (cartJSON) {
+      return Cart.FromJSON(cartJSON);
+    }
+    return null;
+  }
+
   private getCartKey(username: string): string {
     return `${username}_cart`;
   }
 
 }
 
-class Cart {
+export class Product {
+  constructor(public id: number, public name: string, public category: string, public price: number) {
+
+  }
+}
+
+export class Cart {
 
   private _items: Array<CartItem>;
   public get items(): Array<CartItem> {
@@ -83,30 +98,30 @@ class Cart {
 
     let updatedCart = new Cart(cart.username);
     cart._items.forEach(item => {
-      updatedCart.addItem(item.productId, item.quantity);
+      updatedCart.addItem(item.product, item.quantity);
     });
     return updatedCart;
   }
 
-  public addItem(productId: number, quantity: number): void {
-    let item = this.items.find(x => x.productId === productId);
+  public addItem(product: Product, quantity: number): void {
+    let item = this.items.find(x => x.product.id === product.id);
     if (item) {
       item.quantity += quantity;
     }
     else {
-      this.items.push(new CartItem(productId, quantity));
+      this.items.push(new CartItem(product, quantity));
     }
   }
 
   public updateItemQuantity(productId: number, quantity: number): void {
-    let item = this.items.find(x => x.productId === productId);
+    let item = this.items.find(x => x.product.id === productId);
     if (item) {
       item.quantity = quantity;
     }
   }
 
   public removeItem(productId: number): void {
-    let item = this.items.find(x => x.productId === productId);
+    let item = this.items.find(x => x.product.id === productId);
     if (item) {
       let index = this.items.indexOf(item, 0);
       if (index > -1) {
@@ -121,8 +136,8 @@ class Cart {
 
 }
 
-class CartItem {
-  constructor(public productId: number, public quantity: number) {
+export class CartItem {
+  constructor(public product: Product, public quantity: number) {
 
   }
 

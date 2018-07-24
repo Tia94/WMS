@@ -48,7 +48,7 @@
         <span class="fa-stack fa-lg cart-link">         
           <a routerLink="/order/details" routerLinkActive="active">
             <i class="fa fa-shopping-cart"></i>
-            <strong class="fa-stack-1x cart-text">15</strong></a>
+            <strong class="fa-stack-1x cart-text" *ngIf="cartItemsCount > 0">{{cartItemsCount}}</strong></a>
         </span>
       </li>
 
