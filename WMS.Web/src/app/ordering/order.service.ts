@@ -134,6 +134,9 @@ export class Cart {
     return this.items.reduce((ty, u) => ty + u.quantity, 0);
   }
 
+  public getTotal(): number {
+    return this.items.reduce((ty, u) => ty + (u.product.price * u.quantity), 0);
+  }
 }
 
 export class CartItem {
