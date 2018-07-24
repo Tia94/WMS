@@ -38,7 +38,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   addToCart(product:any): void {
-    debugger;
     let username = this.authService.getUsername();
 
     this.orderService.addToCart(username, product, 1);

@@ -26,7 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    debugger;
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
       let decoded: any = jwt_decode(this.authService.getToken());

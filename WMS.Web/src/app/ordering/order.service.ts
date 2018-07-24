@@ -39,7 +39,6 @@ export class OrderService {
   }
 
   public removeFromCart(username: string, productId: number): void {
-    debugger;
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
 
@@ -151,7 +150,6 @@ export class Cart {
   }
 
   public removeItem(productId: number): void {
-    debugger;
     let item = this.items.find(x => x.product.id === productId);
     if (item) {
       let index = this.items.indexOf(item, 0);
