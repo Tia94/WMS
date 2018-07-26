@@ -16,9 +16,19 @@ namespace WMS.Infrastructure.Repository
             this.context = context;
         }
 
+        public IList<User> Get()
+        {
+            return context.Users.ToList();
+        }
+
         public User Get(string username, string password)
         {
             return context.Users.SingleOrDefault(x => x.Username == username && x.Password == password && x.IsActive);
+        }
+
+        public T Get<T>(string username) where T : User
+        {
+            return context.Users.OfType<T>().Single(x => x.Username == username);
         }
 
         public void Add(User user)
@@ -38,11 +48,6 @@ namespace WMS.Infrastructure.Repository
             var entity = context.Entry(user);
             entity.State = EntityState.Modified;
             context.SaveChanges();
-        }
-
-        public IList<User> Get()
-        {
-            return context.Users.ToList();
         }
 
         public User Get(int id)

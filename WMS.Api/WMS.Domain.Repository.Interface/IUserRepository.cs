@@ -6,17 +6,19 @@ namespace WMS.Domain.Repository.Interface
 {
     public interface IUserRepository
     {
+        IList<User> Get();
+
+        User Get(int id);
+
         User Get(string username, string password);
+
+        T Get<T>(string username) where T : User;
 
         User Get(Guid activatinCode);
 
         void Add(User user);
 
         void Update(User user);
-
-        IList<User> Get();
-
-        User Get(int id);
 
         void Delete(int id);
     }

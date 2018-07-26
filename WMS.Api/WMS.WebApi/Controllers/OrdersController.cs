@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.WebApi.Models.Orders;
 
@@ -11,10 +12,12 @@ namespace WMS.WebApi.Controllers
     public class OrdersController : Controller
     {
         private readonly IProductService productService;
+        private readonly IOrderService orderService;
 
-        public OrdersController(IProductService productService)
+        public OrdersController(IProductService productService, IOrderService orderService)
         {
             this.productService = productService;
+            this.orderService = orderService;
         }
 
         [HttpGet]
@@ -34,11 +37,29 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]SubmitOrderModel model)
+        [AllowAnonymous]
+        public IActionResult Post([FromBody] SubmitOrderModel model)
         {
-            
+            var dto = new SubmitOrderDto
+            {
+                Username = model.Username,
+                Items = model.Items.Select(item => new OrderItemDto
+                {
+                    Product = new OrderItemProductDto
+                    {
+                        Id = item.Product.Id,
+                        Name = item.Product.Name,
+                        Category = item.Product.Category,
+                        Price = item.Product.Price
+                    },
+                    Quantity = item.Quantity
+                }).ToList()
+            };
+
+            orderService.Submit(dto);
             return new OkResult();
         }
+
 //
 //        [HttpGet("{id:int}")]
 //        [AllowAnonymous]

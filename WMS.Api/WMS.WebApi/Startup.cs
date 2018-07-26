@@ -47,15 +47,15 @@ namespace WMS.WebApi
                 });
 
             services
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IProductRepository, ProductRepository>()
+                .AddScoped<IOrderRepository, OrderRepository>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IProductService, ProductService>()
-                .AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IProductRepository, ProductRepository>();
+                .AddScoped<IOrderService, OrderService>();
 
             services.AddDbContext<WMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
-
-            services.AddMvc();
 
             services.AddCors(options =>
             {
@@ -67,6 +67,8 @@ namespace WMS.WebApi
                             .AllowAnyMethod();
                     });
             });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -39,7 +39,8 @@ export class OrderDetailsComponent implements OnInit {
   public submit(): void {
     let username = this.authService.getUsername();
     this.orderService.submit(username).then(_ => {
-      this.router.navigate["/products"];
+      this.orderService.clear(username);
+      this.router.navigate(["/products"]);
     });
   }
 

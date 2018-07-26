@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class OrderService {
@@ -99,6 +100,13 @@ export class OrderService {
     return this.http.post(this.url, cart, { headers: this.headers }).toPromise();
   }
 
+  public clear(username: string): void {
+    let key = this.getCartKey(username);
+    localStorage.removeItem(key);
+    this.cartObservable.next(new Cart(""));
+    this.cartItemsCountObservable.next(0);
+  }
+
 
   private getCartKey(username: string): string {
     return `${username}_cart`;
@@ -114,8 +122,8 @@ export class Product {
 
 export class Cart {
 
-  constructor(public username: string, public items : Array<CartItem> = new Array<CartItem>()) {
-  
+  constructor(public username: string, public items: Array<CartItem> = new Array<CartItem>()) {
+
   }
 
   public static FromJSON(cartJSON: string): Cart {
