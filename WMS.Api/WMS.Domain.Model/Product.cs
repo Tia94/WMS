@@ -12,7 +12,6 @@
 
         protected Product()
         {
-
         }
 
         public string Name { get; set; }

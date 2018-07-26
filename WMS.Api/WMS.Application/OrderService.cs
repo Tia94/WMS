@@ -29,6 +29,8 @@ namespace WMS.Application
             {
                 var product = productRepository.Get(item.Product.Id);
                 order.Items.Add(new OrderItem(product, item.Quantity));
+                product.Quantity -= item.Quantity;
+                productRepository.Update(product);
             }
 
             orderRepository.Add(order);
