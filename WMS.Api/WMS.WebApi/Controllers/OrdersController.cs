@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WMS.Application.Interface;
+using WMS.WebApi.Models.Orders;
 
 namespace WMS.WebApi.Controllers
 {
@@ -30,6 +31,13 @@ namespace WMS.WebApi.Controllers
             }).ToList();
 
             return new OkObjectResult(products);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]SubmitOrderModel model)
+        {
+            
+            return new OkResult();
         }
 //
 //        [HttpGet("{id:int}")]

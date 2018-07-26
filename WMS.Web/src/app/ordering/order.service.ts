@@ -92,13 +92,11 @@ export class OrderService {
     return this.cartObservable;
   }
 
-  public submit(username: string): void {
+  public submit(username: string): Promise<any> {
     let key = this.getCartKey(username);
     let cartJSON = localStorage.getItem(key);
-    if (cartJSON) {
-      let cart = Cart.FromJSON(cartJSON);
-      this.http.post(this.url,{ order: cart }, { headers: this.headers });
-    }
+    let cart = Cart.FromJSON(cartJSON);
+    return this.http.post(this.url, cart, { headers: this.headers }).toPromise();
   }
 
 
@@ -116,13 +114,8 @@ export class Product {
 
 export class Cart {
 
-  private _items: Array<CartItem>;
-  public get items(): Array<CartItem> {
-    return this._items;
-  }
-
-  constructor(public username: string) {
-    this._items = new Array<CartItem>();
+  constructor(public username: string, public items : Array<CartItem> = new Array<CartItem>()) {
+  
   }
 
   public static FromJSON(cartJSON: string): Cart {
@@ -132,7 +125,7 @@ export class Cart {
     let cart = JSON.parse(cartJSON);
 
     let updatedCart = new Cart(cart.username);
-    cart._items.forEach(item => {
+    cart.items.forEach(item => {
       updatedCart.addItem(item.product, item.quantity);
     });
     return updatedCart;
