@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180728170522_OrderStage.cs" />
+    <Compile Remove="Migrations\20180728171338_OrderStage.cs" />
+    <Compile Remove="Migrations\20180728171615_OrderStage.cs" />
+    <Compile Remove="Migrations\20180728171731_OrderStage.cs" />
+    <Compile Remove="Migrations\20180728172132_OrderStage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.5" />

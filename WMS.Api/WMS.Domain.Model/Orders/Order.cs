@@ -14,6 +14,9 @@ namespace WMS.Domain.Model.Orders
 
             Client = client ?? throw new ArgumentNullException(nameof(client));
             ClientId = client.Id;
+
+            Stages = new List<OrderStage>();
+            SetStatus(OrderStatus.Submitted);
         }
 
         protected Order()
@@ -26,6 +29,9 @@ namespace WMS.Domain.Model.Orders
 
         public virtual Client Client { get; protected set; }
         public int ClientId { get; protected set; }
+
+        public virtual ICollection<OrderStage> Stages { get; protected set; }
+        public OrderStage Stage => Stages.OrderByDescending(x => x.CreatedOn).FirstOrDefault();
 
         public decimal Total => Items.Sum(x => x.Price);
 
@@ -47,6 +53,17 @@ namespace WMS.Domain.Model.Orders
         {
             var item = Items.Single(x => x.Product.Id == product.Id);
             Items.Remove(item);
+        }
+
+        public void SetStatus(string status)
+        {
+            if (!OrderStatus.All.Contains(status))
+                throw new ArgumentException();
+
+            if (Stages.Any(x => x.Status == status))
+                throw new ArgumentException();
+
+            Stages.Add(new OrderStage(this, status));
         }
     }
 }
