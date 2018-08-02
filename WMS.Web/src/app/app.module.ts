@@ -21,7 +21,10 @@ import { OrderingModule } from './ordering/ordering.module';
 import { ProductsListComponent } from './ordering/products-list/products-list.component';
 import { OrderDetailsComponent } from './ordering/order-details/order-details.component';
 import { ClientOrdersComponent } from './ordering/client-orders/client-orders.component';
-  
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/components/common/messageservice';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -52,9 +55,11 @@ const appRoutes: Routes = [
     ManagementModule,
     OrderingModule,
     CardModule,
-    ButtonModule
+    ButtonModule,
+    MessagesModule,
+    MessageModule
   ],
-  providers: [AuthGuard, AuthService, {
+  providers: [AuthGuard, AuthService, MessageService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

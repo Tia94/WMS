@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from '../order.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ISubscription } from 'rxjs/Subscription';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-client-orders',
@@ -10,11 +11,12 @@ import { ISubscription } from 'rxjs/Subscription';
 })
 export class ClientOrdersComponent implements OnInit, OnDestroy {
 
-  private orders: Array<any> = new Array<any>();
   private subscription: ISubscription;
-  public title: string = "My Orders";
 
-  constructor(private orderService: OrderService, private authService: AuthService) { }
+  public title: string = "My Orders";
+  public orders: Array<any> = new Array<any>();
+
+  constructor(private orderService: OrderService, private authService: AuthService, private messageService:MessageService) { }
 
   ngOnInit() {
     let username = this.authService.getUsername();
@@ -22,20 +24,18 @@ export class ClientOrdersComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.orders = data;
       });
-
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public cancel(orderId: number): void {
+  public cancel(orderId: number, orderNumber: string): void {
     this.orderService.cancelOrder(orderId)
       .then(_ => {
-        location.reload();
+        this.messageService.add({severity:'success', summary:'Success', detail:`Order ${orderNumber} was canceled successfully.`});
+        // location.reload();
       });
-
   }
-
-
+  
 }
