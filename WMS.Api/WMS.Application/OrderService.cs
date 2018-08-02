@@ -64,6 +64,14 @@ namespace WMS.Application
         public void Cancel(int id)
         {
             var order = orderRepository.Get(id);
+
+            foreach (var item in order.Items)
+            {
+                var product = productRepository.Get(item.Product.Id);
+                product.Quantity += item.Quantity;
+                productRepository.Update(product);
+            }
+
             order.SetStatus(OrderStatus.Canceled);
             orderRepository.Update(order);
         }
