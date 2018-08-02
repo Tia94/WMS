@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class OrderDetailsComponent implements OnInit {
 
+  public title:string = "Order Details";
   public cart: Cart;
 
   constructor(private orderService: OrderService, private authService: AuthService, private router: Router) {

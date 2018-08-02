@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using WMS.Domain.Model.Users;
 
 namespace WMS.Domain.Model.Orders
@@ -31,7 +32,7 @@ namespace WMS.Domain.Model.Orders
         public int ClientId { get; protected set; }
 
         public virtual ICollection<OrderStage> Stages { get; protected set; }
-        public OrderStage Stage => Stages.OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+        public OrderStage Stage => Stages.OrderByDescending(x => x.CreatedOn).First();
 
         public decimal Total => Items.Sum(x => x.Price);
 
@@ -65,5 +66,7 @@ namespace WMS.Domain.Model.Orders
 
             Stages.Add(new OrderStage(this, status));
         }
+
+        public bool IsCancellable => OrderStatus.Cancellable.Contains(Stage.Status);
     }
 }

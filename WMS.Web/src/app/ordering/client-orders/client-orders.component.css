@@ -1,0 +1,39 @@
+.wide-card {
+    width: 250px;
+    height: 300px;
+    max-height: 300px;
+}
+
+.wide-card-header {
+    max-height: 300px;
+}
+
+.small-image {
+    width: 120px;
+    height: 120px;
+}
+
+.products-row {
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: red;
+}
+
+.remove-cart-item{
+    padding-top: 5px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.narrow-input{
+    max-width: 100px;
+    width: 75px;
+}

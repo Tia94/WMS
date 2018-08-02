@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class OrderService {
+
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -107,6 +108,13 @@ export class OrderService {
     this.cartItemsCountObservable.next(0);
   }
 
+  public getOrders(username: string): Observable<any> {
+    return this.http.get(`${this.url}/${username}`, { headers: this.headers });
+  }
+
+  public cancelOrder(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/cancel`, { id: orderId }, { headers: this.headers }).toPromise();
+  }
 
   private getCartKey(username: string): string {
     return `${username}_cart`;

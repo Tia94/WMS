@@ -38,5 +38,11 @@ namespace WMS.Domain.Model.Orders
             Delivered,
             Canceled
         };
+
+        public static IEnumerable<string> Cancellable => new List<string>
+        {
+            Submitted,
+            ReadyToBePickedUpByDriver
+        };
     }
 }

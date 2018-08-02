@@ -1,4 +1,6 @@
-﻿using WMS.Application.Dto;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.Domain.Model.Orders;
 using WMS.Domain.Model.Users;
@@ -34,6 +36,36 @@ namespace WMS.Application
             }
 
             orderRepository.Add(order);
+        }
+
+        public IEnumerable<OrderDto> Get(string username)
+        {
+            return orderRepository.Get(username).Select(x => new OrderDto
+            {
+                Id = x.Id,
+                Number = x.Number,
+                Status = x.Stage.Status,
+                IsCancellable = x.IsCancellable,
+                Total = x.Total,
+                Items = x.Items.Select(item => new OrderItemDto
+                {
+                    Product = new OrderItemProductDto
+                    {
+                        Id = item.Product.Id,
+                        Price = item.Product.Price,
+                        Name = item.Product.Name,
+                        Category = item.Product.Category
+                    },
+                    Quantity = item.Quantity
+                })
+            });
+        }
+
+        public void Cancel(int id)
+        {
+            var order = orderRepository.Get(id);
+            order.SetStatus(OrderStatus.Canceled);
+            orderRepository.Update(order);
         }
     }
 }

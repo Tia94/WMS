@@ -60,6 +60,43 @@ namespace WMS.WebApi.Controllers
             return new OkResult();
         }
 
+        [HttpGet("{username}")]
+        [AllowAnonymous]
+        public IActionResult Get(string username)
+        {
+            var dtoList = orderService.Get(username);
+
+            var orders = dtoList.Select(x => new OrderModel
+            {
+                Id = x.Id,
+                Number = x.Number,
+                Status = x.Status,
+                IsCancellable = x.IsCancellable,
+                Total = x.Total,
+                Items = x.Items.Select(item => new OrderItemModel
+                {
+                    Product = new OrderItemProductModel
+                    {
+                        Id = item.Product.Id,
+                        Name = item.Product.Name,
+                        Category = item.Product.Category,
+                        Price = item.Product.Price
+                    },
+                    Quantity = item.Quantity
+                })
+            });
+
+            return new OkObjectResult(orders);
+        }
+
+        [HttpPost("cancel")]
+        [AllowAnonymous]
+        public IActionResult Cancel([FromBody] CancelOrderRequest request)
+        {
+            orderService.Cancel(request.Id);
+            return new OkResult();
+        }
+
 //
 //        [HttpGet("{id:int}")]
 //        [AllowAnonymous]

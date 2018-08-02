@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { OrderService } from './order.service';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { ClientOrdersComponent } from './client-orders/client-orders.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     PaginatorModule,
     CardModule
   ],
-  declarations: [ProductsListComponent, OrderDetailsComponent],
+  declarations: [ProductsListComponent, OrderDetailsComponent, ClientOrdersComponent],
   providers: [OrderService]
 })
 export class OrderingModule { }

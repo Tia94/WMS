@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/primeng';
 import { OrderingModule } from './ordering/ordering.module';
 import { ProductsListComponent } from './ordering/products-list/products-list.component';
 import { OrderDetailsComponent } from './ordering/order-details/order-details.component';
+import { ClientOrdersComponent } from './ordering/client-orders/client-orders.component';
   
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   { path: 'products', component: ProductsListComponent, pathMatch: "full" },
   { path: 'manage/products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'order/list', component: ClientOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];  
 
 @NgModule({
