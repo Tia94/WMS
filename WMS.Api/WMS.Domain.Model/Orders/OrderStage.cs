@@ -25,7 +25,7 @@ namespace WMS.Domain.Model.Orders
     public class OrderStatus
     {
         public const string Submitted = "Submitted";
-        public const string ProcessingByStoreKeeper = "Processing by store keeper";
+        public const string PackingByStoreKeeper = "Packing by store keeper";
         public const string ReadyToBePickedUpByDriver = "Ready to be picked up by driver";
         public const string InDelivery = "In delivery";
         public const string Delivered = "Delivered";
@@ -43,7 +43,7 @@ namespace WMS.Domain.Model.Orders
         public static IEnumerable<string> Cancellable => new List<string>
         {
             Submitted,
-            ProcessingByStoreKeeper,
+            PackingByStoreKeeper,
             ReadyToBePickedUpByDriver
         };
     }
