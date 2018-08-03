@@ -57,7 +57,8 @@ namespace WMS.Infrastructure.Repository
                 .Include(x => x.Client)
                 .Include(x => x.Items)
                 .ThenInclude(x => x.Product)
-                .Where(x => x.Stages.Any(stage => statuses.Contains(stage.Status)))
+                .Where(x => statuses.Contains(x.Stages.OrderByDescending(stage => stage.CreatedOn).Select(stage => stage.Status).First()))
+//                .Where(x => statuses.Contains(x.Stage.Status))
                 .ToList();
         }
     }

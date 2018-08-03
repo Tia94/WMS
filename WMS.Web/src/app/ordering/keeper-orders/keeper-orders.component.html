@@ -4,19 +4,20 @@
 
 <br/>
 
-<p-table [(value)]="rows">
+<p-table [(value)]="rows" [resizableColumns]="true" [autoLayout]="true">
   <ng-template pTemplate="header">
     <tr>
-      <th>Order Details</th>
-      <th>Product</th>
-      <th>Category</th>
-      <th>Quantity</th>
-      <th>Actions</th>
+      <th pResizableColumn>Order Details</th>
+      <th pResizableColumn>Product</th>
+      <th pResizableColumn>Category</th>
+      <th pResizableColumn>Quantity</th>
+      <th pResizableColumn>Actions</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
     <tr>
-      <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size">
+      <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size"
+        class="ui-resizable-column">
         <span> {{rowData.order.number}} </span>
         <br/>
         <span> {{rowData.clientFullName}} </span>
@@ -25,10 +26,10 @@
         <br/>
         <span>{{rowData.order.client.address}}</span>
       </td>
-      <td>{{rowData.product.name}}</td>
-      <td>{{rowData.product.category}}</td>
-      <td>{{rowData.quantity}}</td>
-      <td>ACTIONS</td>
+      <td class="ui-resizable-column">{{rowData.product.name}}</td>
+      <td class="ui-resizable-column">{{rowData.product.category}}</td>
+      <td class="ui-resizable-column">{{rowData.quantity}}</td>
+      <td class="ui-resizable-column">ACTIONS</td>
     </tr>
   </ng-template>
 </p-table>

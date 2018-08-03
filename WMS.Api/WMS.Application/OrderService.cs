@@ -92,7 +92,7 @@ namespace WMS.Application
                     FirstName = x.Client.Firstname,
                     LastName = x.Client.Lastname,
                     TelephoneNumber = x.Client.TelephoneNumber,
-                    Address = x.Client.TelephoneNumber
+                    Address = x.Client.Address
                 },
                 Items = x.Items.Select(item => new Dto.Orders.Keeper.OrderItemDto
                 {
