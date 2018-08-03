@@ -14,6 +14,7 @@ import { ClientOrdersComponent } from './client-orders/client-orders.component';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { KeeperOrdersComponent } from './keeper-orders/keeper-orders.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { MessageModule } from 'primeng/message';
     MessageModule,
     CardModule
   ],
-  declarations: [ProductsListComponent, OrderDetailsComponent, ClientOrdersComponent],
+  declarations: [ProductsListComponent, OrderDetailsComponent, ClientOrdersComponent, KeeperOrdersComponent],
   providers: [OrderService, MessageService]
 })
 export class OrderingModule { }
