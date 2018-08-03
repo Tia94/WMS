@@ -33,7 +33,7 @@ export class ClientOrdersComponent implements OnInit, OnDestroy {
   public cancel(orderId: number, orderNumber: string): void {
     this.orderService.cancelOrder(orderId)
       .then(_ => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order ${orderNumber} was canceled successfully.` });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' was canceled successfully.` });
         this.refreshOrders();
       });
   }
