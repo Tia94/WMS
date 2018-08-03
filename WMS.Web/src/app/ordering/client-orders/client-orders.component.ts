@@ -16,11 +16,11 @@ export class ClientOrdersComponent implements OnInit, OnDestroy {
   public title: string = "My Orders";
   public orders: Array<any> = new Array<any>();
 
-  constructor(private orderService: OrderService, private authService: AuthService, private messageService:MessageService) { }
+  constructor(private orderService: OrderService, private authService: AuthService, private messageService: MessageService) { }
 
   ngOnInit() {
-    let username = this.authService.getUsername();
-    this.subscription = this.orderService.getOrders(username)
+    this.refreshOrders();
+    this.subscription = this.orderService.getClientOrders()
       .subscribe(data => {
         this.orders = data;
       });
@@ -33,9 +33,14 @@ export class ClientOrdersComponent implements OnInit, OnDestroy {
   public cancel(orderId: number, orderNumber: string): void {
     this.orderService.cancelOrder(orderId)
       .then(_ => {
-        this.messageService.add({severity:'success', summary:'Success', detail:`Order ${orderNumber} was canceled successfully.`});
-        // location.reload();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order ${orderNumber} was canceled successfully.` });
+        this.refreshOrders();
       });
   }
-  
+
+  private refreshOrders(): void {
+    let username = this.authService.getUsername();
+    this.orderService.refreshClientOrders(username);
+  }
+
 }

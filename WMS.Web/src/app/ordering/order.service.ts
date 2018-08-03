@@ -12,6 +12,7 @@ export class OrderService {
 
   private cartObservable: BehaviorSubject<Cart> = new BehaviorSubject(new Cart(""));
   private cartItemsCountObservable: BehaviorSubject<number> = new BehaviorSubject(0);
+  private clientOrdersObservable: BehaviorSubject<Array<any>> = new BehaviorSubject(new Array<any>());
 
   constructor(private http: HttpClient) { }
 
@@ -108,8 +109,13 @@ export class OrderService {
     this.cartItemsCountObservable.next(0);
   }
 
-  public getOrders(username: string): Observable<any> {
-    return this.http.get(`${this.url}/${username}`, { headers: this.headers });
+  public getClientOrders(): Observable<Array<any>> {
+    return this.clientOrdersObservable;
+  }
+
+  public refreshClientOrders(username: string): void {
+    this.http.get(`${this.url}/${username}`, { headers: this.headers })
+      .subscribe((data: Array<any>) => this.clientOrdersObservable.next(data));
   }
 
   public cancelOrder(orderId: number): Promise<any> {
