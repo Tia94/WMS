@@ -4,25 +4,31 @@
 
 <br/>
 
-<p-table [(value)]="rows" sortField="orderDetails" sortMode="single" (onSort)="onSort()">
+<p-table [(value)]="rows">
   <ng-template pTemplate="header">
-      <tr>
-          <th>Order Details</th>
-          <th>Product</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-      </tr>
+    <tr>
+      <th>Order Details</th>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-      <tr>
-          <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size">
-              {{rowData.orderDetails}}
-          </td>
-          <td>{{rowData.product.name}}</td>
-          <td>{{rowData.product.category}}</td>
-          <td>{{rowData.quantity}}</td>
-          <td>ACTIONS</td>
-      </tr>
+    <tr>
+      <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size">
+        <span> {{rowData.order.number}} </span>
+        <br/>
+        <span> {{rowData.clientFullName}} </span>
+        <br/>
+        <span>{{rowData.order.client.telephoneNumber}}</span>
+        <br/>
+        <span>{{rowData.order.client.address}}</span>
+      </td>
+      <td>{{rowData.product.name}}</td>
+      <td>{{rowData.product.category}}</td>
+      <td>{{rowData.quantity}}</td>
+      <td>ACTIONS</td>
+    </tr>
   </ng-template>
 </p-table>

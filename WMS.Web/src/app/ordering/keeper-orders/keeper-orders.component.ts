@@ -10,7 +10,6 @@ import { Order, OrderItemRow } from '../models/keeper';
 export class KeeperOrdersComponent implements OnInit {
 
   public title: string = "My Work";
-  public cols: Array<any> = new Array<any>();
   public rowGroupMetadata: any = {};
   public rows: Array<OrderItemRow> = new Array<OrderItemRow>();
 
@@ -29,17 +28,6 @@ export class KeeperOrdersComponent implements OnInit {
         this.updateRowGroupMetaData();
       });
 
-    this.cols = [
-      { field: "order.Id", header: "Order Number" },
-      { field: "orderDetails", header: "Order Details" },
-      { field: "product.name", header: "Name" },
-      { field: "product.category", header: "Category" },
-      { field: "quantity", header: "Quantity" }
-    ];
-  }
-
-  onSort() {
-    this.updateRowGroupMetaData();
   }
 
   updateRowGroupMetaData() {

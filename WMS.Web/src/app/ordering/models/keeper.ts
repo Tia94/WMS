@@ -17,8 +17,8 @@ export class Order {
 export class OrderItemRow {
     constructor(public order: Order, public product: Product, public quantity: number) { }
 
-    public get orderDetails(): string {
-        return `${this.order.number}</br>${this.order.client.firstName} ${this.order.client.lastName}</br>${this.order.client.telephoneNumber}</br>${this.order.client.address}`;
+    public get clientFullName(): string {
+        return `${this.order.client.firstName} ${this.order.client.lastName}`;
     }
 
 }
