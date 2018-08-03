@@ -12,5 +12,7 @@ namespace WMS.Domain.Repository.Interface
         Order Get(int id);
 
         void Update(Order order);
+
+        IEnumerable<Order> GetKeeperOrders();
     }
 }

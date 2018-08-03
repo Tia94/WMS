@@ -5,6 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+  <!-- Left side -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
@@ -14,6 +15,10 @@
 
       <li class="nav-item">
         <a class="nav-link" appVisibleFor="client" routerLink="/products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Products</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" appVisibleFor="keeper" routerLink="/keeper/orders" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Work</a>
       </li>
 
       <li class="nav-item" appVisibleFor="admin">
@@ -33,6 +38,7 @@
     </ul>
   </div>
 
+  <!-- Right side -->
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
 

@@ -10,5 +10,7 @@ namespace WMS.Application.Interface
         IEnumerable<OrderDto> Get(string username);
 
         void Cancel(int id);
+
+        IEnumerable<Dto.Orders.Keeper.OrderDto> GetKeeperOrders();
     }
 }

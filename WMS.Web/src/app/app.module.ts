@@ -24,6 +24,7 @@ import { ClientOrdersComponent } from './ordering/client-orders/client-orders.co
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { KeeperOrdersComponent } from './ordering/keeper-orders/keeper-orders.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,8 +34,9 @@ const appRoutes: Routes = [
   { path: 'manage/products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'order/list', component: ClientOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] }
-];  
+  { path: 'order/list', component: ClientOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'keeper/orders', component: KeeperOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] }
+];
 
 @NgModule({
   declarations: [

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WMS.Application.Dto;
+using WMS.Application.Dto.Orders.Keeper;
 using WMS.Application.Interface;
 using WMS.Domain.Model.Orders;
 using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
+using OrderDto = WMS.Application.Dto.OrderDto;
+using OrderItemDto = WMS.Application.Dto.OrderItemDto;
 
 namespace WMS.Application
 {
@@ -74,6 +77,35 @@ namespace WMS.Application
 
             order.SetStatus(OrderStatus.Canceled);
             orderRepository.Update(order);
+        }
+
+        public IEnumerable<Dto.Orders.Keeper.OrderDto> GetKeeperOrders()
+        {
+            var orders = orderRepository.GetKeeperOrders();
+
+            return orders.Select(x => new Dto.Orders.Keeper.OrderDto
+            {
+                Id = x.Id,
+                Number = x.Number,
+                Client = new ClientDto
+                {
+                    FirstName = x.Client.Firstname,
+                    LastName = x.Client.Lastname,
+                    TelephoneNumber = x.Client.TelephoneNumber,
+                    Address = x.Client.TelephoneNumber
+                },
+                Items = x.Items.Select(item => new Dto.Orders.Keeper.OrderItemDto
+                {
+                    Id = item.Id,
+                    Quantity = item.Quantity,
+                    Product = new Dto.Orders.Keeper.ProductDto
+                    {
+                        Id = item.Product.Id,
+                        Name = item.Product.Name,
+                        Category = item.Product.Category
+                    }
+                })
+            });
         }
     }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from '../order.service';
+import { Order, OrderItemRow } from '../models/keeper';
 
 @Component({
   selector: 'app-keeper-orders',
@@ -8,10 +10,56 @@ import { Component, OnInit } from '@angular/core';
 export class KeeperOrdersComponent implements OnInit {
 
   public title: string = "My Work";
+  public cols: Array<any> = new Array<any>();
+  public rowGroupMetadata: any = {};
+  public rows: Array<OrderItemRow> = new Array<OrderItemRow>();
 
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.getKeeperOrders()
+      .subscribe(orders => {
+        orders.forEach(order => {
+          order.items.forEach(item => {
+            let row = new OrderItemRow(order, item.product, item.quantity);
+            this.rows.push(row);
+          });
+        });
+
+        this.updateRowGroupMetaData();
+      });
+
+    this.cols = [
+      { field: "order.Id", header: "Order Number" },
+      { field: "orderDetails", header: "Order Details" },
+      { field: "product.name", header: "Name" },
+      { field: "product.category", header: "Category" },
+      { field: "quantity", header: "Quantity" }
+    ];
   }
 
+  onSort() {
+    this.updateRowGroupMetaData();
+  }
+
+  updateRowGroupMetaData() {
+    this.rowGroupMetadata = {};
+    if (this.rows) {
+      for (let i = 0; i < this.rows.length; i++) {
+        let rowData = this.rows[i];
+        let orderId = rowData.order.id;
+        if (i == 0) {
+          this.rowGroupMetadata[orderId] = { index: 0, size: 1 };
+        }
+        else {
+          let previousRowData = this.rows[i - 1];
+          let previousRowGroup = previousRowData.order.id;
+          if (orderId === previousRowGroup)
+            this.rowGroupMetadata[orderId].size++;
+          else
+            this.rowGroupMetadata[orderId] = { index: i, size: 1 };
+        }
+      }
+    }
+  }
 }

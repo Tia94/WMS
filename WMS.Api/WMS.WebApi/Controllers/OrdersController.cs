@@ -97,6 +97,16 @@ namespace WMS.WebApi.Controllers
             return new OkResult();
         }
 
+
+        [HttpGet("keeperOrders")]
+        [AllowAnonymous]
+        public IActionResult KeeperOrders()
+        {
+            var orders = orderService.GetKeeperOrders();
+            // TODO: Map to order model
+            return new OkObjectResult(orders);
+        }
+
 //
 //        [HttpGet("{id:int}")]
 //        [AllowAnonymous]

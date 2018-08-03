@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Order } from './models/keeper';
 
 @Injectable()
 export class OrderService {
@@ -120,6 +120,10 @@ export class OrderService {
 
   public cancelOrder(orderId: number): Promise<any> {
     return this.http.post(`${this.url}/cancel`, { id: orderId }, { headers: this.headers }).toPromise();
+  }
+
+  public getKeeperOrders(): Observable<Array<Order>> {
+    return this.http.get(`${this.url}/keeperOrders`, { headers: this.headers }).map(data => <Array<Order>>data);
   }
 
   private getCartKey(username: string): string {
