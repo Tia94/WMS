@@ -52,13 +52,14 @@ namespace WMS.Infrastructure.Repository
         {
             var statuses = new[] {OrderStatus.Submitted, OrderStatus.PackingByStoreKeeper};
 
+            // TODO: Look into using "Order.Stage" instead of calculating it
             return context.Orders
                 .Include(x => x.Stages)
                 .Include(x => x.Client)
                 .Include(x => x.Items)
                 .ThenInclude(x => x.Product)
-                .Where(x => statuses.Contains(x.Stages.OrderByDescending(stage => stage.CreatedOn).Select(stage => stage.Status).First()))
-//                .Where(x => statuses.Contains(x.Stage.Status))
+                .Where(x => statuses.Contains(x.Stages.OrderByDescending(stage => stage.CreatedOn)
+                    .Select(stage => stage.Status).First()))
                 .ToList();
         }
     }

@@ -29,7 +29,10 @@
       <td class="ui-resizable-column">{{rowData.product.name}}</td>
       <td class="ui-resizable-column">{{rowData.product.category}}</td>
       <td class="ui-resizable-column">{{rowData.quantity}}</td>
-      <td class="ui-resizable-column">ACTIONS</td>
+      <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size"
+        class="ui-resizable-column">
+        ACTIONS
+      </td>
     </tr>
   </ng-template>
 </p-table>
