@@ -14,8 +14,12 @@
             <div class="col-3">
               <span>{{item.product.name}}</span>
             </div>
-            <div class="col-3 justify-content-center">
-              <div class="ui-inputgroup">
+            <div class="col-3">
+              <div class="d-flex justify-content-center">
+                <span>Quantity</span>
+              </div>
+              <br/>
+              <div class="ui-inputgroup d-flex justify-content-center">
                 <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" (click)="updateItemQuantity(item.product.id, -1)"></button>
                 <input class="narrow-input" type="number" value="{{item.quantity}}">
                 <button pButton type="button" icon="fa fa-plus" class="ui-button-success" (click)="updateItemQuantity(item.product.id, 1)"></button>
@@ -24,7 +28,7 @@
             <div class="col-2">
               <span class="price">{{item.getTotal() | number:'1.2-2'}} RON </span>
             </div>
-            <div class="col-2 flex justify-content-center">
+            <div class="col-2 d-flex justify-content-center">
               <span class="remove-cart-item float-right">
                 <p-button label="Remove" (click)="removeItem(item.product.id)">
                 </p-button>
