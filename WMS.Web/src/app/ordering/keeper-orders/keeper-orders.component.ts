@@ -18,7 +18,8 @@ export class KeeperOrdersComponent implements OnInit {
   constructor(private orderService: OrderService, private messageService: MessageService, private authService: AuthService) { }
 
   ngOnInit() {
-
+    this.orderService.refreshKeeperOrders();
+    
     setInterval(() => {
       this.orderService.refreshKeeperOrders();
     }, 10000);
