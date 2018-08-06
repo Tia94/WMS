@@ -7,25 +7,25 @@
     <div class="col-12">
       <p-card class="wide-card" styleClass="ui-card-shadow">
         <div class="container">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col-2">
               <img class="small-image" src="Card" src="assets/images/products.jpg">
             </div>
             <div class="col-3">
               <span>{{item.product.name}}</span>
             </div>
-            <div class="col-3">
+            <div class="col-3 justify-content-center">
               <div class="ui-inputgroup">
                 <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" (click)="updateItemQuantity(item.product.id, -1)"></button>
                 <input class="narrow-input" type="number" value="{{item.quantity}}">
                 <button pButton type="button" icon="fa fa-plus" class="ui-button-success" (click)="updateItemQuantity(item.product.id, 1)"></button>
               </div>
             </div>
-            <div class="col-1">
+            <div class="col-2">
               <span class="price">{{item.getTotal() | number:'1.2-2'}} RON </span>
             </div>
-            <div class="col-1">
-              <span class="remove-cart-item">
+            <div class="col-2 flex justify-content-center">
+              <span class="remove-cart-item float-right">
                 <p-button label="Remove" (click)="removeItem(item.product.id)">
                 </p-button>
               </span>
