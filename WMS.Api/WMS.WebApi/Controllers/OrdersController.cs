@@ -96,8 +96,7 @@ namespace WMS.WebApi.Controllers
             orderService.Cancel(request.Id);
             return new OkResult();
         }
-
-
+        
         [HttpGet("keeperOrders")]
         [AllowAnonymous]
         public IActionResult KeeperOrders()
@@ -107,55 +106,70 @@ namespace WMS.WebApi.Controllers
             return new OkObjectResult(orders);
         }
 
-//
-//        [HttpGet("{id:int}")]
-//        [AllowAnonymous]
-//        public IActionResult Get(int id)
-//        {
-//            var product = productService.Get(id);
-//            return new OkObjectResult(product);
-//        }
-//
-//        [HttpPost]
-//        [AllowAnonymous]
-//        public IActionResult Post([FromBody] AddProductModel model)
-//        {
-//            var dto = new ProductDto
-//            {
-//                Name = model.Name,
-//                Category = model.Category,
-//                Quantity = model.Quantity,
-//                Price = model.Price
-//            };
-//
-//            productService.Add(dto);
-//
-//            return new OkResult();
-//        }
-//
-//        [HttpPut("{id:int}")]
-//        [AllowAnonymous]
-//        public IActionResult Put(int id, [FromBody] UpdateProductModel model)
-//        {
-//            var dto = new ProductDto
-//            {
-//                Id = id,
-//                Name = model.Name,
-//                Category = model.Category,
-//                Quantity = model.Quantity,
-//                Price = model.Price
-//            };
-//
-//            productService.Update(dto);
-//
-//            return new OkResult();
-//        }
-//
-//        [HttpDelete("{id:int}")]
-//        public IActionResult Delete(int id)
-//        {
-//            productService.Delete(id);
-//            return new OkResult();
-//        }
+        [HttpPost("startProcessing")]
+        [AllowAnonymous]
+        public IActionResult StartProcessing([FromBody] StartProcessingOrderRequest request)
+        {
+            orderService.StartProcessing(request.Id);
+            return new OkResult();
+        }
+
+        [HttpPost("finishProcessing")]
+        [AllowAnonymous]
+        public IActionResult FinishProcessing([FromBody] StartProcessingOrderRequest request)
+        {
+            orderService.FinishProcessing(request.Id);
+            return new OkResult();
+        }
+        //
+        //        [HttpGet("{id:int}")]
+        //        [AllowAnonymous]
+        //        public IActionResult Get(int id)
+        //        {
+        //            var product = productService.Get(id);
+        //            return new OkObjectResult(product);
+        //        }
+        //
+        //        [HttpPost]
+        //        [AllowAnonymous]
+        //        public IActionResult Post([FromBody] AddProductModel model)
+        //        {
+        //            var dto = new ProductDto
+        //            {
+        //                Name = model.Name,
+        //                Category = model.Category,
+        //                Quantity = model.Quantity,
+        //                Price = model.Price
+        //            };
+        //
+        //            productService.Add(dto);
+        //
+        //            return new OkResult();
+        //        }
+        //
+        //        [HttpPut("{id:int}")]
+        //        [AllowAnonymous]
+        //        public IActionResult Put(int id, [FromBody] UpdateProductModel model)
+        //        {
+        //            var dto = new ProductDto
+        //            {
+        //                Id = id,
+        //                Name = model.Name,
+        //                Category = model.Category,
+        //                Quantity = model.Quantity,
+        //                Price = model.Price
+        //            };
+        //
+        //            productService.Update(dto);
+        //
+        //            return new OkResult();
+        //        }
+        //
+        //        [HttpDelete("{id:int}")]
+        //        public IActionResult Delete(int id)
+        //        {
+        //            productService.Delete(id);
+        //            return new OkResult();
+        //        }
     }
 }

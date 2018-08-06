@@ -14,6 +14,8 @@ namespace WMS.Application.Dto.Orders.Keeper
 
         public Guid Number { get; set; }
 
+        public string Status { get; set; }
+
         public ClientDto Client { get; set; }
 
         public IEnumerable<OrderItemDto> Items { get; set; }

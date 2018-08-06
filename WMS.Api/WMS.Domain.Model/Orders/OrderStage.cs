@@ -34,6 +34,7 @@ namespace WMS.Domain.Model.Orders
         public static IEnumerable<string> All => new List<string>
         {
             Submitted,
+            PackingByStoreKeeper,
             ReadyToBePickedUpByDriver,
             InDelivery,
             Delivered,

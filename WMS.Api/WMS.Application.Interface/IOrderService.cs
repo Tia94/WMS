@@ -12,5 +12,9 @@ namespace WMS.Application.Interface
         void Cancel(int id);
 
         IEnumerable<Dto.Orders.Keeper.OrderDto> GetKeeperOrders();
+
+        void StartProcessing(int id);
+
+        void FinishProcessing(int id);
     }
 }

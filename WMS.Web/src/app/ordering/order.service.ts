@@ -13,6 +13,7 @@ export class OrderService {
   private cartObservable: BehaviorSubject<Cart> = new BehaviorSubject(new Cart(""));
   private cartItemsCountObservable: BehaviorSubject<number> = new BehaviorSubject(0);
   private clientOrdersObservable: BehaviorSubject<Array<any>> = new BehaviorSubject(new Array<any>());
+  private keeperOrdersObservable: BehaviorSubject<Array<any>> = new BehaviorSubject(new Array<any>());
 
   constructor(private http: HttpClient) { }
 
@@ -123,7 +124,20 @@ export class OrderService {
   }
 
   public getKeeperOrders(): Observable<Array<Order>> {
-    return this.http.get(`${this.url}/keeperOrders`, { headers: this.headers }).map(data => <Array<Order>>data);
+    return this.keeperOrdersObservable;
+  }
+
+  public refreshKeeperOrders(): void {
+    this.http.get(`${this.url}/keeperOrders`, { headers: this.headers })
+      .subscribe((data: Array<any>) => this.keeperOrdersObservable.next(data));
+  }
+
+  public startProcessing(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/startProcessing`, { id: orderId }, { headers: this.headers }).toPromise();
+  }
+
+  public finishProcessing(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/finishProcessing`, { id: orderId }, { headers: this.headers }).toPromise();
   }
 
   private getCartKey(username: string): string {

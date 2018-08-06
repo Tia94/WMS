@@ -87,6 +87,7 @@ namespace WMS.Application
             {
                 Id = x.Id,
                 Number = x.Number,
+                Status = x.Stage.Status,
                 Client = new ClientDto
                 {
                     FirstName = x.Client.Firstname,
@@ -106,6 +107,22 @@ namespace WMS.Application
                     }
                 })
             });
+        }
+
+        public void StartProcessing(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            order.SetStatus(OrderStatus.PackingByStoreKeeper);
+            orderRepository.Update(order);
+        }
+
+        public void FinishProcessing(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            order.SetStatus(OrderStatus.ReadyToBePickedUpByDriver);
+            orderRepository.Update(order);
         }
     }
 }
