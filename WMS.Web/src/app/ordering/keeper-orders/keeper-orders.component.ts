@@ -19,7 +19,7 @@ export class KeeperOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.orderService.refreshKeeperOrders();
-    
+
     setInterval(() => {
       this.orderService.refreshKeeperOrders();
     }, 10000);
@@ -40,20 +40,38 @@ export class KeeperOrdersComponent implements OnInit {
 
   }
 
-  public start(orderId: number, orderNumber: string): void {
-    this.orderService.startProcessing(orderId)
+  public startPacking(orderId: number, orderNumber: string): void {
+    this.orderService.startPacking(orderId)
       .then(_ => {
         let username = this.authService.getUsername();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' is now being processed by '${username}'.` });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' is now being packed by '${username}'.` });
+        this.orderService.refreshKeeperOrders();
+      });
+  }
+
+  public finishPacking(orderId: number, orderNumber: string): void {
+    this.orderService.finishPacking(orderId)
+      .then(_ => {
+        let username = this.authService.getUsername();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' is now packed by '${username}'.` });
+        this.orderService.refreshKeeperOrders();
+      });
+  }
+
+  public send(orderId: number, orderNumber: string): void {
+    this.orderService.send(orderId)
+      .then(_ => {
+        let username = this.authService.getUsername();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' is sent to driver by '${username}'.` });
         this.orderService.refreshKeeperOrders();
       });
   }
 
   public finish(orderId: number, orderNumber: string): void {
-    this.orderService.finishProcessing(orderId)
+    this.orderService.finish(orderId)
       .then(_ => {
         let username = this.authService.getUsername();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Processing order '${orderNumber}' by '${username}' is done.` });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order '${orderNumber}' is now set as delivered by '${username}'.` });
         this.orderService.refreshKeeperOrders();
       });
   }

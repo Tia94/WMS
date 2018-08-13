@@ -6,7 +6,7 @@ import { Order } from './models/keeper';
 
 @Injectable()
 export class OrderService {
-
+  
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -132,14 +132,22 @@ export class OrderService {
       .subscribe((data: Array<any>) => this.keeperOrdersObservable.next(data));
   }
 
-  public startProcessing(orderId: number): Promise<any> {
-    return this.http.post(`${this.url}/startProcessing`, { id: orderId }, { headers: this.headers }).toPromise();
+  public startPacking(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/startPacking`, { id: orderId }, { headers: this.headers }).toPromise();
   }
 
-  public finishProcessing(orderId: number): Promise<any> {
-    return this.http.post(`${this.url}/finishProcessing`, { id: orderId }, { headers: this.headers }).toPromise();
+  public finishPacking(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/finishPacking`, { id: orderId }, { headers: this.headers }).toPromise();
   }
 
+  public send(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/send`, { id: orderId }, { headers: this.headers }).toPromise();
+  }
+
+  public finish(orderId: number): Promise<any> {
+    return this.http.post(`${this.url}/finish`, { id: orderId }, { headers: this.headers }).toPromise();
+  }
+  
   private getCartKey(username: string): string {
     return `${username}_cart`;
   }

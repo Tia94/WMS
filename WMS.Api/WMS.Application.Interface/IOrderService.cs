@@ -13,8 +13,12 @@ namespace WMS.Application.Interface
 
         IEnumerable<Dto.Orders.Keeper.OrderDto> GetKeeperOrders();
 
-        void StartProcessing(int id);
+        void StartPacking(int id);
 
-        void FinishProcessing(int id);
+        void FinishPacking(int id);
+
+        void Send(int id);
+
+        void Finish(int id);
     }
 }

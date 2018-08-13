@@ -36,8 +36,10 @@
       <td class="ui-resizable-column">{{rowData.quantity}}</td>
       <td *ngIf="rowGroupMetadata[rowData.order.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.order.id].size"
         class="ui-resizable-column">
-        <p-button *ngIf="rowData.order.status == 'Submitted'" label="Start" (click)="start(rowData.order.id, rowData.order.number)"></p-button>
-        <p-button *ngIf="rowData.order.status == 'Packing by store keeper'" label="Finish" (click)="finish(rowData.order.id, rowData.order.number)"></p-button>
+        <p-button *ngIf="rowData.order.status == 'Submitted'" label="Start Packing" (click)="startPacking(rowData.order.id, rowData.order.number)"></p-button>
+        <p-button *ngIf="rowData.order.status == 'Packing by store keeper'" label="Finish Packing" (click)="finishPacking(rowData.order.id, rowData.order.number)"></p-button>
+        <p-button *ngIf="rowData.order.status == 'Ready to be picked up by driver'" label="Send" (click)="send(rowData.order.id, rowData.order.number)"></p-button>
+        <p-button *ngIf="rowData.order.status == 'In delivery'" label="Finish" (click)="finish(rowData.order.id, rowData.order.number)"></p-button>
       </td>
     </tr>
   </ng-template>

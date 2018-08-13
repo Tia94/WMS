@@ -106,19 +106,35 @@ namespace WMS.WebApi.Controllers
             return new OkObjectResult(orders);
         }
 
-        [HttpPost("startProcessing")]
+        [HttpPost("startPacking")]
         [AllowAnonymous]
-        public IActionResult StartProcessing([FromBody] StartProcessingOrderRequest request)
+        public IActionResult StartPacking([FromBody] StartProcessingOrderRequest request)
         {
-            orderService.StartProcessing(request.Id);
+            orderService.StartPacking(request.Id);
             return new OkResult();
         }
 
-        [HttpPost("finishProcessing")]
+        [HttpPost("finishPacking")]
         [AllowAnonymous]
-        public IActionResult FinishProcessing([FromBody] StartProcessingOrderRequest request)
+        public IActionResult FinishPacking([FromBody] StartProcessingOrderRequest request)
         {
-            orderService.FinishProcessing(request.Id);
+            orderService.FinishPacking(request.Id);
+            return new OkResult();
+        }
+
+        [HttpPost("send")]
+        [AllowAnonymous]
+        public IActionResult Send([FromBody] StartProcessingOrderRequest request)
+        {
+            orderService.Send(request.Id);
+            return new OkResult();
+        }
+
+        [HttpPost("finish")]
+        [AllowAnonymous]
+        public IActionResult Finish([FromBody] StartProcessingOrderRequest request)
+        {
+            orderService.Finish(request.Id);
             return new OkResult();
         }
         //

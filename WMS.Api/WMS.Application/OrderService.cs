@@ -109,7 +109,7 @@ namespace WMS.Application
             });
         }
 
-        public void StartProcessing(int id)
+        public void StartPacking(int id)
         {
             var order = orderRepository.Get(id);
 
@@ -117,11 +117,27 @@ namespace WMS.Application
             orderRepository.Update(order);
         }
 
-        public void FinishProcessing(int id)
+        public void FinishPacking(int id)
         {
             var order = orderRepository.Get(id);
 
             order.SetStatus(OrderStatus.ReadyToBePickedUpByDriver);
+            orderRepository.Update(order);
+        }
+
+        public void Send(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            order.SetStatus(OrderStatus.InDelivery);
+            orderRepository.Update(order);
+        }
+
+        public void Finish(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            order.SetStatus(OrderStatus.Delivered);
             orderRepository.Update(order);
         }
     }

@@ -50,7 +50,13 @@ namespace WMS.Infrastructure.Repository
 
         public IEnumerable<Order> GetKeeperOrders()
         {
-            var statuses = new[] {OrderStatus.Submitted, OrderStatus.PackingByStoreKeeper};
+            var statuses = new[]
+            {
+                OrderStatus.Submitted,
+                OrderStatus.PackingByStoreKeeper,
+                OrderStatus.ReadyToBePickedUpByDriver,
+                OrderStatus.InDelivery
+            };
 
             // TODO: Look into using "Order.Stage" instead of calculating it
             return context.Orders
