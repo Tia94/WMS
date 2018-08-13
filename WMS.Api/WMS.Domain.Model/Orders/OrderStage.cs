@@ -26,7 +26,7 @@ namespace WMS.Domain.Model.Orders
     {
         public const string Submitted = "Submitted";
         public const string PackingByStoreKeeper = "Packing by store keeper";
-        public const string ReadyToBePickedUpByDriver = "Ready to be picked up by driver";
+//        public const string ReadyToBePickedUpByDriver = "Ready to be picked up by driver";
         public const string InDelivery = "In delivery";
         public const string Delivered = "Delivered";
         public const string Canceled = "Canceled";
@@ -35,7 +35,7 @@ namespace WMS.Domain.Model.Orders
         {
             Submitted,
             PackingByStoreKeeper,
-            ReadyToBePickedUpByDriver,
+//            ReadyToBePickedUpByDriver,
             InDelivery,
             Delivered,
             Canceled
@@ -45,7 +45,7 @@ namespace WMS.Domain.Model.Orders
         {
             Submitted,
             PackingByStoreKeeper,
-            ReadyToBePickedUpByDriver
+//            ReadyToBePickedUpByDriver
         };
     }
 }
