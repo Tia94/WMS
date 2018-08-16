@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsListComponent, pathMatch: "full" },
+  { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] },

@@ -137,55 +137,5 @@ namespace WMS.WebApi.Controllers
             orderService.Finish(request.Id);
             return new OkResult();
         }
-        //
-        //        [HttpGet("{id:int}")]
-        //        [AllowAnonymous]
-        //        public IActionResult Get(int id)
-        //        {
-        //            var product = productService.Get(id);
-        //            return new OkObjectResult(product);
-        //        }
-        //
-        //        [HttpPost]
-        //        [AllowAnonymous]
-        //        public IActionResult Post([FromBody] AddProductModel model)
-        //        {
-        //            var dto = new ProductDto
-        //            {
-        //                Name = model.Name,
-        //                Category = model.Category,
-        //                Quantity = model.Quantity,
-        //                Price = model.Price
-        //            };
-        //
-        //            productService.Add(dto);
-        //
-        //            return new OkResult();
-        //        }
-        //
-        //        [HttpPut("{id:int}")]
-        //        [AllowAnonymous]
-        //        public IActionResult Put(int id, [FromBody] UpdateProductModel model)
-        //        {
-        //            var dto = new ProductDto
-        //            {
-        //                Id = id,
-        //                Name = model.Name,
-        //                Category = model.Category,
-        //                Quantity = model.Quantity,
-        //                Price = model.Price
-        //            };
-        //
-        //            productService.Update(dto);
-        //
-        //            return new OkResult();
-        //        }
-        //
-        //        [HttpDelete("{id:int}")]
-        //        public IActionResult Delete(int id)
-        //        {
-        //            productService.Delete(id);
-        //            return new OkResult();
-        //        }
     }
 }

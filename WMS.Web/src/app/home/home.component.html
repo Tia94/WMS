@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <a routerLink="/manage/products" routerLinkActive="active">
+      <a routerLink="/manage/products" routerLinkActive="active" appVisibleFor="admin">
         <p-card title="Manage Products" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
 
           <p-header>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-sm">
-      <a routerLink="/manage/users" routerLinkActive="active">
+      <a routerLink="/manage/users" routerLinkActive="active" appVisibleFor="admin">
         <p-card title="Manage Users" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
 
           <p-header>
@@ -36,7 +36,7 @@
       </a>
     </div>
     <div class="col-sm">
-      One of three columns
+      
     </div>
   </div>
 </div>
