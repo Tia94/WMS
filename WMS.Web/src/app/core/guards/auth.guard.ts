@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       debugger;
       let role = Role.from(this.getLoggedInUserRole());
       if (!role.HasAccessTo(state.url)) {
-        this.router.navigate(["/pageNotFound"]);
+        this.router.navigate(["/pagenotfound"]);
       }
       return true;
     }

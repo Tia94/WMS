@@ -25,9 +25,11 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { KeeperOrdersComponent } from './ordering/keeper-orders/keeper-orders.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'pagenotfound', component: PageNotFoundComponent, pathMatch: "full" },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    PageNotFoundComponent,
     VisibleForDirective
   ],
   imports: [
