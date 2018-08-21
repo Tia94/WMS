@@ -9,6 +9,7 @@ namespace WMS.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Users")]
+    [Authorize(Roles = Roles.Admin)]
     public class UsersController : Controller
     {
         private readonly IUserService userService;
@@ -19,14 +20,12 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Get()
         {
             return new OkObjectResult(userService.Get());
         }
 
         [HttpGet("{id:int}")]
-        [AllowAnonymous]
         public IActionResult Get(int id)
         {
             var product = userService.Get(id);
@@ -34,7 +33,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public IActionResult Post([FromBody] AddUserModel model)
         {
             var dto = new UserDto
@@ -56,7 +54,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        [AllowAnonymous]
         public IActionResult Put(int id, [FromBody] UpdateUserModel model)
         {
             var dto = new UserDto

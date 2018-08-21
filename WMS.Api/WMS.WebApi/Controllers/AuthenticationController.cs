@@ -89,7 +89,11 @@ namespace WMS.WebApi.Controllers
                 return Task.FromResult<ClaimsIdentity>(null);
 
             return Task.FromResult(new ClaimsIdentity(new GenericIdentity(model.Username, authType),
-                new[] {new Claim("role", userDto.Role)}));
+                new[]
+                {
+                    new Claim("role", userDto.Role),
+                    new Claim("roles", userDto.Role)
+                }));
         }
 
         private string BuildToken(ClaimsIdentity identity, string username)
@@ -121,7 +125,5 @@ namespace WMS.WebApi.Controllers
 
         private static long ToUnixEpochDate(DateTime date) => (long) Math.Round(
             (date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
-
-        
     }
 }

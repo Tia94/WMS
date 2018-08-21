@@ -9,6 +9,7 @@ namespace WMS.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Products")]
+    [Authorize(Roles = Roles.Admin)]
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
@@ -19,7 +20,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Get()
         {
             var products = productService.Get();
@@ -27,7 +27,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [AllowAnonymous]
         public IActionResult Get(int id)
         {
             var product = productService.Get(id);
@@ -35,7 +34,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public IActionResult Post([FromBody] AddProductModel model)
         {
             var dto = new ProductDto
@@ -52,7 +50,6 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        [AllowAnonymous]
         public IActionResult Put(int id, [FromBody] UpdateProductModel model)
         {
             var dto = new ProductDto

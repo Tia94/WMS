@@ -21,7 +21,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Client)]
         public IActionResult Get()
         {
             var products = productService.Get().Select(x => new
@@ -37,7 +37,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Client)]
         public IActionResult Post([FromBody] SubmitOrderModel model)
         {
             var dto = new SubmitOrderDto
@@ -61,7 +61,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpGet("{username}")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Client)]
         public IActionResult Get(string username)
         {
             var dtoList = orderService.Get(username);
@@ -90,15 +90,15 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost("cancel")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Client)]
         public IActionResult Cancel([FromBody] CancelOrderRequest request)
         {
             orderService.Cancel(request.Id);
             return new OkResult();
         }
-        
+
         [HttpGet("keeperOrders")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Keeper)]
         public IActionResult KeeperOrders()
         {
             var orders = orderService.GetKeeperOrders();
@@ -107,7 +107,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost("startPacking")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Keeper)]
         public IActionResult StartPacking([FromBody] StartProcessingOrderRequest request)
         {
             orderService.StartPacking(request.Id);
@@ -115,7 +115,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost("finishPacking")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Keeper)]
         public IActionResult FinishPacking([FromBody] StartProcessingOrderRequest request)
         {
             orderService.FinishPacking(request.Id);
@@ -123,7 +123,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost("send")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Keeper)]
         public IActionResult Send([FromBody] StartProcessingOrderRequest request)
         {
             orderService.Send(request.Id);
@@ -131,7 +131,7 @@ namespace WMS.WebApi.Controllers
         }
 
         [HttpPost("finish")]
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.Keeper)]
         public IActionResult Finish([FromBody] StartProcessingOrderRequest request)
         {
             orderService.Finish(request.Id);
