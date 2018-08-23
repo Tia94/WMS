@@ -2,7 +2,12 @@
   {{title}}
 </h2>
 
-<div class="container">
+<div *ngIf="!hasCart()">
+  You haven't added any products to your cart, yet.
+  To add products, go to <a routerLink="/products" href="#">Products page.</a>
+</div>
+
+<div class="container" *ngIf="hasCart()">
   <div class="row products-row" *ngFor="let item of cart.items">
     <div class="col-12">
       <p-card class="wide-card" styleClass="ui-card-shadow">

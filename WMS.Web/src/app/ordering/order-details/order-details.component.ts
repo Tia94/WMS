@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class OrderDetailsComponent implements OnInit {
 
-  public title:string = "Order Details";
+  public title: string = "Order Details";
   public cart: Cart;
 
   constructor(private orderService: OrderService, private authService: AuthService, private router: Router) {
@@ -43,6 +43,10 @@ export class OrderDetailsComponent implements OnInit {
       this.orderService.clear(username);
       this.router.navigate(["/products"]);
     });
+  }
+
+  public hasCart(): boolean {
+    return this.cart.username.trim() !== "" && this.cart.items.length > 0;
   }
 
 }
