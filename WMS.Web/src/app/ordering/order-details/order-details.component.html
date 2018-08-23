@@ -25,9 +25,9 @@
               </div>
               <br/>
               <div class="ui-inputgroup d-flex justify-content-center">
-                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" (click)="updateItemQuantity(item.product.id, -1)"></button>
+                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" (click)="updateItemQuantity(item.product, -1)"></button>
                 <input class="narrow-input" type="number" value="{{item.quantity}}">
-                <button pButton type="button" icon="fa fa-plus" class="ui-button-success" (click)="updateItemQuantity(item.product.id, 1)"></button>
+                <button pButton type="button" icon="fa fa-plus" class="ui-button-success" (click)="updateItemQuantity(item.product, 1)"></button>
               </div>
             </div>
             <div class="col-2">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-2 d-flex justify-content-center">
               <span class="remove-cart-item float-right">
-                <p-button label="Remove" (click)="removeItem(item.product.id)">
+                <p-button label="Remove" (click)="removeItem(item.product)">
                 </p-button>
               </span>
             </div>

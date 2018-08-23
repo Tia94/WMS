@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService, Cart } from '../order.service';
+import { OrderService, Cart, Product } from '../order.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-order-details',
@@ -13,7 +14,7 @@ export class OrderDetailsComponent implements OnInit {
   public title: string = "Order Details";
   public cart: Cart;
 
-  constructor(private orderService: OrderService, private authService: AuthService, private router: Router) {
+  constructor(private orderService: OrderService, private authService: AuthService, private router: Router, private messageService:MessageService) {
 
   }
 
@@ -27,19 +28,22 @@ export class OrderDetailsComponent implements OnInit {
       });
   }
 
-  public updateItemQuantity(productId: number, quantity: number): void {
+  public updateItemQuantity(product: Product, quantity: number): void {
     let username = this.authService.getUsername();
-    this.orderService.increaseItemQuantity(username, productId, quantity);
+    this.orderService.increaseItemQuantity(username, product.id, quantity);
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${product.name}' quantity was updated successfully.` });
   }
 
-  public removeItem(productId: number): void {
+  public removeItem(product: Product): void {
     let username = this.authService.getUsername();
-    this.orderService.removeFromCart(username, productId);
+    this.orderService.removeFromCart(username, product.id);
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${product.name}' was removed from cart successfully.` });
   }
 
   public submit(): void {
     let username = this.authService.getUsername();
     this.orderService.submit(username).then(_ => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Order was submitted successfully.` });
       this.orderService.clear(username);
       this.router.navigate(["/products"]);
     });
