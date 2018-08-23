@@ -17,6 +17,12 @@ export class ProductsListComponent implements OnInit {
   public products: Array<any> = new Array<any>();
   public productGroups: Array<any> = new Array<any>();
 
+  public name: string = "";
+  public category: string = "";
+  public priceRangeMin: number = 1;
+  public priceRangeMax: number = 999999;
+  public priceRange: Array<number> = [1, 100000];
+
   constructor(private orderService: OrderService, private authService: AuthService) {
 
   }
@@ -24,11 +30,7 @@ export class ProductsListComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.orderService.listProducts().subscribe(data => {
       this.products = data;
-
-      for (let i = 0; i < this.products.length; i += this.rowSize) {
-        let batch = this.products.filter((value, index) => index >= i).filter((value, index) => index < this.rowSize);
-        this.productGroups.push(batch);
-      }
+      this.InitializeProductGroups(this.products);
 
     });
   }
@@ -37,10 +39,31 @@ export class ProductsListComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  addToCart(product:any): void {
+  public addToCart(product: any): void {
     let username = this.authService.getUsername();
 
     this.orderService.addToCart(username, product, 1);
+  }
+
+  public search(): void {
+    let filtered = this.products.filter(x =>
+      (this.name.trim() === "" || this.contains(x.name, this.name)) &&
+      (this.category.trim() === "" || this.contains(x.category, this.category)) &&
+      x.price >= this.priceRange[0] && x.price <= this.priceRange[1]);
+
+    this.InitializeProductGroups(filtered);
+  }
+
+  private InitializeProductGroups(products: Array<any>) {
+    this.productGroups = [];
+    for (let i = 0; i < products.length; i += this.rowSize) {
+      let batch = products.filter((value, index) => index >= i).filter((value, index) => index < this.rowSize);
+      this.productGroups.push(batch);
+    }
+  }
+
+  private contains(source: string, substring: string): boolean {
+    return source.toLowerCase().indexOf(substring.toLowerCase()) >= 0;
   }
 
 }
