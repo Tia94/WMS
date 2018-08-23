@@ -27,19 +27,20 @@ export class ProductService {
       .get(`${this.url}/${id}`, { headers: this.headers });
   }
 
-  public add(name: string, category: string, quantity: number, price: number): Observable<any> {
+  public add(name: string, category: string, quantity: number, price: number): Promise<any> {
     return this.http
-      .post(this.url, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers });
+      .post(this.url, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers })
+      .toPromise();
   }
 
-  public delete(id: number): Observable<any> {
-    return this.http
-      .delete(`${this.url}/${id}`, { headers: this.headers });;
+  public delete(id: number): Promise<any> {
+    return this.http.delete(`${this.url}/${id}`, { headers: this.headers }).toPromise();
   }
 
-  public update(id: number, name: string, category: string, quantity: number, price: number): Observable<any> {
+  public update(id: number, name: string, category: string, quantity: number, price: number): Promise<any> {
     return this.http
-      .put(`${this.url}/${id}`, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers });
+      .put(`${this.url}/${id}`, { name: name, category: category, quantity: quantity, price: price }, { headers: this.headers })
+      .toPromise();
   }
 
 }

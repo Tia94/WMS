@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { UserService } from '../user.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-manage-users',
@@ -22,7 +23,7 @@ export class ManageUsersComponent implements OnInit {
   public roles: Array<any>;
   public selectedRole: any = {};
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private messageService: MessageService) {
 
   }
 
@@ -66,18 +67,21 @@ export class ManageUsersComponent implements OnInit {
 
   save() {
     let users = [...this.users];
+    let username = this.user.username;
     if (this.newUser) {
       users.push(this.user);
       this.userService.add(this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber, this.user.address,
         this.selectedRole.value, this.user.isActive)
-        .subscribe(response => {
+        .then(_ => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `User '${username}' added successfully.` });
         });
     }
     else {
       users[this.users.indexOf(this.selectedUser)] = this.user;
       this.userService.update(this.user.id, this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber,
         this.user.address, this.selectedRole.value, this.user.isActive)
-        .subscribe(response => {
+        .then(_ => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `User '${username}' updated successfully.` });
         });
     }
 
@@ -89,10 +93,12 @@ export class ManageUsersComponent implements OnInit {
     let index = this.users.indexOf(this.selectedUser);
 
     if (index !== -1) {
+      let username = this.selectedUser.username;
       this.userService.delete(this.selectedUser.id)
-        .subscribe(response => {
+        .then(_ => {
           this.users = this.users.filter((val, i) => i != index);
           this.closeDialog();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `User '${username}' deleted successfully.` });
         });
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ISubscription } from 'rxjs/Subscription';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-manage-products',
@@ -20,7 +21,7 @@ export class ManageProductsComponent implements OnInit, OnDestroy {
 
   public cols: Array<any> = new Array<any>();
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private messageService: MessageService) {
 
   }
 
@@ -55,29 +56,36 @@ export class ManageProductsComponent implements OnInit, OnDestroy {
     let products = [...this.products];
     if (this.newProduct) {
       products.push(this.product);
+      let productName = this.product.name;
       this.productService.add(this.product.name, this.product.category, this.product.quantity, this.product.price)
-        .subscribe(response => {
+        .then(_ => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${productName}' saved successfully.` });
         });
     }
     else {
       products[this.products.indexOf(this.selectedProduct)] = this.product;
+      let productName = this.product.name;
       this.productService.update(this.product.id, this.product.name, this.product.category, this.product.quantity, this.product.price)
-        .subscribe(response => {
+        .then(_ => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${productName}' updated successfully.` });
         });
     }
 
     this.products = products;
     this.closeDialog();
+
   }
 
   delete() {
     let index = this.products.indexOf(this.selectedProduct);
-
+    
     if (index !== -1) {
+      let productName = this.selectedProduct.name;
       this.productService.delete(this.selectedProduct.id)
-        .subscribe(response => {
+        .then(_ => {
           this.products = this.products.filter((val, i) => i != index);
           this.closeDialog();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${productName}' deleted successfully.` });
         });
     }
   }

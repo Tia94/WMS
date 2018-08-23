@@ -23,26 +23,25 @@ export class UserService {
   }
 
   public add(username: string, password: string, firstname: string, lastname: string, email: string, telephoneNumber: string, address: string,
-    role: string, isActive: boolean): Observable<any> {
+    role: string, isActive: boolean): Promise<any> {
     return this.http
       .post(this.url, {
         username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber,
         address: address, role: role, isActive: isActive
-      }, { headers: this.headers });
+      }, { headers: this.headers }).toPromise();
   }
 
-  public delete(id: number): Observable<any> {
-    return this.http
-      .delete(`${this.url}/${id}`, { headers: this.headers });;
+  public delete(id: number): Promise<any> {
+    return this.http.delete(`${this.url}/${id}`, { headers: this.headers }).toPromise();
   }
 
   public update(id: number, username: string, password: string, firstname: string, lastname: string, email: string, telephoneNumber: string, address: string,
-    role: string, isActive: boolean): Observable<any> {
+    role: string, isActive: boolean): Promise<any> {
     return this.http
       .put(`${this.url}/${id}`, {
         name: name, username: username, password: password, firstname: firstname, lastname: lastname, email: email, telephoneNumber: telephoneNumber,
         address: address, role: role, isActive: isActive
-      }, { headers: this.headers });
+      }, { headers: this.headers }).toPromise();
   }
 
 }
