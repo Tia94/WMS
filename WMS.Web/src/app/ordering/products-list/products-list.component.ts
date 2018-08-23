@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { OrderService } from '../order.service';
 import { AuthService } from '../../core/services/auth.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-products-list',
@@ -23,7 +24,7 @@ export class ProductsListComponent implements OnInit {
   public priceRangeMax: number = 999999;
   public priceRange: Array<number> = [1, 100000];
 
-  constructor(private orderService: OrderService, private authService: AuthService) {
+  constructor(private orderService: OrderService, private authService: AuthService, private messageService:MessageService) {
 
   }
 
@@ -43,6 +44,7 @@ export class ProductsListComponent implements OnInit {
     let username = this.authService.getUsername();
 
     this.orderService.addToCart(username, product, 1);
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product '${product.name}' was added to cart.` });
   }
 
   public search(): void {
