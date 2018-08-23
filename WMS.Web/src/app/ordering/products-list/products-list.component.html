@@ -14,7 +14,8 @@
         <input type="text" pInputText placeholder="Category" [(ngModel)]="category">
       </div>
       <div class="col-md-4">
-        <h6>Price: <strong>{{priceRange[0] + ' - ' + priceRange[1]}}</strong> RON</h6>
+        <h6>Price:
+          <strong>{{priceRange[0] + ' - ' + priceRange[1]}}</strong> RON</h6>
         <div>
           <p-slider [(ngModel)]="priceRange" [style]="{'width':'14em'}" [range]="true" min="1" max="999999"></p-slider>
         </div>
