@@ -4,10 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { VisibleForDirective } from './directives/visible-for.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ButtonModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ButtonModule
   ],
   declarations: [LoginComponent, RegisterComponent, VisibleForDirective, PageNotFoundComponent]
 })

@@ -25,13 +25,13 @@
           'is-invalid': password.invalid && (password.dirty || password.touched)
         }" formControlName="password">
         <div class="invalid-feedback">
-            <p>Password is required</p>
-          </div>
+          <p>Password is required</p>
+        </div>
       </label>
     </div>
 
   </fieldset>
 
-  <button type="submit" class="btn btn-primary">Login</button>
-
+  <button pButton type="submit" label="Login"></button>
+  <button pButton type="button" label="Cancel" class="ui-button-secondary" routerLink="/" routerLinkActive="active"></button>
 </form>
