@@ -11,12 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  private returnUrl: string;
-
   public loginForm: FormGroup;
   public username: FormControl;
   public password: FormControl;
-
+  public title: string = "Login";
 
   constructor(
     private authService: AuthService,
@@ -26,8 +24,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.createFormControls();
     this.createForm();
-    
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit() {
