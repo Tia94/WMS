@@ -16,7 +16,7 @@ import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './management/manage-users/manage-users.component';
 import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/primeng';
+import { ButtonModule, GrowlModule } from 'primeng/primeng';
 import { OrderingModule } from './ordering/ordering.module';
 import { ProductsListComponent } from './ordering/products-list/products-list.component';
 import { OrderDetailsComponent } from './ordering/order-details/order-details.component';
@@ -61,8 +61,7 @@ const appRoutes: Routes = [
     OrderingModule,
     CardModule,
     ButtonModule,
-    MessagesModule,
-    MessageModule
+    GrowlModule
   ],
   providers: [AuthGuard, AuthService, MessageService, {
     provide: HTTP_INTERCEPTORS,
