@@ -57,7 +57,7 @@
         <label for="count">Count</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="number" id="count" disabled [(ngModel)]="summary.count" />
+        <span id="count">{{summary.count}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -65,7 +65,7 @@
         <label for="total">Total</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="number" id="total" disabled [(ngModel)]="summary.total" />
+        <span id="total">{{summary.total}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -73,7 +73,7 @@
         <label for="highest">Highest</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="number" id="highest" disabled [(ngModel)]="summary.highest" />
+        <span id="highest">{{summary.highest}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -81,7 +81,7 @@
         <label for="lowest">Lowest</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="number" id="lowest" disabled [(ngModel)]="summary.lowest" />
+        <span id="lowest">{{summary.lowest}}</span>
       </div>
     </div>
   </div>
@@ -100,7 +100,7 @@
         <label for="number">Number</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="text" id="number" disabled [(ngModel)]="selectedOrder.number" />
+        <span id="number">{{selectedOrder.number}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -108,7 +108,7 @@
         <label for="status">Status</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="text" id="status" disabled [(ngModel)]="selectedOrder.status" />
+        <span id="status">{{selectedOrder.status}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -116,7 +116,7 @@
         <label for="firstName">First Name</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="text" id="firstName" disabled [(ngModel)]="selectedOrder.client.firstName" />
+        <span id="firstName">{{selectedOrder.client.firstName}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -124,7 +124,7 @@
         <label for="lastName">Last Name</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="text" id="lastName" disabled [(ngModel)]="selectedOrder.client.lastName" />
+        <span id="lastName">{{selectedOrder.client.lastName}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -132,7 +132,7 @@
         <label for="tel">Telephone Number</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="tel" id="tel" disabled [(ngModel)]="selectedOrder.client.telephoneNumber" />
+        <span id="tel">{{selectedOrder.client.telephoneNumber}}</span>
       </div>
     </div>
     <div class="ui-g-12">
@@ -140,7 +140,16 @@
         <label for="address">Address</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText type="text" id="address" disabled [(ngModel)]="selectedOrder.client.address" />
+        <span id="address">{{selectedOrder.client.address}}</span>
+      </div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="total">Total</label>
+      </div>
+      <div class="ui-g-8">
+        <span id="total">{{selectedOrder.total | number:'1.2-2'}} RON</span>
       </div>
     </div>
 
