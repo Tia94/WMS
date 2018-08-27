@@ -24,8 +24,8 @@
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
         <input *ngSwitchCase="'number'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'client.firstName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'client.lastName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'firstName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'lastName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
         <input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
         <input *ngSwitchCase="'total'" pInputText type="number" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
       </th>
