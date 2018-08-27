@@ -11,10 +11,16 @@ export class ManageOrdersComponent implements OnInit {
 
   private orders: Array<Order> = new Array<Order>();
   public title: string = "Manage Orders";
-  public cols: Array<any> = new Array<any>();
   public rows: Array<OrderRow> = new Array<OrderRow>();
   public displaySummary: boolean = false;
+  public displayDetails: boolean = false;
   public summary: OrderSummary = new OrderSummary();
+
+  public cols: Array<any> = [];
+  public orderItemcols: Array<any> = [];
+
+  public selectedOrder: Order = null;
+  public selectedOrderItems: Array<OrderItemRow> = [];
 
   constructor(private orderService: OrderService) { }
 
@@ -25,6 +31,7 @@ export class ManageOrdersComponent implements OnInit {
         this.orders = orders;
         this.rows = orders.map(order => this.mapToRow(order));
         this.setSummary();
+        this.selectedOrder = orders[0];
       });
 
     this.cols = [
@@ -34,13 +41,20 @@ export class ManageOrdersComponent implements OnInit {
       { field: "status", header: "Status" },
       { field: "total", header: "Total" },
     ];
+
+    this.orderItemcols = [
+      { field: "name", header: "Product Name" },
+      { field: "category", header: "Product Category" },
+      { field: "quantity", header: "Quantity" },
+      { field: "price", header: "Price" }
+    ];
   }
 
-  public showDialog(): void {
+  public showSummaryDialog(): void {
     this.displaySummary = true;
   }
 
-  closeDialog() {
+  public closeSummaryDialog(): void {
     this.displaySummary = false;
   }
 
@@ -52,14 +66,27 @@ export class ManageOrdersComponent implements OnInit {
     this.summary = new OrderSummary(count, total, highest, lowest);
   }
 
+  public onRowSelect(event): void {
+    this.selectedOrder = this.orders.find(x => x.id === event.data.id);
+    this.selectedOrderItems = this.selectedOrder.items.map(item => new OrderItemRow(item.product.name, item.product.category, item.quantity, item.price));
+    this.displayDetails = true;
+  }
+
+  public closeDetailsDialog(): void {
+    this.displayDetails = false;
+  }
 
   private mapToRow(order: Order): OrderRow {
-    return new OrderRow(order.number, order.client.firstName, order.client.lastName, order.status, order.items.reduce((ty, u) => ty + u.price, 0));
+    return new OrderRow(order.id, order.number, order.client.firstName, order.client.lastName, order.status, order.total);
   }
 }
 
 class OrderRow {
-  constructor(public number: string, public firstName: string, public lastName: string, public status: string, public total: number) { }
+  constructor(public id: number, public number: string, public firstName: string, public lastName: string, public status: string, public total: number) { }
+}
+
+class OrderItemRow {
+  constructor(public name: string, public category, public quantity: number, public price: number) { }
 }
 
 class OrderSummary {
