@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonModule, PaginatorModule, CardModule, SliderModule, FieldsetModule, BlockUIModule, ProgressSpinnerModule } from 'primeng/primeng';
+import { ButtonModule, PaginatorModule, CardModule, SliderModule, FieldsetModule, BlockUIModule, ProgressSpinnerModule, GrowlModule } from 'primeng/primeng';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,13 +26,12 @@ import { KeeperOrdersComponent } from './keeper-orders/keeper-orders.component';
     CheckboxModule,
     InputTextModule,
     PaginatorModule,
-    MessagesModule,
-    MessageModule,
     CardModule,
     SliderModule,
     FieldsetModule,
     BlockUIModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    GrowlModule
   ],
   declarations: [ProductsListComponent, OrderDetailsComponent, ClientOrdersComponent, KeeperOrdersComponent],
   providers: [OrderService, MessageService]

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using WMS.Application.Dto;
+using WMS.Application.Dto.Orders.Admin;
+using OrderDto = WMS.Application.Dto.OrderDto;
 
 namespace WMS.Application.Interface
 {
@@ -22,5 +24,9 @@ namespace WMS.Application.Interface
         void Finish(int id);
 
         IEnumerable<string> GetOrderStatuses();
+
+        IEnumerable<Dto.Orders.Admin.OrderDto> GetAdminOrders();
+
+        IEnumerable<OrderHistoryDto> GetOrderHistory(int id);
     }
 }

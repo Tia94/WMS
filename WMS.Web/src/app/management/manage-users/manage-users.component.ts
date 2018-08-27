@@ -68,6 +68,7 @@ export class ManageUsersComponent implements OnInit {
   save() {
     let users = [...this.users];
     let username = this.user.username;
+    this.user.role = this.selectedRole.value;
     if (this.newUser) {
       users.push(this.user);
       this.userService.add(this.user.username, this.user.password, this.user.firstname, this.user.lastname, this.user.email, this.user.telephoneNumber, this.user.address,

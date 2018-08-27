@@ -16,7 +16,7 @@ import { VisibleForDirective } from './core/directives/visible-for.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './management/manage-users/manage-users.component';
 import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/primeng';
+import { ButtonModule, GrowlModule } from 'primeng/primeng';
 import { OrderingModule } from './ordering/ordering.module';
 import { ProductsListComponent } from './ordering/products-list/products-list.component';
 import { OrderDetailsComponent } from './ordering/order-details/order-details.component';
@@ -26,6 +26,7 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { KeeperOrdersComponent } from './ordering/keeper-orders/keeper-orders.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
+import { ManageOrdersComponent } from './management/manage-orders/manage-orders.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'products', component: ProductsListComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/products', component: ManageProductsComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'manage/users', component: ManageUsersComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'manage/orders', component: ManageOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'order/details', component: OrderDetailsComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'order/list', component: ClientOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'keeper/orders', component: KeeperOrdersComponent, pathMatch: "full", canActivate: [AuthGuard] }
@@ -61,8 +63,7 @@ const appRoutes: Routes = [
     OrderingModule,
     CardModule,
     ButtonModule,
-    MessagesModule,
-    MessageModule
+    GrowlModule
   ],
   providers: [AuthGuard, AuthService, MessageService, {
     provide: HTTP_INTERCEPTORS,

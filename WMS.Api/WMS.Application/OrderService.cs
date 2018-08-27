@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WMS.Application.Dto;
-using WMS.Application.Dto.Orders.Keeper;
+using WMS.Application.Dto.Orders.Admin;
 using WMS.Application.Interface;
 using WMS.Domain.Model.Orders;
 using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
+using ClientDto = WMS.Application.Dto.Orders.Keeper.ClientDto;
 using OrderDto = WMS.Application.Dto.OrderDto;
 using OrderItemDto = WMS.Application.Dto.OrderItemDto;
 
@@ -142,5 +143,51 @@ namespace WMS.Application
         }
 
         public IEnumerable<string> GetOrderStatuses() => OrderStatus.All;
+
+        public IEnumerable<Dto.Orders.Admin.OrderDto> GetAdminOrders()
+        {
+            var orders = orderRepository.GetAdminOrders();
+
+            return orders.Select(x => new Dto.Orders.Admin.OrderDto
+            {
+                Id = x.Id,
+                Number = x.Number,
+                Status = x.Stage.Status,
+                Client = new Dto.Orders.Admin.ClientDto
+                {
+                    FirstName = x.Client.Firstname,
+                    LastName = x.Client.Lastname,
+                    TelephoneNumber = x.Client.TelephoneNumber,
+                    Address = x.Client.Address
+                },
+                Total = x.Items.Sum(item => item.Price),
+                Items = x.Items.Select(item => new Dto.Orders.Admin.OrderItemDto
+                {
+                    Id = item.Id,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    Product = new Dto.Orders.Admin.ProductDto
+                    {
+                        Id = item.Product.Id,
+                        Name = item.Product.Name,
+                        Category = item.Product.Category
+                    }
+                })
+            });
+        }
+
+        public IEnumerable<OrderHistoryDto> GetOrderHistory(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            return order.Stages
+                .OrderBy(x => x.CreatedOn)
+                .Select(x => new OrderHistoryDto
+                {
+                    Status = x.Status,
+                    Date = x.CreatedOn
+                })
+                .ToList();
+        }
     }
 }

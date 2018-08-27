@@ -21,24 +21,18 @@ namespace WMS.Infrastructure.Repository
             context.SaveChanges();
         }
 
-        public IList<Order> Get(string username)
-        {
-            return context.Orders
-                .Include(x => x.Stages)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)
-                .Where(x => x.Client.Username.Equals(username))
-                .ToList();
-        }
+        public IList<Order> Get(string username) => context.Orders
+            .Include(x => x.Stages)
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Product)
+            .Where(x => x.Client.Username.Equals(username))
+            .ToList();
 
-        public Order Get(int id)
-        {
-            return context.Orders
-                .Include(x => x.Stages)
-                .Include(x => x.Items)
-                .ThenInclude(x => x.Product)
-                .Single(x => x.Id == id);
-        }
+        public Order Get(int id) => context.Orders
+            .Include(x => x.Stages)
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Product)
+            .Single(x => x.Id == id);
 
         public void Update(Order order)
         {
@@ -68,5 +62,12 @@ namespace WMS.Infrastructure.Repository
                     .Select(stage => stage.Status).First()))
                 .ToList();
         }
+
+        public IEnumerable<Order> GetAdminOrders() => context.Orders
+            .Include(x => x.Stages)
+            .Include(x => x.Client)
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Product)
+            .ToList();
     }
 }
