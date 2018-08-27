@@ -3,6 +3,7 @@ import { OrderService } from '../order.service';
 import { OrderItemRow } from '../models/keeper';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { AuthService } from '../../core/services/auth.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-keeper-orders',
@@ -15,9 +16,20 @@ export class KeeperOrdersComponent implements OnInit {
   public rowGroupMetadata: any = {};
   public rows: Array<OrderItemRow> = new Array<OrderItemRow>();
 
+  public number: string = "";
+  public status: string = "";
+  public statuses: Array<SelectItem> = [{ label: "Any status", value: "" }];
+
   constructor(private orderService: OrderService, private messageService: MessageService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.orderService.getOrderStatuses()
+      .then((statuses: Array<string>) => {
+        statuses.forEach(status => {
+          this.statuses.push({ label: status, value: status });
+        });
+      })
+
     this.orderService.refreshKeeperOrders();
 
     setInterval(() => {
@@ -31,7 +43,9 @@ export class KeeperOrdersComponent implements OnInit {
         orders.forEach(order => {
           order.items.forEach(item => {
             let row = new OrderItemRow(order, item.product, item.quantity);
-            this.rows.push(row);
+            if (this.shouldAddRow(row)) {
+              this.rows.push(row);
+            }
           });
         });
 
@@ -76,6 +90,10 @@ export class KeeperOrdersComponent implements OnInit {
       });
   }
 
+  public search(): void {
+    this.orderService.refreshKeeperOrders();
+  }
+
   private updateRowGroupMetaData(): void {
     this.rowGroupMetadata = {};
     if (this.rows) {
@@ -96,4 +114,25 @@ export class KeeperOrdersComponent implements OnInit {
       }
     }
   }
+
+  private shouldAddRow(row: any): boolean {
+    let shouldAdd: boolean = true;
+    let filterByNumber: boolean = this.number.trim() !== "";
+    let filterByStatus: boolean = this.status.trim() !== "";
+
+    if (filterByNumber) {
+      if (row.order.number !== this.number.trim()) {
+        shouldAdd = false;
+      }
+    }
+
+    if (filterByStatus) {
+      if (row.order.status !== this.status.trim()) {
+        shouldAdd = false;
+      }
+    }
+
+    return shouldAdd;
+  }
+
 }

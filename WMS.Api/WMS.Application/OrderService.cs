@@ -140,5 +140,7 @@ namespace WMS.Application
             order.SetStatus(OrderStatus.Delivered);
             orderRepository.Update(order);
         }
+
+        public IEnumerable<string> GetOrderStatuses() => OrderStatus.All;
     }
 }

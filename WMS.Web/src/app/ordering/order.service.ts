@@ -6,7 +6,7 @@ import { Order } from './models/keeper';
 
 @Injectable()
 export class OrderService {
-  
+
   private url: string = `${environment.apiUrl}/api/Orders`
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -147,7 +147,11 @@ export class OrderService {
   public finish(orderId: number): Promise<any> {
     return this.http.post(`${this.url}/finish`, { id: orderId }, { headers: this.headers }).toPromise();
   }
-  
+
+  public getOrderStatuses(): Promise<any> {
+    return this.http.get(`${this.url}/statuses`, { headers: this.headers }).toPromise();
+  }
+
   private getCartKey(username: string): string {
     return `${username}_cart`;
   }

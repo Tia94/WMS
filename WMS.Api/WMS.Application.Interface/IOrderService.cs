@@ -20,5 +20,7 @@ namespace WMS.Application.Interface
         void Send(int id);
 
         void Finish(int id);
+
+        IEnumerable<string> GetOrderStatuses();
     }
 }

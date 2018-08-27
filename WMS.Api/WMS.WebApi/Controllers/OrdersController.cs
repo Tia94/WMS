@@ -137,5 +137,13 @@ namespace WMS.WebApi.Controllers
             orderService.Finish(request.Id);
             return new OkResult();
         }
+
+        [HttpGet("statuses")]
+        [Authorize(Roles = Roles.Keeper)]
+        public IActionResult OrderStatuses()
+        {
+            var statuses = orderService.GetOrderStatuses();
+            return new OkObjectResult(statuses);
+        }
     }
 }
