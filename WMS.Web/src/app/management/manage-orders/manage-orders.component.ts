@@ -18,9 +18,11 @@ export class ManageOrdersComponent implements OnInit {
 
   public cols: Array<any> = [];
   public orderItemcols: Array<any> = [];
+  public orderHistoryCols: Array<any> = [];
 
   public selectedOrder: Order = null;
   public selectedOrderItems: Array<OrderItemRow> = [];
+  public selectedOrderHistory: Array<OrderHistoryRow> = [];
 
   constructor(private orderService: OrderService) { }
 
@@ -48,6 +50,11 @@ export class ManageOrdersComponent implements OnInit {
       { field: "quantity", header: "Quantity" },
       { field: "price", header: "Price" }
     ];
+
+    this.orderHistoryCols = [
+      { field: "status", header: "Status" },
+      { field: "date", header: "Date" }
+    ];
   }
 
   public showSummaryDialog(): void {
@@ -66,9 +73,14 @@ export class ManageOrdersComponent implements OnInit {
     this.summary = new OrderSummary(count, total, highest, lowest);
   }
 
-  public onRowSelect(event): void {
+  public onSelectOrder(event): void {
     this.selectedOrder = this.orders.find(x => x.id === event.data.id);
     this.selectedOrderItems = this.selectedOrder.items.map(item => new OrderItemRow(item.product.name, item.product.category, item.quantity, item.price));
+    this.orderService.getOrderHistory(event.data.id)
+      .then(history => {
+        this.selectedOrderHistory = history.map(x => new OrderHistoryRow(x.status, x.date.toLocaleString()))
+      });
+
     this.displayDetails = true;
   }
 
@@ -91,4 +103,8 @@ class OrderItemRow {
 
 class OrderSummary {
   constructor(public count: number = 0, public total: number = 0, public highest: number = 0, public lowest: number = 0) { }
+}
+
+class OrderHistoryRow {
+  constructor(public status: string, public date: Date) { }
 }

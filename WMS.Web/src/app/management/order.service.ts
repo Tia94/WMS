@@ -17,5 +17,11 @@ export class OrderService {
       .toPromise();
   }
 
+  public getOrderHistory(id: number): Promise<Array<any>> {
+    return this.http.get(`${this.url}/history?id=${id}`, { headers: this.headers })
+      .map(data => <Array<any>>data)
+      .toPromise();
+  }
+
 
 }

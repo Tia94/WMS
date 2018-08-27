@@ -154,5 +154,13 @@ namespace WMS.WebApi.Controllers
             var statuses = orderService.GetOrderStatuses();
             return new OkObjectResult(statuses);
         }
+
+        [HttpGet("history")]
+        [Authorize(Roles = Roles.Admin)]
+        public IActionResult History(int id)
+        {
+            var history = orderService.GetOrderHistory(id);
+            return new OkObjectResult(history);
+        }
     }
 }

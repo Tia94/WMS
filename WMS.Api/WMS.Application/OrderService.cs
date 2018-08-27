@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WMS.Application.Dto;
+using WMS.Application.Dto.Orders.Admin;
 using WMS.Application.Interface;
 using WMS.Domain.Model.Orders;
 using WMS.Domain.Model.Users;
@@ -173,6 +174,20 @@ namespace WMS.Application
                     }
                 })
             });
+        }
+
+        public IEnumerable<OrderHistoryDto> GetOrderHistory(int id)
+        {
+            var order = orderRepository.Get(id);
+
+            return order.Stages
+                .OrderBy(x => x.CreatedOn)
+                .Select(x => new OrderHistoryDto
+                {
+                    Status = x.Status,
+                    Date = x.CreatedOn
+                })
+                .ToList();
         }
     }
 }

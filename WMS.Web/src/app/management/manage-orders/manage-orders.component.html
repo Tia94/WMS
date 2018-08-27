@@ -4,7 +4,7 @@
 
 <br/>
 
-<p-table #dt [columns]="cols" [(value)]="rows" selectionMode="single" [(selection)]="selectedOrder" (onRowSelect)="onRowSelect($event)"
+<p-table #dt [columns]="cols" [(value)]="rows" selectionMode="single" [(selection)]="selectedOrder" (onRowSelect)="onSelectOrder($event)"
   [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]">
 
   <ng-template pTemplate="caption">
@@ -175,7 +175,37 @@
         </ng-template>
 
         <ng-template pTemplate="summary">
-          Total {{orders?.length}} order items
+          Total {{selectedOrderItems?.length}} order items
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <p-table #dt [columns]="orderHistoryCols" [(value)]="selectedOrderHistory" [scrollable]="true" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]">
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td>
+              {{rowData['status']}}
+            </td>
+            <td>
+              {{rowData['date'] | date:'dd/MM/yyyy HH:mm'}}
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+          Total {{selectedOrderHistory?.length}} order history entries
         </ng-template>
       </p-table>
     </div>
