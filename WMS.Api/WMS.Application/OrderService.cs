@@ -159,6 +159,7 @@ namespace WMS.Application
                     TelephoneNumber = x.Client.TelephoneNumber,
                     Address = x.Client.Address
                 },
+                Total = x.Items.Sum(item => item.Price),
                 Items = x.Items.Select(item => new Dto.Orders.Admin.OrderItemDto
                 {
                     Id = item.Id,

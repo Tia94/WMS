@@ -13,10 +13,5 @@ export class OrderItem {
 }
 
 export class Order {
-  constructor(public id: number, public number: string, public client: Client, public status: string, public items: Array<OrderItem>) { }
-
-  public get total(): number {
-    return this.items.reduce((ty, u) => ty + u.price, 0);
-  }
-
+  constructor(public id: number, public number: string, public client: Client, public status: string, public total: number, public items: Array<OrderItem>) { }
 }

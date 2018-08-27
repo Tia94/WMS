@@ -16,6 +16,8 @@ namespace WMS.Application.Dto.Orders.Admin
 
         public string Status { get; set; }
 
+        public decimal Total { get; set; }
+
         public ClientDto Client { get; set; }
 
         public IEnumerable<OrderItemDto> Items { get; set; }

@@ -7,10 +7,12 @@
 <p-table #dt [columns]="cols" [(value)]="rows" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]">
 
   <ng-template pTemplate="caption">
-    <div style="text-align: right">
-      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
-        style="width:auto">
+    <div  style="text-align: right">
+      <span>
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          style="width:auto">
+      </span>
     </div>
   </ng-template>
 
@@ -41,7 +43,50 @@
   </ng-template>
 
   <ng-template pTemplate="summary">
-    <!-- <p-button id="add" label="Add" icon="fa fa-plus" iconPos="left" (click)="showDialog()"></p-button> -->
+    <p-button id="summary" label="Summary" icon="fa fa-area-chart" iconPos="left" (click)="showDialog()"></p-button>
     Total {{orders?.length}} orders
   </ng-template>
 </p-table>
+
+
+<p-dialog header="Summary" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+  <div class="ui-g ui-fluid" *ngIf="displayDialog">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="count">Count</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText type="number" id="count" disabled [(ngModel)]="summary.count" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="total">Total</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText type="number" id="total" disabled [(ngModel)]="summary.total" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="highest">Highest</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText type="number" id="highest" disabled [(ngModel)]="summary.highest" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="lowest">Lowest</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText type="number" id="lowest" disabled [(ngModel)]="summary.lowest" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="closeDialog()" label="Close" class="ui-button-secondary"></button>
+    </div>
+  </p-footer>
+</p-dialog>
