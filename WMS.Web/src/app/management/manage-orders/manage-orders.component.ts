@@ -13,7 +13,7 @@ export class ManageOrdersComponent implements OnInit {
   public title: string = "Manage Orders";
   public cols: Array<any> = new Array<any>();
   public rows: Array<OrderRow> = new Array<OrderRow>();
-  public displayDialog: boolean = false;
+  public displaySummary: boolean = false;
   public summary: OrderSummary = new OrderSummary();
 
   constructor(private orderService: OrderService) { }
@@ -37,19 +37,18 @@ export class ManageOrdersComponent implements OnInit {
   }
 
   public showDialog(): void {
-    this.displayDialog = true;
+    this.displaySummary = true;
   }
 
   closeDialog() {
-    this.displayDialog = false;
+    this.displaySummary = false;
   }
 
   public setSummary(): void {
     let count: number = this.orders.length;
     let total: number = this.orders.reduce((acc, order) => acc + order.total, 0);
-    let highest: number = this.orders.reduce((acc, order) => Math.max(acc, order.total), -1);
-    let lowest: number = this.orders.reduce((acc, order) => Math.min(acc, order.total), 999999999999);
-
+    let highest: number = Math.max(...this.orders.map(x => x.total));
+    let lowest: number = Math.min(...this.orders.map(x => x.total));
     this.summary = new OrderSummary(count, total, highest, lowest);
   }
 
