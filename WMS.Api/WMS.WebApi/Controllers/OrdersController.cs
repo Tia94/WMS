@@ -106,6 +106,15 @@ namespace WMS.WebApi.Controllers
             return new OkObjectResult(orders);
         }
 
+        [HttpGet("adminOrders")]
+        [Authorize(Roles = Roles.Admin)]
+        public IActionResult AdminOrders()
+        {
+            var orders = orderService.GetAdminOrders();
+            // TODO: Map to order model
+            return new OkObjectResult(orders);
+        }
+
         [HttpPost("startPacking")]
         [Authorize(Roles = Roles.Keeper)]
         public IActionResult StartPacking([FromBody] StartProcessingOrderRequest request)

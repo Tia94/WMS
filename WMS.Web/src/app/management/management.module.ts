@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from './user.service';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
+import { OrderService } from '../management/order.service';
 
 @NgModule({
   imports: [
@@ -32,7 +34,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
     InputTextModule,
     GrowlModule
   ],
-  declarations: [ManageProductsComponent, ManageUsersComponent],
-  providers: [ProductService, UserService, MessageService]
+  declarations: [ManageProductsComponent, ManageUsersComponent, ManageOrdersComponent],
+  providers: [ProductService, UserService, MessageService, OrderService]
 })
 export class ManagementModule { }

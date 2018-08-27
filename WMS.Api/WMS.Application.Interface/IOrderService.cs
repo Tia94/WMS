@@ -22,5 +22,7 @@ namespace WMS.Application.Interface
         void Finish(int id);
 
         IEnumerable<string> GetOrderStatuses();
+
+        IEnumerable<Dto.Orders.Admin.OrderDto> GetAdminOrders();
     }
 }
