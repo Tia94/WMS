@@ -8,7 +8,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-md-4">
       <a routerLink="/manage/products" routerLinkActive="active" appVisibleFor="admin">
         <p-card title="Manage Products" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
 
@@ -24,7 +24,7 @@
       </a>
     </div>
 
-    <div class="col-sm">
+    <div class="col-md-4">
       <a routerLink="/manage/users" routerLinkActive="active" appVisibleFor="admin">
         <p-card title="Manage Users" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
 
@@ -39,8 +39,24 @@
         </p-card>
       </a>
     </div>
-    <div class="col-sm">
-      
+
+    <div class="col-md-4">
+
+      <a routerLink="/manage/orders" routerLinkActive="active" appVisibleFor="admin">
+        <p-card title="Manage Orders" subtitle="" [style]="{width: '360px', height: '360px'}" styleClass="ui-card-shadow">
+
+          <p-header>
+            <img src="Card" src="assets/images/orders.png" style="max-height: 250px;">
+          </p-header>
+
+          <div>
+            Information about orders.
+          </div>
+
+        </p-card>
+      </a>
+
     </div>
+
   </div>
 </div>
