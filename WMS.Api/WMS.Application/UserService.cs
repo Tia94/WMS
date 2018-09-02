@@ -85,10 +85,22 @@ namespace WMS.Application
         
         private void SendActivationEmail(User user)
         {
+//            var activationLink = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>"; // Patricia
+            var activationLink = $"<a href=\"http://localhost:61796/api/auth/activate/{user.ActivationCode}\">Activate </a>"; // Rami
+
+            var body = $@"<html>
+                      <body>
+                      <p>Thank you for registering with our website. Please click on the link below to activate your account.</p>
+                      {activationLink}
+                      </body>
+                      </html>
+                     ";
+
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("WMS@gmail.com"),
-                Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>",
+                Body = body,
+                IsBodyHtml = true,
                 Subject = "subject",
                 To = {user.Email}
             };

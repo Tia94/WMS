@@ -19,8 +19,11 @@ namespace WMS.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/auth")]
+        [AllowAnonymous]
     public class AuthenticationController : Controller
     {
+        private const string HomePageUrl = "http://localhost:4200";
+
         private readonly IConfiguration configuration;
         private readonly IUserService userService;
         private readonly ILogger<AuthenticationController> logger;
@@ -33,7 +36,6 @@ namespace WMS.WebApi.Controllers
             this.logger = logger;
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
@@ -49,8 +51,7 @@ namespace WMS.WebApi.Controllers
 
             return new OkObjectResult(new {token = tokenString});
         }
-
-        [AllowAnonymous]
+        
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel model)
         {
@@ -70,13 +71,12 @@ namespace WMS.WebApi.Controllers
 
             return Ok();
         }
-
-        [AllowAnonymous]
+        
         [HttpGet("activate/{guid:Guid}")]
         public IActionResult Activate(Guid guid)
         {
             userService.Activate(guid);
-            return Ok();
+            return Redirect(HomePageUrl);
         }
 
         private Task<ClaimsIdentity> GetClaimsIdentity(LoginModel model)

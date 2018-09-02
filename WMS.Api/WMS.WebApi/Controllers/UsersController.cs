@@ -79,7 +79,14 @@ namespace WMS.WebApi.Controllers
         public IActionResult Delete(int id)
         {
             var result = userService.Delete(id);
-            return new OkObjectResult(new {result.IsSuccess, result.Error});
+
+            var response = new
+            {
+                result.IsSuccess,
+                Error = result.IsFailure ? result.Error : null
+            };
+
+            return new OkObjectResult(response);
         }
     }
 }

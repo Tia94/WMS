@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
   public telephoneNumber: FormControl;
   public address: FormControl;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {
 
   }
 
@@ -56,13 +57,17 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(
-        this.username.value, 
-        this.password.value, 
-        this.firstName.value, 
-        this.lastName.value, 
+        this.username.value,
+        this.password.value,
+        this.firstName.value,
+        this.lastName.value,
         this.email.value,
         this.telephoneNumber.value,
         this.address.value);
+
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Thank you for registering with our website. You will soon receive an email with a link to activate your account.` });
+
+      this.router.navigate(["/"]);
     }
   }
 
