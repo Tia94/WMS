@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpFunctionalExtensions;
 using WMS.Domain.Model.Users;
 
 namespace WMS.Domain.Repository.Interface
@@ -20,6 +21,6 @@ namespace WMS.Domain.Repository.Interface
 
         void Update(User user);
 
-        void Delete(int id);
+        Result Delete(int id);
     }
 }

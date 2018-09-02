@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
         this.lastName.value, 
         this.email.value,
         this.telephoneNumber.value,
-        this.address.value,);
+        this.address.value);
     }
   }
 

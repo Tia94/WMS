@@ -78,8 +78,8 @@ namespace WMS.WebApi.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
-            userService.Delete(id);
-            return new OkResult();
+            var result = userService.Delete(id);
+            return new OkObjectResult(new {result.IsSuccess, result.Error});
         }
     }
 }

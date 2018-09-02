@@ -12,10 +12,6 @@ namespace WMS.Infrastructure.Repository
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Admin> Admin { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
-        public DbSet<Keeper> Keeper { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
@@ -25,7 +21,6 @@ namespace WMS.Infrastructure.Repository
         {
             modelBuilder.Entity<User>().ToTable(nameof(User));
             modelBuilder.Entity<User>().HasKey(x => x.Id);
-            modelBuilder.Entity<User>().HasDiscriminator<string>("Discriminator");
 
             modelBuilder.Entity<Product>().ToTable(nameof(Product));
             modelBuilder.Entity<Product>().HasKey(x => x.Id);
@@ -37,9 +32,9 @@ namespace WMS.Infrastructure.Repository
             modelBuilder.Entity<Order>().HasMany(x => x.Stages)
                 .WithOne(x => x.Order)
                 .IsRequired()
-                .HasForeignKey(x => x.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Order>().HasOne(x => x.Client);
+                .HasForeignKey(x => x.OrderId);
+
+            modelBuilder.Entity<Order>().HasOne(x => x.Client).WithMany(x => x.Orders).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<OrderItem>().ToTable(nameof(OrderItem));
             modelBuilder.Entity<OrderItem>().HasKey(x => x.Id);
@@ -48,7 +43,9 @@ namespace WMS.Infrastructure.Repository
 
             modelBuilder.Entity<OrderStage>().ToTable(nameof(OrderStage));
             modelBuilder.Entity<OrderStage>().HasKey(x => x.Id);
-//            modelBuilder.Entity<OrderStage>().HasOne(x => x.Order);
+            modelBuilder.Entity<OrderStage>().HasOne(x => x.Order).WithMany(x => x.Stages)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

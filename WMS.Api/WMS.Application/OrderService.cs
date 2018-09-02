@@ -28,7 +28,7 @@ namespace WMS.Application
 
         public void Submit(SubmitOrderDto dto)
         {
-            var client = userRepository.Get<Client>(dto.Username);
+            var client = userRepository.Get<User>(dto.Username);
             var order = new Order(client);
 
             foreach (var item in dto.Items)

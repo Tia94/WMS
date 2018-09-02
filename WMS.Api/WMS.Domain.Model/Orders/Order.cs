@@ -8,7 +8,7 @@ namespace WMS.Domain.Model.Orders
 {
     public class Order : Entity
     {
-        public Order(Client client)
+        public Order(User client)
         {
             Items = new List<OrderItem>();
             Number = Guid.NewGuid();
@@ -28,7 +28,7 @@ namespace WMS.Domain.Model.Orders
 
         public virtual ICollection<OrderItem> Items { get; protected set; }
 
-        public virtual Client Client { get; protected set; }
+        public virtual User Client { get; protected set; }
         public int ClientId { get; protected set; }
 
         public virtual ICollection<OrderStage> Stages { get; protected set; }

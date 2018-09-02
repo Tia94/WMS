@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpFunctionalExtensions;
 using WMS.Domain.Model.Users;
 using WMS.Domain.Repository.Interface;
 
@@ -55,11 +56,15 @@ namespace WMS.Infrastructure.Repository
             return context.Users.Single(x => x.Id == id);
         }
 
-        public void Delete(int id)
+        public Result Delete(int id)
         {
-            var user = context.Users.Single(x => x.Id == id);
+            var user = context.Users.Include(x => x.Orders).Single(x => x.Id == id);
+            if (user.Orders.Any())
+                return Result.Fail($"Can not delete user {user.Username} because it has orders in the system.");
+
             context.Users.Remove(user);
             context.SaveChanges();
+            return Result.Ok();
         }
     }
 }

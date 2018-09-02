@@ -21,7 +21,7 @@ export class ManageUsersComponent implements OnInit {
 
   public cols: Array<any>;
   public roles: Array<any>;
-  public selectedRole: any = {};
+  public selectedRole: any = { value: 'Admin' };
 
   constructor(private userService: UserService, private messageService: MessageService) {
 
@@ -96,10 +96,16 @@ export class ManageUsersComponent implements OnInit {
     if (index !== -1) {
       let username = this.selectedUser.username;
       this.userService.delete(this.selectedUser.id)
-        .then(_ => {
-          this.users = this.users.filter((val, i) => i != index);
+        .then(result => {
+          if (result.isSuccess){
+            this.users = this.users.filter((val, i) => i != index);
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: `User '${username}' deleted successfully.` });
+          }
+          else {
+            this.messageService.add({ severity: 'error', summary: 'Error deleting user', detail: result.error });
+          }
           this.closeDialog();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: `User '${username}' deleted successfully.` });
+         
         });
     }
   }

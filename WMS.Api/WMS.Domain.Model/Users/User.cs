@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using WMS.Domain.Model.Orders;
 
 namespace WMS.Domain.Model.Users
 {
     public class User : Entity
     {
         public User(string username, string firstname, string lastname, string password, string email,
-            string telephoneNumber, string address, Role role)
+            string telephoneNumber, string address, Role role) : this()
         {
             Username = username;
             Firstname = firstname;
@@ -21,6 +23,7 @@ namespace WMS.Domain.Model.Users
 
         protected User()
         {
+            Orders = new List<Order>();
         }
 
         public string Username { get; set; }
@@ -42,5 +45,7 @@ namespace WMS.Domain.Model.Users
         public Guid ActivationCode { get; protected set; }
 
         public bool IsActive { get; set; }
+
+        public virtual IEnumerable<Order> Orders { get; set; }
     }
 }

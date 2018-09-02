@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using CSharpFunctionalExtensions;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
 using WMS.Domain.Model.Users;
@@ -29,8 +30,8 @@ namespace WMS.Application
 
         public void RegisterClient(RegisterDto dto)
         {
-            var user = new Client(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email,
-                dto.TelephoneNumber, dto.Address);
+            var user = new User(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email,
+                dto.TelephoneNumber, dto.Address, Role.Client);
 
             userRepository.Add(user);
             SendActivationEmail(user);
@@ -56,7 +57,7 @@ namespace WMS.Application
         public void Add(UserDto dto)
         {
             var user = new User(dto.Username, dto.Firstname, dto.Lastname, dto.Password, dto.Email, dto.TelephoneNumber,
-                dto.Address, Enum.Parse<Role>(dto.Role));
+                dto.Address, Enum.Parse<Role>(dto.Role)) {IsActive = dto.IsActive};
 
             userRepository.Add(user);
         }
@@ -77,12 +78,11 @@ namespace WMS.Application
             userRepository.Update(user);
         }
 
-        public void Delete(int id)
+        public Result Delete(int id)
         {
-            userRepository.Delete(id);
+           return userRepository.Delete(id);
         }
-
-
+        
         private void SendActivationEmail(User user)
         {
             var mailMessage = new MailMessage

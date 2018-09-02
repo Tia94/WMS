@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpFunctionalExtensions;
 using WMS.Application.Dto;
 
 namespace WMS.Application.Interface
@@ -20,6 +21,6 @@ namespace WMS.Application.Interface
 
         void Update(UserDto dto);
 
-        void Delete(int id);
+        Result Delete(int id);
     }
 }

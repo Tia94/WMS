@@ -48,10 +48,10 @@ namespace WMS.Infrastructure.Repository
 
             var users = new User[]
             {
-                new Admin("admin", "System", "Admin", "1234", "admin@gmail.com", "0933594236", ""),
-                new Client("client", "App", "Client", "1234", "client@gmail.com", "0933594236", ""),
-                new Driver("driver", "Truck", "Driver", "1234", "driver@gmail.com", "0933594236", ""),
-                new Keeper("keeper", "Store", "Keeper", "1234", "keeper@gmail.com", "0933594236", "")
+                new User("admin", "System", "Admin", "1234", "admin@gmail.com", "0933594236", "", Role.Admin), 
+                new User("client", "App", "Client", "1234", "client@gmail.com", "0933594236", "", Role.Client),
+                new User("driver", "Truck", "Driver", "1234", "driver@gmail.com", "0933594236", "", Role.Driver),
+                new User("keeper", "Store", "Keeper", "1234", "keeper@gmail.com", "0933594236", "", Role.Keeper)
             };
 
             context.Users.AddRange(users);
