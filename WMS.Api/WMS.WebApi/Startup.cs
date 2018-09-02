@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using WMS.Application;
 using WMS.Application.Interface;
 using WMS.Domain.Repository.Interface;
+using WMS.Infrastructure.Emailing;
 using WMS.Infrastructure.Repository;
 
 namespace WMS.WebApi
@@ -47,6 +48,7 @@ namespace WMS.WebApi
                 });
 
             services
+                .AddScoped<IEmailSender, SmtpEmailSender>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IProductRepository, ProductRepository>()
                 .AddScoped<IOrderRepository, OrderRepository>()

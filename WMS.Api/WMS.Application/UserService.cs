@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using WMS.Application.Dto;
 using WMS.Application.Interface;
@@ -13,10 +12,12 @@ namespace WMS.Application
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IEmailSender emailSender;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IEmailSender emailSender)
         {
             this.userRepository = userRepository;
+            this.emailSender = emailSender;
         }
 
         public UserDto Get(string username, string password)
@@ -32,7 +33,6 @@ namespace WMS.Application
                 dto.TelephoneNumber, dto.Address);
 
             userRepository.Add(user);
-
             SendActivationEmail(user);
         }
 
@@ -82,30 +82,18 @@ namespace WMS.Application
             userRepository.Delete(id);
         }
 
-        private static void SendActivationEmail(User user)
+
+        private void SendActivationEmail(User user)
         {
-            var smtp = new SmtpClient
+            var mailMessage = new MailMessage
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("*******", "*******")
+                From = new MailAddress("WMS@gmail.com"),
+                Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>",
+                Subject = "subject",
+                To = {user.Email}
             };
 
-            using (smtp)
-            {
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress("WMS@gmail.com"),
-                    Body = $"<a href=\"http://localhost:50234/api/auth/activate/{user.ActivationCode}\">Activate </a>",
-                    Subject = "subject"
-                };
-
-                mailMessage.To.Add(user.Email);
-                smtp.Send(mailMessage);
-            }
+            emailSender.Send(mailMessage);
         }
 
         private static UserDto MapToUserDto(User user)

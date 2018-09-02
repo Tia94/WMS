@@ -25,6 +25,7 @@
     <ProjectReference Include="..\WMS.Application\WMS.Application.csproj" />
     <ProjectReference Include="..\WMS.Domain.Model\WMS.Domain.Model.csproj" />
     <ProjectReference Include="..\WMS.Domain.Repository.Interface\WMS.Domain.Repository.Interface.csproj" />
+    <ProjectReference Include="..\WMS.Infrastructure.Emailing\WMS.Infrastructure.Emailing.csproj" />
     <ProjectReference Include="..\WMS.Infrastructure.Repository\WMS.Infrastructure.Repository.csproj" />
   </ItemGroup>
 
