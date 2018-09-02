@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMS.Infrastructure.Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS.Infrastructure.Emailing", "WMS.Infrastructure.Emailing\WMS.Infrastructure.Emailing.csproj", "{5A433456-2CA4-4E7B-92DB-177D7CA95E2D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3AAFC463-F5EA-40FD-9F6F-30318F016284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{1BE3F07E-2EE3-44EC-8EC4-852806EC6C2E} = {3AAFC463-F5EA-40FD-9F6F-30318F016284}
 		{118AD3FA-512D-40ED-8BF7-ECDF14386559} = {243807F8-F84F-4974-8066-61CC2CFFC2FB}
 		{EB0BE1A3-8DBF-4517-A5F9-4EAEC83A0A95} = {93465ABC-E184-4BFA-9531-BA1AD884378F}
 		{47F0D41A-CC60-40EF-B599-BC2DFFD3471E} = {93465ABC-E184-4BFA-9531-BA1AD884378F}
